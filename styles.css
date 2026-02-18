@@ -1,0 +1,415 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+/* styl początkowy, minimalne przesunięcie i przezroczystość */
+body {
+  opacity: 0;
+  transform: translateY(20px); /* subtelne przesunięcie w dół */
+  transition: opacity 1s ease-out, transform 1s ease-out;
+}
+
+/* po wczytaniu strony */
+body.loaded {
+  opacity: 1;
+  transform: translateY(0); /* wraca do pozycji normalnej */
+}
+body {
+  font-family: "Georgia", "Times New Roman", serif;
+  line-height: 1.7;
+  /* tło: DWA KSIĘŻYCE + dwie grafiki po bokach + gradient pod spodem */
+  background:
+    /* 0) Księżyc LEWY – osobna warstwa, którą będziemy ruszać w JS */
+    url("ksiezyc.png") 12% 10% / 2% auto no-repeat,
+    /* 1) pierwsze tło po LEWEJ, trochę „wsunięte” do środka (5%) i szerokie na ok. 90% */
+    url("moje-tlo.png") 5% center / 100% auto no-repeat,
+    linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  background-attachment: fixed, fixed, fixed, fixed, fixed; /* wszystkie warstwy „przyklejone” do okna */
+  min-height: 100vh;
+  color: #e8e8e8;
+  padding: 3rem 1.5rem;
+}
+/* Dostosowanie tła środkowego do ekranów mobilnych (lepsze wypełnienie) */
+@media (max-width: 768px) {
+  body {
+    background:
+      url("ksiezyc.png") 6% 10% / 5% auto no-repeat,
+      url("moje-tlo.png") center top / auto 150% no-repeat, /* wydłużamy tło w pionie */
+      linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    background-attachment: scroll, scroll, fixed; /* mobile - scroll dla lepszej wydajności */
+  }
+}
+/* Klasa dla wszystkich gwiazd */
+.star-layer {
+  position: fixed;
+  pointer-events: none;
+  z-index: -1;
+  /* transition: transform 0.1s; <-- USUWAMY TO, bo to często powoduje "skakanie" */
+  will-change: transform; /* Mówi przeglądarce: "użyj karty graficznej do ruchu" */
+}
+
+/* Ustawiamy każdą gwiazdę w innym miejscu, żeby nie były w kupie */
+#star1 { top: 15%; left: 10%; width: 40px; opacity: 0.8; }
+#star2 { top: 40%; left: 80%; width: 30px; opacity: 0.6; }
+#star3 { top: 75%; left: 15%; width: 50px; opacity: 0.4; }
+#star4 { top: 70%; left: 80%; width: 45px; opacity: 0.7; }
+
+.container {
+  /* zwężam środek, żeby po bokach było więcej miejsca  na efekt tła */
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 2.5rem;
+
+  /* półprzezroczyste, ale wyraźne tło „glassmorphism” */
+  background: rgba(10, 10, 25, 0.5); /* ciemniejsze, mniej przezroczyste */
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.55);
+
+  /* rozmazuje to, co jest ZA tym divem (czyli Twoje tło z boków) */
+  backdrop-filter: blur(8px);
+}
+.container2 {
+  max-width: 560px;
+  margin: 2.5rem auto 0;
+  padding: 2rem 2.5rem;
+  background: rgba(0, 0, 0, 0.25);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(8px);
+}
+
+h1 {
+  font-size: 1.9rem;
+  font-weight: 400;
+  margin-bottom: 1.25rem;
+  color: #e94560;
+  letter-spacing: 0.02em;
+  text-align: center;
+}
+
+p {
+  margin-bottom: 0.75rem;
+  color: rgba(232, 232, 232, 0.9);
+  font-size: 1.05rem;
+  text-align: center;
+}
+
+a {
+  color: #e94560;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(233, 69, 96, 0.4);
+  transition: border-color 0.2s, color 0.2s;
+}
+
+a:hover {
+  color: #ff6b6b;
+  border-bottom-color: #ff6b6b;
+}
+form label {
+  display: block;
+  margin-bottom: 0.3rem;
+  font-weight: 600;
+}
+form input, form select {
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  border-radius: 6px;
+  border: 1px solid #444;
+  background: #22264a;
+  color: #fff;
+}
+form button {
+  padding: 0.5rem 1.3rem;
+  border: none;
+  border-radius: 6px;
+  margin-right: 0.6rem;
+  background: #e94560;
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+form button[type="reset"],[id="undoBtn"]{ /* mozna tez uzyc bardzie pancernego skrotu zamiast te id w [] czyli tak: , #undoBtn{*/ 
+  background: #16213e;
+  color: #e94560;
+  border: 1px solid #e94560;
+}
+form button:hover { background: #ff6b6b; }
+
+.download-btn {
+  display: none;
+  margin-top: 10px;
+}
+.list-title {
+  display: none;
+}
+.people-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  list-style: none;
+  padding: 0;
+}
+.more-people-count {
+  font-style: italic;
+  color: #888;
+  font-size: 0.8rem;
+  margin-top: 5px;
+}
+
+/* dodatkowa sekcja, żeby było co scrollować */
+
+.section-long h2 {
+  margin-bottom: 1rem;
+  color: #f6f6f6;
+  text-align: center;
+}
+
+.section-long p {
+  text-align: left;
+  margin-bottom: 0.75rem;
+}
+
+/* NOWOCZESNE LOGO + ANIMACJA
+   ---------------------------------------------------------
+   Efekt docelowy:
+    - Po najechaniu myszką na cały .nav-logo-bar lub na fokus (tab/na fonie), cały kontener powiększa się, 
+      a logo powiększa się dodatkowo bardziej.
+    - Jednocześnie tekst oraz sam box przesuwa się odpowiednio na prawo, by zrobić miejsce dla powiększającego się logo
+      (dzięki transform-origin i powiększaniu kontenera).
+    - Wszystko jest smooth i łatwo później poprzestawiać sobie parametry animacji/skali/rozdzielności!
+    - Kod zawiera dużo komentarzy do samodzielnych eksperymentów.
+   ---------------------------------------------------------
+*/
+
+/* Ustawienia wyjściowe dla baru/kontenera */
+.nav-logo-bar {
+  position: fixed;
+  top: 24px;
+  left: 14%;
+  transform: translateX(-50%) scale(1); /* startowe */
+  transform-origin: left center;        /* punkt rozrostu/lewy (odsuwa zawartość na prawo przy powiększaniu) */
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  gap: 18px; /* odstęp logo-tekst */
+  background: rgba(37, 37, 44, 0.44);
+  border-radius: 32px;
+  /* Główna poświata wokół baru na start - neutralna, zmienia się po hover */
+  box-shadow: 0 6px 18px 0px rgba(0,0,0,0.06), 0 1.5px 7px -1.5px rgba(0,0,0,0.13);
+  padding: 7px 32px 7px 20px;
+  min-width: 220px;
+  max-width: 95vw;
+  backdrop-filter: blur(8px) saturate(143%);
+  border: 1.5px solid rgba(140,140,227,.09);
+  animation: dropbarIn 850ms cubic-bezier(0.31, 1.19, 0.68, 1) 0.1s 1 normal both;
+  /* Smooth transitions ułatwiające dalsze zabawy */
+  transition:
+    transform 0.28s cubic-bezier(.31,1.19,.68,1),
+    box-shadow 0.18s cubic-bezier(.13,.77,.77,1.13),
+    gap 0.34s;
+}
+
+/* SZYBKA NAPRAWA: wyłącz podkreślenie/link underline na logo tylko w tym pasku */
+.nav-logo-bar a {
+  border-bottom: none;
+}
+
+/* Animacja wejścia kontenera */
+@keyframes dropbarIn {
+    0%   { transform: translateX(-50%) translateY(-50px) scale(0.97); opacity: 0; }
+    100% { transform: translateX(-50%) translateY(0) scale(1); opacity: 1; }
+}
+
+/* Hover/focus: cały kontener się rozrasta w lewo (robi miejsce powiększającemu się logo), odstęp rośnie!
+   Poświata (box-shadow) pasuje do czerwieni z h1 i przycisków */
+.nav-logo-bar:hover,
+.nav-logo-bar:focus-within {
+  transform: translateX(-50%) scale(1.18); /* zmień scale wg uznania */
+  /* poświata w mocno czerwonym #e94560 + lekko różowawe #ff6b6b dla "boom" */
+  box-shadow: 
+    0 10px 44px 0px #e9456066,             /* mocna czerwona poświata */
+    0 4px 22px -2px #ff6b6bbb,             /* dodatkowy rozbłysk jak na buttonach */
+    0 0.5px 2px 0px #ea5a6c22;             /* delikatny różany rant */
+  gap: 38px;  /* odstęp logo-tekst — poeksperymentuj, jeśli chcesz! */
+}
+
+/* Samo logo – rośnie bardziej niż reszta */
+.logo-mateusz {
+  height: 34px;
+  width: 40px;
+  object-fit: contain;
+  /* Delikatna niebieska poświata na start, potem na hover poniżej jest czerwono */
+  filter: drop-shadow(0 2px 8px rgba(86,162,255,.12));
+  border-radius: 14px;
+  background: linear-gradient(118deg, #222428 70%, #3575ea 100%);
+  box-shadow: 0 4px 16px -7px #5689ff13;
+  /* Uwaga! Możesz użyć scale albo transform: scale – poniżej rekomendowane są obie opcje na zmianę */
+  transition:
+    box-shadow 0.18s cubic-bezier(.11,.67,.7,1.54),
+    transform 0.32s cubic-bezier(.31,1.19,.68,1),
+    scale 0.32s cubic-bezier(.31,1.19,.68,1);
+  z-index: 2;
+  cursor: pointer;
+}
+.nav-logo-bar:hover .logo-mateusz,
+.nav-logo-bar:focus-within .logo-mateusz {
+  /* Możesz zmieniać scale — im większa, tym logo wyraźniej się powiększa względem kontenera */
+  scale: 2.4; /* zmień np. na 2.8 jak chcesz "boom", wtedy dopasuj gap wyżej! */
+  /* poświata przy hover - czerwień h1 i buttonów */
+  box-shadow: 
+    0 8px 32px 0px #e9456077,    /* dominujący cieniowany czerwony */
+    0 2px 8px -1px #ff6b6bcc,    /* cieplejsza łuna, tylko na hover */
+    0 0.5px 1.5px 0px #e9456035; /* lekki róż */
+}
+
+/* Tekst — scale dziedziczy po kontenerze automatycznie, ale jeśli chcesz oddzielnie animować font-size, możesz!
+   (poniżej przejście na font-size, letter-spacing — eksperymentuj dowolnie) */
+.logo-title {
+  font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+  font-weight: 700;
+  font-size: 1.36rem;
+  letter-spacing: 1.2px;
+  background: linear-gradient(100deg, #e94560 0%, #ff6b6b 90%);
+  color: #e94560;
+  text-shadow:
+    0 1px 4px #c53643bb;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: brightness(1.19) blur(0.01px);
+  line-height: 1.2;
+  margin-left: 1px;
+  transition:
+    font-size 0.18s cubic-bezier(.31,1.15,.69,1.09),
+    letter-spacing 0.18s,
+    color 0.18s;
+}
+
+/* -------- RESPONSYWNOŚĆ (telefon) ------------
+   Na telefonach całość powiększa się mniej,
+   powiększ też logo, ale NIE za dużo – by nie wyjeżdżało w górę ekranu.
+   Wersja phone-friendly! 
+*/
+@media(max-width: 720px) {
+  .nav-logo-bar {
+    min-width: 133px;
+    padding: 6px 16px 6px 10px;
+    left: 50%;
+    top: 30px;
+    gap: 10px; /* mniej odstępu */
+    transform: translateX(-50%) scale(1) !important;
+  }
+  .nav-logo-bar:hover,
+  .nav-logo-bar:focus-within {
+    transform: translateX(-50%) scale(1.1) !important; /* mniejsze powiększenie mobile */
+    /* Poświata także na mobilu pasuje do kolorów h1/button */
+    box-shadow: 
+      0 6px 28px 0px #e94560aa,
+      0 2px 11px -2px #ff6b6ba8,
+      0 0.5px 1px 0px #ea5a6c25;
+    gap: 16px;
+  }
+  .logo-mateusz { height: 33px; width: 33px;}
+  .nav-logo-bar:hover .logo-mateusz,
+  .nav-logo-bar:focus-within .logo-mateusz {
+    scale: 1.45; /* nie 2.2! — spróbuj 1.6, 1.8, aż znajdziesz sweet-spot */
+    /* Poświata logo na mobilu stricte czerwona */
+    box-shadow: 
+      0 6px 20px 0px #e9456088,
+      0 1.5px 5px -1px #ff6b6b77,
+      0 0.5px 1px 0px #e9456022;
+  }
+  .logo-title   { font-size: 1.02rem;}
+}
+
+/* ------------- DODATKOWE UWAGI -------------
+- Zmieniaj wartości 'scale' w .nav-logo-bar i .logo-mateusz, by popracować nad najlepszą proporcją "boom" logo do rozciągania boxa!
+- Zmieniaj 'gap', by tekst nie zachodził nigdy na powiększone logo.
+- transform-origin: left center pozwala na "rozrost" w prawo, tekst nie zachodzi na ikonę.
+- Możesz też dodać animowanie padding, jeśli chcesz.
+
+/* Przykład: Subtelny efekt po najechaniu myszką na logo-mateusz */
+/* Po najechaniu samym logo lekko je obracamy i dodajemy cień, a napis obok delikatnie zmienia kolor */
+.logo-mateusz:hover {
+  filter: drop-shadow(0 0 8px #e945604d);
+  transform: rotate(-6deg) scale(1.15);
+  transition: 
+    filter 0.25s cubic-bezier(.13,1.07,.45,1.12),
+    transform 0.23s cubic-bezier(.13,1.07,.45,1.12);
+}
+.logo-mateusz:hover + .logo-title {
+  color: #e94560;
+  transition: 
+    color 0.22s cubic-bezier(.13,1.07,.45,1.12);
+}
+
+/* dodatkowy styl dla odstępu - by logo nie zakrywało zawartości */
+body {
+  padding-top: 90px;
+}
+@media(max-width: 540px) {
+  body { padding-top: 70px;}
+}
+
+/* Styl dla kafelków osób na liście */
+#peopleList li {
+  background: rgba(228, 228, 228, 0.15); /* Twój kolor główny, ale bardzo przezroczysty */
+  backdrop-filter: blur(15px);
+  /* border: 1px solid rgba(216, 216, 216, 0.3); */
+  padding: 6px 12px;
+  border-radius: 20px;
+  color: #fff;
+  font-size: 0.85rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  /*transition: transform 0.2s ease;*/
+  transition: all 0.3s ease;           /* Płynna animacja przy pojawianiu się */
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+#peopleList li:hover {
+  transform: translateY(-3px);
+  transform: scale(1.10); /* Lekkie powiększenie przy najechaniu */
+  background: rgba(27, 43, 85, 0.447);
+  /* background: rgba(91, 69, 233, 0.25); */
+}
+#listTitle {
+  display: block;
+  margin-top: 15px;
+  margin-bottom: 10px;
+  color: #e94560;
+  font-weight: bold;
+} 
+/* GWIAZDA */
+/* #star {
+  position: fixed;
+  width: 40px; /* rozmiar gwiazdy */
+  /* height: 40px;
+  background: url("gwiazda.png") no-repeat center/contain;
+  top: 0;
+  left: 0;
+  pointer-events: none; /* żeby nie przeszkadzała w klikanie */
+  /* z-index: 999; /* nad wszystkim */
+  /* transition: transform 0.1s ease-out; /* płynne przesuwanie */
+/* } */
+/* Przezroczystość samego diva
+rgba(10, 10, 25, 0.7)
+To są 4 liczby:
+10, 10, 25 – kolor (R, G, B)
+0.7 – przezroczystość (alpha):
+1 – całkowicie nieprzezroczysty (pełny kolor)
+0.7 – lekko przezroczysty
+0.3 – bardzo przezroczysty
+0 – całkowicie przezroczysty (niewidoczny)
+Czyli jak chcesz:
+mniej przezroczysty: np. rgba(10, 10, 25, 0.9)
+bardziej przezroczysty: np. rgba(10, 10, 25, 0.4)
+2. Jak mocno ma się rozmazywać tło pod spodem
+backdrop-filter: blur(14px);
+większa liczba = mocniejsze rozmazanie (np. blur(20px))
+mniejsza liczba = delikatne rozmazanie (np. blur(4px)), albo można całkiem wyłączyć (usunąć linię). */

@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Strona Mateusza typ 5</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="animacje.js"></script>
+  <!-- Teraz przeglądarka weźmie plik prosto z Twojego folderu -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js" integrity="sha512-r22gChDnGvBylk90+2e/ycr3RVrDi8DIOkIGNhJlKfuyQM4tIRAI062MaV8sfjQKYVGjOBaZBOA87z+IhZE9DA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <!-- Dodanie CDN GSAP — nowoczesnej biblioteki do animacji javascript -->
+</head>
+<body>
+  
+  <!-- Pasek z logo strony -->
+  <div class="nav-logo-bar">
+    <a href="./">
+      <img src="logo Mateusz.png" alt="Logo Mateusza" class="logo-mateusz">
+    </a>
+    <span class="logo-title">Mateusz App</span>
+  </div>
+
+  <!-- Gwiazda jako osobny element, żeby nie psuła tła body -->
+  <img src="gwiazda.png" id="star1" class="star-layer" alt="gwiazda"> 
+  <img src="gwiazda.png" id="star2" class="star-layer" alt="gwiazda">
+  <img src="gwiazda.png" id="star3" class="star-layer" alt="gwiazda">
+  <img src="gwiazda.png" id="star4" class="star-layer" alt="gwiazda">
+  <!-- sprawia, że myszka "przelatuje" przez gwiazdę / gwiazda będzie ZA formularzem, ale NAD tłem/ /* płynność ruchu */-->
+
+  <div class="container">
+    <!-- Główna treść -->
+    <h1>Witaj!</h1>
+    <p>To jest prosta, strona internetowa, mająca na celu zbieranie informacji wpisywanych przez uzytkownika i mozliwosc pobrania ich w formacie <strong>.xlsx</strong></p>
+    <p>Zrobiona przez Mateusza ale przy pomocy Ai od GPT ale i później z pomocą gemini :D i aplikacji Cursor.</p>
+    <p>Bez zbędnych dodatków — tylko HTML i odrobina CSS. <stong>ALE Z WYCZYSZCZONYM KODEM</stong></p>
+
+    <h2>Trochę więcej treści do scrollowania</h2>
+    <p>To jest dodatkowa sekcja, która sprawia, że strona ma większą wysokość, więc możesz wygodnie przewijać i obserwować ruch tła po bokach.</p>
+    <p>Możesz tu później wstawić swój tekst, listę projektów, blog, cokolwiek. Na razie jest to tylko „wypełniacz”, żeby mieć gdzie testować efekt.</p>
+    <p>Przewiń trochę w dół i zwróć uwagę, jak grafika po lewej i prawej stronie delikatnie się przesuwa, a środek strony z formularzem pozostaje czytelny.</p>
+    <p>Przewiń trochę w dół i zwróć uwagę, jak grafika po lewej i prawej stronie delikatnie się przesuwa, a środek strony z formularzem pozostaje czytelny.</p>
+    <p>Przewiń trochę w dół i zwróć uwagę, jak grafika po lewej i prawej stronie delikatnie się przesuwa, a środek strony z formularzem pozostaje czytelny.</p>
+    <p>Przewiń trochę w dół i zwróć uwagę, jak grafika po lewej i prawej stronie delikatnie się przesuwa, a środek strony z formularzem pozostaje czytelny.</p>
+    <p>Przewiń trochę w dół i zwróć uwagę, jak grafika po lewej i prawej stronie delikatnie się przesuwa, a środek strony z formularzem pozostaje czytelny.</p>
+    <p>Przewiń trochę w dół i zwróć uwagę, jak grafika po lewej i prawej stronie delikatnie się przesuwa, a środek strony z formularzem pozostaje czytelny.</p>
+    <p>Jeśli chcesz mocniejszy efekt, później możemy podkręcić szybkość ruchu albo dodać inne warstwy tła.</p>
+  </div>
+
+  <!-- Dodatkowa sekcja, żeby strona była dłuższa i dawała się przewijać -->
+  <div class="container2">
+    <!-- FORMULARZ: Tu użytkownik wpisuje dane -->
+    <form id="mainForm">
+      <label for="name">Imię:</label>
+      <input type="text" id="name" maxlength="35" required placeholder="max. 35 znaków">
+
+      <label for="email">E-mail:</label>
+      <input type="email" id="email" maxlength="50" required placeholder="max. 50 znaków">
+
+      <label for="choice">Wybierz opcję:</label>
+      <select id="choice">
+        <option value="Opcja 1">Opcja 1</option>
+        <option value="Opcja 2">Opcja 2</option>
+        <option value="Opcja 3">Opcja 3</option>
+        <option value="Opcja 4">Opcja 4</option>
+      </select>
+
+      <!-- PRZYCISKI: Submit dodaje osobę, Reset czyści pola, Download pobiera plik -->
+      <button type="submit">Potwierdź</button>
+      <button type="reset">Wyczyść</button>
+      <!-- <button onclick="window.location.href='//127.0.0.1:5500/'">Przejdź do wyboru moich stron</button> -->
+      <button id="undoBtn" type="button" class="btn-undo">Cofnij ostatni</button>
+      
+      <!-- PRZYCISK POBIERANIA: 
+           1. id="downloadBtn" - dzięki temu JavaScript "widzi" ten przycisk.
+           2. type="button" - ważne! Zapobiega wyskakiwaniu alertu o pustych polach przy pobieraniu.
+           3. display:none - przycisk jest ukryty, dopóki nie uzbieramy odpowiedniej liczby osób. -->
+      <button id="downloadBtn" type="button" class="download-btn">Pobierz plik</button>
+      
+      <!-- WIZUALNA LISTA OSÓB: Tutaj na żywo pojawiają się imiona -->
+      <div id="peopleListContainer">
+        <!-- Tytuł listy - domyślnie ukryty -->
+        <span id="listTitle" class="list-title">Aktualnie dodani:</span>
+        
+        <!-- Lista <ul>: Używamy Flexboxa, żeby kafelki stały obok siebie i przeskakiwały do nowej linii -->
+        <ul id="peopleList" class="people-list"></ul>
+        
+        <!-- "Bezpiecznik": Tu pojawi się napis "...i X osób więcej", gdy lista będzie długa -->
+        <p id="morePeopleCount" class="more-people-count"></p>
+      </div>
+    </form>
+  </div>
+  <script>
+    // =================== BLOK ANIMACJI INTERFEJSU, GWIAZDEK, TŁA ===================
+    // Animacja startowa i ruch treści
+    window.addEventListener("load", () => document.body.classList.add("loaded")); // Aktywacja animacji przy starcie
+
+    // Wyłapanie głównych kontenerów do lekkiego parallaxa (przy scrollowaniu)
+    const contentEls = document.querySelectorAll(".container, .container2");     // Pobranie głównych kontenerów
+
+    // Parallax ZAWARTOŚCI — animacja na scroll, dla subtelnego efektu przesuwania:
+    window.addEventListener("scroll", () => {
+      const scrollY = window.scrollY;                                           // Pozycja scrolla pionowego
+      // Nie używamy GSAP do tego efektu, żeby nie przeszkadzać w micro-efektach (zostaje klasyczny translateY)
+      contentEls.forEach(el => { el.style.transform = `translateY(${-scrollY * 0.02}px)`; });
+    });
+
+    // Logika tła i ruchomego księżyca
+    let isMobile = window.innerWidth <= 768;                                    // Proste wykrycie urządzenia mobilnego
+    window.addEventListener("resize", () => isMobile = window.innerWidth <= 768); // Aktualizacja zmiennej przy zmianie rozmiaru okna
+
+    // ANIMACJA Warstw tła — księżyc, boczne elementy (ruch względem scrolla)
+    function updateBackgrounds() {
+      const scrollY = window.scrollY;
+      const mStr = isMobile ? 0.11 : 0.06;                                      // Siła ruchu księżyca w zależności od ekranu
+      const sStr = isMobile ? 0.12 : 0.28;                                      // Siła ruchu bocznych grafik
+      const mY = (160 + scrollY * 0.5 * sStr) + (isMobile ? scrollY * 1.5 : 0); // Wyliczenie pozycji Y dla księżyca
+
+      document.body.style.backgroundPosition =                                  // Pozycja dla wszystkich warstw tła naraz
+        `${5 + scrollY * mStr}% ${mY}px, 50% ${-scrollY * sStr}px, 95% ${-scrollY * sStr}px, center center`;
+    }
+    updateBackgrounds(); // uruchom od razu przy starcie
+    window.addEventListener('scroll', updateBackgrounds); // odśwież przy każdym scrollu
+
+    // --- OPTYMALIZACJA RUCHU GWIAZD ---
+
+    // Uwaga: tu klasyczny system — prosta pętla requestAnimationFrame, nie GSAP!
+    // Dzięki temu jest superpłynnie (animacja "masowana" przy każdym przesunięciu myszki).
+
+    // Zbierz wszystkie obiekty-gwiazdy do tablicy
+    const stars = document.querySelectorAll(".star-layer");
+    let mouseX = window.innerWidth/2, mouseY = window.innerHeight/2; // Domyślnie środek okna
+
+    // Aktualizuj pozycję myszki - im szybciej, tym lepiej (nie obciążamy animacją, tylko zapisujemy stan)
+    window.addEventListener("mousemove", (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+    });
+
+    // Funkcja animująca gwiazdy w nieskończonej pętli — odpowiadają na ruchy myszki
+    function animateStars() {
+      // Wylicz przesunięcie względem środka ekranu (dzielnik - im większy, tym efekt słabszy)
+      const moveX = (mouseX - window.innerWidth/2) / 45;
+      const moveY = (mouseY - window.innerHeight/2) / 45;
+      stars.forEach((star, index) => {
+        // Każda kolejna gwiazda przesuwa się delikatnie mocniej, żeby uzyskać efekt głębi
+        const factor = 1 + index * 0.2;
+        // Ustaw tranformacje CSS: subtelny parallax 3D
+        star.style.transform = `translate3d(${moveX * factor}px, ${moveY * factor}px, 0)`;
+      });
+      requestAnimationFrame(animateStars); // Zapętlenie: co każde 1/60 sekundy (60fps)
+    }
+    animateStars(); // Start "żywej" animacji gwiazdek
+
+    
+    // ==============================
+
+  </script>
+  
+  <!-- SKRYPT LOGIKI FORMULARZA -->
+  <script>
+    // Deklaracja głównych zmiennych i przycisków
+    const form = document.querySelector("form"); 
+    const downloadBtn = document.getElementById("downloadBtn"); 
+    const undoBtn = document.getElementById("undoBtn");
+    const EntriesLimit = 2;                                                     // Limit osób do pokazania pobierania
+    let entries = [], personCounter = 1;                                        // Tablica danych i licznik ID
+
+    // Zarządzanie kafelkami osób na liście
+    function updateVisualList() {
+      const list = document.getElementById("peopleList"), title = document.getElementById("listTitle"), more = document.getElementById("morePeopleCount");
+      list.innerHTML = "";                                                      // Czyszczenie listy przed zmianą
+      title.style.display = entries.length > 0 ? "block" : "none";               // Pokazanie tytułu jeśli są dane
+
+      entries.slice(0, 5).forEach(p => {                                        // Rysowanie max 5 kafelków (bezpiecznik)
+        const li = document.createElement("li");
+        li.innerHTML = `<span>👤</span> ${p.name}`;                             // Wstawienie ikony i imienia
+        list.appendChild(li);
+      });
+      more.innerText = entries.length > 5 ? `...i ${entries.length - 5} osób więcej.` : ""; // Info o ukrytych
+      if (entries.length < EntriesLimit) downloadBtn.style.display = "none";     // Ukrycie pobierania przy małej liczbie
+    }
+
+    // Funkcja "Cofnij ostatni" (Usuwanie z tablicy)
+    undoBtn.onclick = () => {
+      if (entries.length > 0) { entries.pop(); personCounter--; updateVisualList(); } // Zdjęcie ostatniej osoby
+      else alert("Lista jest pusta!");
+    };
+
+    // Wysyłanie formularza (Dodawanie osoby)
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();                                                       // Zablokowanie odświeżania strony
+      const name = document.getElementById("name").value.trim(), email = document.getElementById("email").value.trim(), choice = document.getElementById("choice").value;
+
+      if (entries.length >= 100) return alert("Limit 100 osób!");               // Blokada przed botami/przepełnieniem
+      entries.push({ id: personCounter++, name, email, choice });               // Dodanie obiektu do pamięci RAM
+      updateVisualList(); form.reset();                                         // Odświeżenie widoku i czyszczenie pól
+      if (entries.length >= EntriesLimit) downloadBtn.style.display = "inline-block"; // Pokazanie przycisku pobierz
+    });
+
+    // Generowanie profesjonalnego pliku .XLSX (Excel)
+    downloadBtn.onclick = () => {
+      if (typeof XLSX === 'undefined') return alert("Błąd: Brak biblioteki Excel!"); // Sprawdzenie czy link w head działa
+      const t = new Date(), ts = `${String(t.getDate()).padStart(2,'0')}-${String(t.getMonth()+1).padStart(2,'0')}_${t.getHours()}-${t.getMinutes()}`;
+      const data = [["ID", "Imię", "Email", "Opcja"], ...entries.map(p => [p.id, p.name, p.email, p.choice])]; // Przygotowanie tabeli
+      
+      const ws = XLSX.utils.aoa_to_sheet(data);                                 // Zamiana danych na arkusz
+      ws['!cols'] = data.map((_, i) => ({ wch: Math.min(Math.max(...data.map(r => r[i]?.toString().length || 0)) + 3, 40) })); // Auto-szerokość
+
+      const wb = XLSX.utils.book_new();                                         // Stworzenie nowego skoroszytu
+      XLSX.utils.book_append_sheet(wb, ws, "Lista");                            // Dodanie arkusza do pliku
+      XLSX.writeFile(wb, `lista_${entries.length}_osob_${ts}.xlsx`);            // Pobranie pliku z datą w nazwie
+
+      entries = []; personCounter = 1; downloadBtn.style.display = "none"; updateVisualList(); // Reset strony
+    };
+  </script>
+</body>
+</html>
