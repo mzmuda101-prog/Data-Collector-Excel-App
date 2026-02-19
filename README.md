@@ -1,3 +1,4 @@
+strona-6.vercel.app
 # ✨ Animated Data Dashboard & Excel Export Tool
 Nowoczesna aplikacja webowa łącząca zaawansowane efekty wizualne z funkcjonalnością analityczną.
 
