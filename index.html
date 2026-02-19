@@ -127,38 +127,56 @@
     
     // SPLASH intro video logic - lock with overlay until "MateuszIntro.mp4" playback ends
     window.addEventListener("DOMContentLoaded", function() {
-      document.body.classList.add("splashing");
-      const splash = document.getElementById("heroSplash");
-      const vid = document.getElementById("introVideo");
+  const splash = document.getElementById("heroSplash");
+  const vid = document.getElementById("introVideo");
 
-      if (vid) {
-        vid.currentTime = 0;
-        vid.muted = true;
-        vid.play().catch(()=>{});
+  // NOWE: Sprawdzenie, czy użytkownik już widział intro w tej sesji (do zamknięcia karty)
+  if (sessionStorage.getItem("introPlayed")) {
+    if (splash) splash.style.display = "none"; // Jeśli widział, usuwamy splash natychmiast
+    document.body.classList.remove("splashing");
+    return; // Kończymy działanie, nie puszczamy wideo ponownie
+  }
 
-        // Jeśli z jakiegoś powodu video nie wystartuje, zabezpieczenie timeoutem (15s)
-        let fallbackTimeout = setTimeout(hideSplash, 15000);
+  // Jeśli to pierwsza wizyta w tej sesji, dodajemy klasę startową
+  document.body.classList.add("splashing");
 
-        vid.addEventListener("ended", function() {
-          clearTimeout(fallbackTimeout);
-          hideSplash();
-        });
-      } else {
-        // Jeśli video nie istnieje, chowaj splash po 8s
-        setTimeout(hideSplash, 8000);
-      }
-
-      // Funkcja chowająca splash z animacją
-      function hideSplash() {
-        if (!splash.classList.contains("hide")) {
-          splash.classList.add("hide");
-          setTimeout(() => {
-            splash.style.display = "none";
-            document.body.classList.remove("splashing");
-          }, 700);
-        }
-      }
+  if (vid) {
+    vid.currentTime = 0;
+    vid.muted = true;
+    
+    // Próba odtworzenia wideo (zabezpieczenie przed blokadą autoplay przez przeglądarkę)
+    vid.play().catch(() => {
+      hideSplash(); // Jeśli przeglądarka zablokuje start, od razu chowa splash, by nie wisiał na ekranie
     });
+
+    // Oryginalne: Jeśli z jakiegoś powodu video nie wystartuje, zabezpieczenie timeoutem (15s)
+    let fallbackTimeout = setTimeout(hideSplash, 15000);
+
+    // Oryginalne: Czekamy na koniec filmu, aby schować splash
+    vid.addEventListener("ended", function() {
+      clearTimeout(fallbackTimeout);
+      hideSplash();
+    });
+  } else {
+    // Oryginalne: Jeśli video nie istnieje, chowaj splash po 8s
+    setTimeout(hideSplash, 8000);
+  }
+
+  // Funkcja chowająca splash z animacją
+  function hideSplash() {
+    if (splash && !splash.classList.contains("hide")) {
+      splash.classList.add("hide");
+
+      // NOWE: Zapisujemy w pamięci przeglądarki, że intro zostało już wyświetlone
+      sessionStorage.setItem("introPlayed", "true");
+
+      setTimeout(() => {
+        splash.style.display = "none";
+        document.body.classList.remove("splashing");
+      }, 700);
+    }
+  }
+});
 
     // Wyłapanie głównych kontenerów do lekkiego parallaxa (przy scrollowaniu)
     const contentEls = document.querySelectorAll(".container, .container2");     // Pobranie głównych kontenerów
