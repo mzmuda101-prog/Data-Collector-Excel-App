@@ -121,10 +121,11 @@
     </form>
   </div>
   <script>
-    // =================== BLOK ANIMACJI INTERFEJSU, GWIAZDEK, TŁA ===================
+    // =================== BLOK ANIMACJI VIDEO, INTERFEJSU, GWIAZDEK, TŁA ===================
     // Animacja startowa i ruch treści
     window.addEventListener("load", () => document.body.classList.add("loaded")); // Aktywacja animacji przy starcie
 
+    
     // SPLASH intro video logic - lock with overlay for exactly 9 seconds at start
     window.addEventListener("DOMContentLoaded", function() {
       // Hide scroll
@@ -140,7 +141,7 @@
           splash.style.display = "none";
           document.body.classList.remove("splashing");
         }, 700);
-      }, 9000);
+      }, 8000);
     });
 
     // Wyłapanie głównych kontenerów do lekkiego parallaxa (przy scrollowaniu)
