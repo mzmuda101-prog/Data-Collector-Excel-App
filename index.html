@@ -88,11 +88,55 @@
 
       <label for="choice">Wybierz opcję:</label>
       <select id="choice">
-        <option value="Opcja 1">Opcja 1</option>
-        <option value="Opcja 2">Opcja 2</option>
-        <option value="Opcja 3">Opcja 3</option>
-        <option value="Opcja 4">Opcja 4</option>
+        <option value="Opcja 1" id="opt1">Opcja 1</option>
+        <option value="Opcja 2" id="opt2">Opcja 2</option>
+        <option value="Opcja 3" id="opt3">Opcja 3</option>
+        <option value="Opcja 4" id="opt4">Opcja 4</option>
       </select>
+
+      <!-- PANEL EDYCJI NAZW OPCJI -->
+      <!-- Wygląd panelu: lekko rozjaśnione, półprzezroczyste tło, żeby nie był ciężki ani za ciemny; style robione pod resztę strony. -->
+      <div id="editOptionsPanel" class="edit-options-panel">
+        <div class="edit-options-title">Edytuj nazwy opcji</div> <!-- Czerwony, by odróżnić nagłówek -->
+        <div class="edit-options-fields">
+          <label>
+            <span>Opcja 1:</span> <!-- Pole do zmiany nazwy Opcji 1 -->
+            <input type="text" id="editOpt1" value="Opcja 1" maxlength="40" autocomplete="off">
+          </label>
+          <label>
+            <span>Opcja 2:</span>
+            <input type="text" id="editOpt2" value="Opcja 2" maxlength="40" autocomplete="off">
+          </label>
+          <label>
+            <span>Opcja 3:</span>
+            <input type="text" id="editOpt3" value="Opcja 3" maxlength="40" autocomplete="off">
+          </label>
+          <label>
+            <span>Opcja 4:</span>
+            <input type="text" id="editOpt4" value="Opcja 4" maxlength="40" autocomplete="off">
+          </label>
+        </div>
+      </div>
+      <script>
+        // Po załadowaniu DOM, skrypt przypisuje inputy do opcji i aktualizuje je na bieżąco (bez przeładowania strony).
+        document.addEventListener('DOMContentLoaded', function() { // <-- start gdy strona gotowa
+          const options = [
+            { input: document.getElementById('editOpt1'), option: document.getElementById('opt1') },
+            { input: document.getElementById('editOpt2'), option: document.getElementById('opt2') },
+            { input: document.getElementById('editOpt3'), option: document.getElementById('opt3') },
+            { input: document.getElementById('editOpt4'), option: document.getElementById('opt4') },
+          ];
+          // Każdy input obserwuje wpisywanie i zmienia treść oraz wartość odpowiedniej opcji w <select>
+          options.forEach(({input, option}) => {
+            input.addEventListener('input', function() {
+              const text = input.value.trim(); // nie pozwól na sam enter/spacje
+              // Jeśli pole puste, wstaw placeholder "(nazwa opcji...)"
+              option.textContent = text.length > 0 ? text : "(nazwa opcji...)";
+              option.value = text.length > 0 ? text : "Opcja";
+            });
+          });
+        });
+      </script>
 
       <!-- PRZYCISKI: Submit dodaje osobę, Reset czyści pola, Download pobiera plik -->
       <button type="submit">Potwierdź</button>
