@@ -18,7 +18,6 @@
       src="MateuszIntro.mp4"
       autoplay
       muted
-      loop
       playsinline
       tabindex="-1"
       preload="auto"
@@ -126,22 +125,39 @@
     window.addEventListener("load", () => document.body.classList.add("loaded")); // Aktywacja animacji przy starcie
 
     
-    // SPLASH intro video logic - lock with overlay for exactly 9 seconds at start
+    // SPLASH intro video logic - lock with overlay until "MateuszIntro.mp4" playback ends
     window.addEventListener("DOMContentLoaded", function() {
-      // Hide scroll
       document.body.classList.add("splashing");
       const splash = document.getElementById("heroSplash");
-      // Bezpiecznik: próbujemy odpalić od początku (w razie niepowodzeń auto-play)
       const vid = document.getElementById("introVideo");
-      if (vid) { vid.currentTime = 0; vid.muted = true; vid.play().catch(()=>{}); }
-      setTimeout(() => {
-        // Po 9s chowamy splash
-        splash.classList.add("hide");
-        setTimeout(() => {
-          splash.style.display = "none";
-          document.body.classList.remove("splashing");
-        }, 700);
-      }, 8000);
+
+      if (vid) {
+        vid.currentTime = 0;
+        vid.muted = true;
+        vid.play().catch(()=>{});
+
+        // Jeśli z jakiegoś powodu video nie wystartuje, zabezpieczenie timeoutem (15s)
+        let fallbackTimeout = setTimeout(hideSplash, 15000);
+
+        vid.addEventListener("ended", function() {
+          clearTimeout(fallbackTimeout);
+          hideSplash();
+        });
+      } else {
+        // Jeśli video nie istnieje, chowaj splash po 8s
+        setTimeout(hideSplash, 8000);
+      }
+
+      // Funkcja chowająca splash z animacją
+      function hideSplash() {
+        if (!splash.classList.contains("hide")) {
+          splash.classList.add("hide");
+          setTimeout(() => {
+            splash.style.display = "none";
+            document.body.classList.remove("splashing");
+          }, 700);
+        }
+      }
     });
 
     // Wyłapanie głównych kontenerów do lekkiego parallaxa (przy scrollowaniu)
