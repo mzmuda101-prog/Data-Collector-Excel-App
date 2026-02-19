@@ -12,7 +12,37 @@
   <!-- Dodanie CDN GSAP — nowoczesnej biblioteki do animacji javascript -->
 </head>
 <body>
-  
+  <!-- SPLASH HERO VIDEO: Całoekranowe powitanie, znika po 9s -->
+  <div class="hero-overlay" id="heroSplash">
+    <video
+      src="MateuszIntro.mp4"
+      autoplay
+      muted
+      loop
+      playsinline
+      tabindex="-1"
+      preload="auto"
+      aria-label="Intro Mateusza"
+      id="introVideo"
+    ></video>
+  </div>
+  <!-- HERO VIDEO SECTION - zostaje (jeśli chcesz potem np pokazywać nieduże intro) 
+  <section class="hero-video-section">
+    <div class="hero-video-wrapper">
+      <video
+        src="MateuszIntro.mp4"
+        autoplay
+        muted
+        loop
+        playsinline
+        tabindex="-1"
+        preload="auto"
+        aria-label="Intro Mateusza"
+      ></video>
+    </div>
+  </section>
+  -->
+
   <!-- Pasek z logo strony -->
   <div class="nav-logo-bar">
     <a href="./">
@@ -94,6 +124,24 @@
     // =================== BLOK ANIMACJI INTERFEJSU, GWIAZDEK, TŁA ===================
     // Animacja startowa i ruch treści
     window.addEventListener("load", () => document.body.classList.add("loaded")); // Aktywacja animacji przy starcie
+
+    // SPLASH intro video logic - lock with overlay for exactly 9 seconds at start
+    window.addEventListener("DOMContentLoaded", function() {
+      // Hide scroll
+      document.body.classList.add("splashing");
+      const splash = document.getElementById("heroSplash");
+      // Bezpiecznik: próbujemy odpalić od początku (w razie niepowodzeń auto-play)
+      const vid = document.getElementById("introVideo");
+      if (vid) { vid.currentTime = 0; vid.muted = true; vid.play().catch(()=>{}); }
+      setTimeout(() => {
+        // Po 9s chowamy splash
+        splash.classList.add("hide");
+        setTimeout(() => {
+          splash.style.display = "none";
+          document.body.classList.remove("splashing");
+        }, 700);
+      }, 9000);
+    });
 
     // Wyłapanie głównych kontenerów do lekkiego parallaxa (przy scrollowaniu)
     const contentEls = document.querySelectorAll(".container, .container2");     // Pobranie głównych kontenerów
