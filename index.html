@@ -7,57 +7,38 @@
   <link rel="stylesheet" href="styles.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="animacje.js"></script>
-  <!-- Teraz przeglądarka weźmie plik prosto z Twojego folderu -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js" integrity="sha512-r22gChDnGvBylk90+2e/ycr3RVrDi8DIOkIGNhJlKfuyQM4tIRAI062MaV8sfjQKYVGjOBaZBOA87z+IhZE9DA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  <!-- Dodanie CDN GSAP — nowoczesnej biblioteki do animacji javascript -->
 </head>
 <body>
-  <!-- SPLASH HERO VIDEO: Całoekranowe powitanie, znika po 9s -->
+  <!-- SPLASH HERO VIDEO -->
   <div class="hero-overlay" id="heroSplash">
-    <video
-      src="MateuszIntro.mp4"
-      autoplay
-      muted
-      playsinline
-      tabindex="-1"
-      preload="auto"
-      aria-label="Intro Mateusza"
-      id="introVideo"
-    ></video>
+    <video src="MateuszIntro.mp4" autoplay muted playsinline tabindex="-1" preload="auto" aria-label="Intro Mateusza" id="introVideo"></video>
   </div>
 
   <!-- Pasek z logo strony -->
   <div class="nav-logo-bar">
-    <a href="./">
-      <img src="logo Mateusz.png" alt="Logo Mateusza" class="logo-mateusz">
-    </a>
+    <a href="./"><img src="logo Mateusz.png" alt="Logo Mateusza" class="logo-mateusz"></a>
     <span class="logo-title">Mateusz App</span>
   </div>
 
-  <!-- Gwiazda jako osobny element, żeby nie psuła tła body -->
+  <!-- Gwiazdy -->
   <img src="gwiazda.png" id="star1" class="star-layer" alt="gwiazda"> 
   <img src="gwiazda.png" id="star2" class="star-layer" alt="gwiazda">
   <img src="gwiazda.png" id="star3" class="star-layer" alt="gwiazda">
   <img src="gwiazda.png" id="star4" class="star-layer" alt="gwiazda">
 
   <div class="container">
-    <!-- Główna treść -->
     <h1>Witaj!</h1>
     <p>To jest prosta strona internetowa mająca na celu zbieranie informacji wpisywanych przez uzytkownika i mozliwosc pobrania ich w formacie <strong>.xlsx</strong></p>
     <p>Ja, Mateusz, zroibłem to samemu z lekk pomoca Gemini AI Cursor Ai i Gpt Ai.</p>
     <p>Bez zbędnych dodatków — tylko HTML i odrobina CSS. <stong>ALE Z WYCZYSZCZONYM KODEM</stong></p>
-
     <h2>Trochę więcej treści do scrollowania</h2>
     <p>To jest dodatkowa sekcja, która sprawia, że strona ma większą wysokość, więc możesz wygodnie przewijać i obserwować ruch tła po bokach.</p>
     <p>Możesz tu później wstawić swój tekst, listę projektów, blog, cokolwiek. Na razie jest to tylko "wypełniacz", żeby mieć gdzie testować efekt.</p>
-    <p>Przewiń trochę w dół i zwróć uwagę, jak grafika po lewej i prawej stronie delikatnie się przesuwa, a środek strony z formularzem pozostaje czytelny.</p>
-    <p>Przewiń trochę w dół i zwróć uwagę, jak grafika po lewej i prawej stronie delikatnie się przesuwa, a środek strony z formularzem pozostaje czytelny.</p>
-    <p>Przewiń trochę w dół i zwróć uwagę, jak grafika po lewej i prawej stronie delikatnie się przesuwa, a środek strony z formularzem pozostaje czytelny.</p>
   </div>
 
-  <!-- Dodatkowa sekcja, żeby strona była dłuższa i dawała się przewijać -->
+  <!-- Formularz -->
   <div class="container2">
-    <!-- FORMULARZ: Tu użytkownik wpisuje dane -->
     <form id="mainForm">
       <label for="name">Imię:</label>
       <input type="text" id="name" maxlength="35" required placeholder="max. 35 znaków">
@@ -65,16 +46,21 @@
       <label for="email">E-mail:</label>
       <input type="email" id="email" maxlength="50" required placeholder="max. 50 znaków">
 
-      <!-- POLE WYBORU 1 -->
+      <!-- POLE WYBORU 1 z checkboxem -->
       <div class="choice-group">
+        <div class="choice-header">
+          <label class="checkbox-label">
+            <input type="checkbox" id="includeChoice1" checked class="choice-checkbox" aria-label="Uwzględnij opcję 1">
+            <span class="checkbox-custom"></span>
+          </label>
+          <label for="choice1" class="choice-label-text">Wybierz opcję 1:</label>
+        </div>
         <div class="choice-row">
           <div class="choice-select-wrapper">
-            <label for="choice1">Wybierz opcję 1:</label>
             <select id="choice1"></select>
           </div>
           <button type="button" class="add-option-btn-inline" data-choice="1" title="Dodaj nową opcję">+</button>
         </div>
-        <!-- PANEL EDYCJI - wysuwany -->
         <div class="edit-options-panel collapsed" id="editPanel1">
           <div class="edit-options-title clickable" data-panel="1">
             <span>Edytuj nazwy opcji</span>
@@ -84,16 +70,21 @@
         </div>
       </div>
 
-      <!-- POLE WYBORU 2 -->
+      <!-- POLE WYBORU 2 z checkboxem -->
       <div class="choice-group">
+        <div class="choice-header">
+          <label class="checkbox-label">
+            <input type="checkbox" id="includeChoice2" checked class="choice-checkbox" aria-label="Uwzględnij opcję 2">
+            <span class="checkbox-custom"></span>
+          </label>
+          <label for="choice2" class="choice-label-text">Wybierz opcję 2:</label>
+        </div>
         <div class="choice-row">
           <div class="choice-select-wrapper">
-            <label for="choice2">Wybierz opcję 2:</label>
             <select id="choice2"></select>
           </div>
           <button type="button" class="add-option-btn-inline" data-choice="2" title="Dodaj nową opcję">+</button>
         </div>
-        <!-- PANEL EDYCJI - wysuwany -->
         <div class="edit-options-panel collapsed" id="editPanel2">
           <div class="edit-options-title clickable" data-panel="2">
             <span>Edytuj nazwy opcji</span>
@@ -103,16 +94,21 @@
         </div>
       </div>
 
-      <!-- POLE WYBORU 3 -->
+      <!-- POLE WYBORU 3 z checkboxem -->
       <div class="choice-group">
+        <div class="choice-header">
+          <label class="checkbox-label">
+            <input type="checkbox" id="includeChoice3" checked class="choice-checkbox" aria-label="Uwzględnij opcję 3">
+            <span class="checkbox-custom"></span>
+          </label>
+          <label for="choice3" class="choice-label-text">Wybierz opcję 3:</label>
+        </div>
         <div class="choice-row">
           <div class="choice-select-wrapper">
-            <label for="choice3">Wybierz opcję 3:</label>
             <select id="choice3"></select>
           </div>
           <button type="button" class="add-option-btn-inline" data-choice="3" title="Dodaj nową opcję">+</button>
         </div>
-        <!-- PANEL EDYCJI - wysuwany -->
         <div class="edit-options-panel collapsed" id="editPanel3">
           <div class="edit-options-title clickable" data-panel="3">
             <span>Edytuj nazwy opcji</span>
@@ -122,15 +118,13 @@
         </div>
       </div>
 
-      <!-- PRZYCISKI: Submit dodaje osobę, Reset czyści pola, Download pobiera plik -->
+      <!-- Przyciski -->
       <button type="submit">Potwierdź</button>
       <button type="reset">Wyczyść</button>
       <button id="undoBtn" type="button" class="btn-undo">Cofnij ostatni</button>
-      
-      <!-- PRZYCISK POBIERANIA -->
       <button id="downloadBtn" type="button" class="download-btn">Pobierz plik</button>
       
-      <!-- WIZUALNA LISTA OSÓB -->
+      <!-- Lista osób -->
       <div id="peopleListContainer">
         <span id="listTitle" class="list-title">Aktualnie dodani:</span>
         <ul id="peopleList" class="people-list"></ul>
@@ -140,30 +134,23 @@
   </div>
 
   <script>
-    // =================== BLOK ANIMACJI VIDEO, INTERFEJSU, GWIAZDEK, TŁA ===================
+    // =================== ANIMACJE, TŁO, GWIAZDY ===================
     window.addEventListener("load", () => document.body.classList.add("loaded"));
 
-    // SPLASH intro video logic
     window.addEventListener("DOMContentLoaded", function() {
       const splash = document.getElementById("heroSplash");
       const vid = document.getElementById("introVideo");
-
       if (sessionStorage.getItem("introPlayed")) {
         if (splash) splash.style.display = "none";
         document.body.classList.remove("splashing");
         return;
       }
-
       document.body.classList.add("splashing");
-
       if (vid) {
         vid.currentTime = 0;
         vid.muted = true;
-        
         vid.play().catch(() => { hideSplash(); });
-
         let fallbackTimeout = setTimeout(hideSplash, 15000);
-
         vid.addEventListener("ended", function() {
           clearTimeout(fallbackTimeout);
           hideSplash();
@@ -171,7 +158,6 @@
       } else {
         setTimeout(hideSplash, 8000);
       }
-
       function hideSplash() {
         if (splash && !splash.classList.contains("hide")) {
           splash.classList.add("hide");
@@ -184,14 +170,12 @@
       }
     });
 
-    // Parallax
     const contentEls = document.querySelectorAll(".container, .container2");
     window.addEventListener("scroll", () => {
       const scrollY = window.scrollY;
       contentEls.forEach(el => { el.style.transform = `translateY(${-scrollY * 0.02}px)`; });
     });
 
-    // Tło
     let isMobile = window.innerWidth <= 768;
     window.addEventListener("resize", () => isMobile = window.innerWidth <= 768);
 
@@ -205,15 +189,9 @@
     updateBackgrounds();
     window.addEventListener('scroll', updateBackgrounds);
 
-    // Gwiazdy
     const stars = document.querySelectorAll(".star-layer");
     let mouseX = window.innerWidth/2, mouseY = window.innerHeight/2;
-
-    window.addEventListener("mousemove", (e) => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-    });
-
+    window.addEventListener("mousemove", (e) => { mouseX = e.clientX; mouseY = e.clientY; });
     function animateStars() {
       const moveX = (mouseX - window.innerWidth/2) / 45;
       const moveY = (mouseY - window.innerHeight/2) / 45;
@@ -226,39 +204,20 @@
     animateStars();
   </script>
   
-  <!-- SKRYPT LOGIKI FORMULARZA I ZARZĄDZANIA OPCJAMI -->
   <script>
     // =================== ZARZĄDZANIE OPCJAMI WYBORU ===================
-    // Każde pole wyboru ma swoją własną listę opcji
     const optionsLists = {
-      1: [
-        { id: 1, name: "Opcja 1" },
-        { id: 2, name: "Opcja 2" },
-        { id: 3, name: "Opcja 3" },
-        { id: 4, name: "Opcja 4" }
-      ],
-      2: [
-        { id: 1, name: "Opcja A" },
-        { id: 2, name: "Opcja B" },
-        { id: 3, name: "Opcja C" },
-        { id: 4, name: "Opcja D" }
-      ],
-      3: [
-        { id: 1, name: "Opcja I" },
-        { id: 2, name: "Opcja II" },
-        { id: 3, name: "Opcja III" },
-        { id: 4, name: "Opcja IV" }
-      ]
+      1: [{ id: 1, name: "Opcja 1" }, { id: 2, name: "Opcja 2" }, { id: 3, name: "Opcja 3" }, { id: 4, name: "Opcja 4" }],
+      2: [{ id: 1, name: "Opcja A" }, { id: 2, name: "Opcja B" }, { id: 3, name: "Opcja C" }, { id: 4, name: "Opcja D" }],
+      3: [{ id: 1, name: "Opcja I" }, { id: 2, name: "Opcja II" }, { id: 3, name: "Opcja III" }, { id: 4, name: "Opcja IV" }]
     };
     
     const optionIdCounters = { 1: 5, 2: 5, 3: 5 };
 
-    // Funkcja generująca opcje w <select>
     function renderSelectOptions(choiceNum) {
       const select = document.getElementById(`choice${choiceNum}`);
       if (!select) return;
       select.innerHTML = "";
-      
       optionsLists[choiceNum].forEach(opt => {
         const option = document.createElement("option");
         option.value = opt.name;
@@ -268,12 +227,10 @@
       });
     }
 
-    // Funkcja generująca pola edycji w panelu
     function renderEditFields(choiceNum) {
       const fieldsContainer = document.getElementById(`editFields${choiceNum}`);
       if (!fieldsContainer) return;
       fieldsContainer.innerHTML = "";
-      
       optionsLists[choiceNum].forEach((opt, index) => {
         const label = document.createElement("label");
         label.className = "option-edit-row";
@@ -285,32 +242,25 @@
         fieldsContainer.appendChild(label);
       });
       
-      // Event listenery do inputów (edycja nazw)
       fieldsContainer.querySelectorAll(".option-edit-input").forEach(input => {
         input.addEventListener("input", function() {
           const optionId = parseInt(this.dataset.optionId);
           const choiceNum = parseInt(this.dataset.choice);
           const text = this.value.trim();
-          
           const optionObj = optionsLists[choiceNum].find(o => o.id === optionId);
-          if (optionObj) {
-            optionObj.name = text.length > 0 ? text : "Opcja";
-          }
+          if (optionObj) optionObj.name = text.length > 0 ? text : "Opcja";
           renderSelectOptions(choiceNum);
         });
       });
       
-      // Event listenery do przycisków usuwania
       fieldsContainer.querySelectorAll(".remove-option-btn").forEach(btn => {
         btn.addEventListener("click", function() {
           const optionId = parseInt(this.dataset.optionId);
           const choiceNum = parseInt(this.dataset.choice);
-          
           if (optionsLists[choiceNum].length <= 1) {
             alert("Musisz mieć przynajmniej jedną opcję!");
             return;
           }
-          
           optionsLists[choiceNum] = optionsLists[choiceNum].filter(o => o.id !== optionId);
           renderSelectOptions(choiceNum);
           renderEditFields(choiceNum);
@@ -318,75 +268,49 @@
       });
     }
 
-    // Funkcja dodająca nową opcję
     function addNewOption(choiceNum) {
-      const newOption = {
-        id: optionIdCounters[choiceNum]++,
-        name: `Opcja ${optionsLists[choiceNum].length + 1}`
-      };
-      
+      const newOption = { id: optionIdCounters[choiceNum]++, name: `Opcja ${optionsLists[choiceNum].length + 1}` };
       optionsLists[choiceNum].push(newOption);
       renderSelectOptions(choiceNum);
       renderEditFields(choiceNum);
-      
-      // Rozwiń panel jeśli jest zwinięty
       const panel = document.getElementById(`editPanel${choiceNum}`);
       if (panel && panel.classList.contains("collapsed")) {
         panel.classList.remove("collapsed");
         updateToggleIcon(choiceNum, true);
       }
-      
-      // Focus na nowym polu
       setTimeout(() => {
         const newInput = document.querySelector(`input[data-option-id="${newOption.id}"][data-choice="${choiceNum}"]`);
-        if (newInput) {
-          newInput.focus();
-          newInput.select();
-        }
+        if (newInput) { newInput.focus(); newInput.select(); }
       }, 50);
     }
 
-    // Funkcja przełączająca widoczność panelu
     function toggleEditPanel(choiceNum) {
       const panel = document.getElementById(`editPanel${choiceNum}`);
       if (!panel) return;
-      
       const isCollapsed = panel.classList.toggle("collapsed");
       updateToggleIcon(choiceNum, !isCollapsed);
     }
 
-    // Funkcja aktualizująca ikonę strzałki
     function updateToggleIcon(choiceNum, isExpanded) {
       const title = document.querySelector(`.edit-options-title[data-panel="${choiceNum}"]`);
       if (!title) return;
-      
       const icon = title.querySelector(".toggle-icon");
-      if (icon) {
-        icon.textContent = isExpanded ? "▲" : "▼";
-      }
+      if (icon) icon.textContent = isExpanded ? "▲" : "▼";
     }
 
-    // Inicjalizacja po załadowaniu DOM
     document.addEventListener("DOMContentLoaded", function() {
-      // Generujemy początkowe opcje dla wszystkich 3 pól wyboru
       for (let i = 1; i <= 3; i++) {
         renderSelectOptions(i);
         renderEditFields(i);
       }
-      
-      // Przyciski dodawania nowych opcji
       document.querySelectorAll(".add-option-btn-inline").forEach(btn => {
         btn.addEventListener("click", function() {
-          const choiceNum = parseInt(this.dataset.choice);
-          addNewOption(choiceNum);
+          addNewOption(parseInt(this.dataset.choice));
         });
       });
-      
-      // Nagłówki paneli edycji (klikalne)
       document.querySelectorAll(".edit-options-title.clickable").forEach(title => {
         title.addEventListener("click", function() {
-          const choiceNum = parseInt(this.dataset.panel);
-          toggleEditPanel(choiceNum);
+          toggleEditPanel(parseInt(this.dataset.panel));
         });
       });
     });
@@ -402,7 +326,6 @@
       const list = document.getElementById("peopleList"), title = document.getElementById("listTitle"), more = document.getElementById("morePeopleCount");
       list.innerHTML = "";
       title.style.display = entries.length > 0 ? "block" : "none";
-
       entries.slice(0, 5).forEach(p => {
         const li = document.createElement("li");
         li.innerHTML = `<span>👤</span> ${p.name}`;
@@ -421,20 +344,60 @@
       e.preventDefault();
       const name = document.getElementById("name").value.trim();
       const email = document.getElementById("email").value.trim();
+      
+      // Pobieramy wartości i stany checkboxów
+      const include1 = document.getElementById("includeChoice1").checked;
+      const include2 = document.getElementById("includeChoice2").checked;
+      const include3 = document.getElementById("includeChoice3").checked;
+      
       const choice1 = document.getElementById("choice1").value;
       const choice2 = document.getElementById("choice2").value;
       const choice3 = document.getElementById("choice3").value;
 
       if (entries.length >= 100) return alert("Limit 100 osób!");
-      entries.push({ id: personCounter++, name, email, choice1, choice2, choice3 });
+      
+      // Zapisujemy z informacją które pola są uwzględnione
+      entries.push({ 
+        id: personCounter++, 
+        name, 
+        email, 
+        choice1, choice2, choice3,
+        include1, include2, include3
+      });
       updateVisualList(); form.reset();
+      
+      // Przywracamy checkboxy do stanu domyślnego (zaznaczone)
+      document.getElementById("includeChoice1").checked = true;
+      document.getElementById("includeChoice2").checked = true;
+      document.getElementById("includeChoice3").checked = true;
+      
       if (entries.length >= EntriesLimit) downloadBtn.style.display = "inline-block";
     });
 
     downloadBtn.onclick = () => {
       if (typeof XLSX === 'undefined') return alert("Błąd: Brak biblioteki Excel!");
       const t = new Date(), ts = `${String(t.getDate()).padStart(2,'0')}-${String(t.getMonth()+1).padStart(2,'0')}_${t.getHours()}-${t.getMinutes()}`;
-      const data = [["ID", "Imię", "Email", "Opcja 1", "Opcja 2", "Opcja 3"], ...entries.map(p => [p.id, p.name, p.email, p.choice1, p.choice2, p.choice3])];
+      
+      // Budujemy nagłówki dynamicznie na podstawie checkboxów pierwszego wpisu (lub wszystkich)
+      // Sprawdzamy które kolumny są potrzebne
+      const headers = ["ID", "Imię", "Email"];
+      const includeCol1 = entries.some(e => e.include1);
+      const includeCol2 = entries.some(e => e.include2);
+      const includeCol3 = entries.some(e => e.include3);
+      
+      if (includeCol1) headers.push("Opcja 1");
+      if (includeCol2) headers.push("Opcja 2");
+      if (includeCol3) headers.push("Opcja 3");
+      
+      // Budujemy dane uwzględniając checkboxy
+      const data = [headers];
+      entries.forEach(p => {
+        const row = [p.id, p.name, p.email];
+        if (includeCol1) row.push(p.include1 ? p.choice1 : "-");
+        if (includeCol2) row.push(p.include2 ? p.choice2 : "-");
+        if (includeCol3) row.push(p.include3 ? p.choice3 : "-");
+        data.push(row);
+      });
       
       const ws = XLSX.utils.aoa_to_sheet(data);
       ws['!cols'] = data.map((_, i) => ({ wch: Math.min(Math.max(...data.map(r => r[i]?.toString().length || 0)) + 3, 40) }));

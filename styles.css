@@ -319,9 +319,101 @@ form button:hover { background: #ff6b6b; }
 
 /* --- STYLE DLA ZARZĄDZANIA OPCJAMI --- */
 
-/* Grupa pola wyboru (label + select + przycisk + panel edycji) */
+/* Grupa pola wyboru (checkbox + label + select + przycisk + panel edycji) */
 .choice-group {
   margin-bottom: 1rem;
+}
+
+/* Nagłówek z checkboxem i etykietą */
+.choice-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 0.3rem;
+}
+
+/* Tekst etykiety pola wyboru */
+.choice-label-text {
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* Kontener checkboxa z tooltipem */
+.checkbox-label {
+  position: relative;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+/* Ukryty natywny checkbox */
+.choice-checkbox {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* Własny wygląd checkboxa */
+.checkbox-custom {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #e94560;
+  border-radius: 4px;
+  background: #16213e;
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+/* Checkbox zaznaczony */
+.choice-checkbox:checked + .checkbox-custom {
+  background: #e94560;
+}
+
+/* Znacznik "fajeczki" wewnątrz checkboxa */
+.choice-checkbox:checked + .checkbox-custom::after {
+  content: "✓";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #fff;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+/* Hover na checkboxie */
+.checkbox-label:hover .checkbox-custom {
+  border-color: #ff6b6b;
+  box-shadow: 0 0 8px rgba(233, 69, 96, 0.4);
+}
+
+/* Tooltip po najechaniu na checkbox */
+.checkbox-label::after {
+  content: "Zaznacz, aby uwzględnić w pliku .xlsx";
+  position: absolute;
+  left: 28px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(22, 33, 62, 0.95);
+  color: #fff;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 0.75em;
+  font-weight: 400;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s, visibility 0.2s;
+  border: 1px solid #e94560;
+  z-index: 100;
+  pointer-events: none;
+}
+
+/* Pokaż tooltip po najechaniu */
+.checkbox-label:hover::after {
+  opacity: 1;
+  visibility: visible;
 }
 
 /* Wiersz z selectem i przyciskiem dodawania */
