@@ -25,22 +25,6 @@
       id="introVideo"
     ></video>
   </div>
-  <!-- HERO VIDEO SECTION - zostaje (jeśli chcesz potem np pokazywać nieduże intro) 
-  <section class="hero-video-section">
-    <div class="hero-video-wrapper">
-      <video
-        src="MateuszIntro.mp4"
-        autoplay
-        muted
-        loop
-        playsinline
-        tabindex="-1"
-        preload="auto"
-        aria-label="Intro Mateusza"
-      ></video>
-    </div>
-  </section>
-  -->
 
   <!-- Pasek z logo strony -->
   <div class="nav-logo-bar">
@@ -55,7 +39,6 @@
   <img src="gwiazda.png" id="star2" class="star-layer" alt="gwiazda">
   <img src="gwiazda.png" id="star3" class="star-layer" alt="gwiazda">
   <img src="gwiazda.png" id="star4" class="star-layer" alt="gwiazda">
-  <!-- sprawia, że myszka "przelatuje" przez gwiazdę / gwiazda będzie ZA formularzem, ale NAD tłem/ /* płynność ruchu */-->
 
   <div class="container">
     <!-- Główna treść -->
@@ -66,14 +49,10 @@
 
     <h2>Trochę więcej treści do scrollowania</h2>
     <p>To jest dodatkowa sekcja, która sprawia, że strona ma większą wysokość, więc możesz wygodnie przewijać i obserwować ruch tła po bokach.</p>
-    <p>Możesz tu później wstawić swój tekst, listę projektów, blog, cokolwiek. Na razie jest to tylko „wypełniacz”, żeby mieć gdzie testować efekt.</p>
+    <p>Możesz tu później wstawić swój tekst, listę projektów, blog, cokolwiek. Na razie jest to tylko "wypełniacz", żeby mieć gdzie testować efekt.</p>
     <p>Przewiń trochę w dół i zwróć uwagę, jak grafika po lewej i prawej stronie delikatnie się przesuwa, a środek strony z formularzem pozostaje czytelny.</p>
     <p>Przewiń trochę w dół i zwróć uwagę, jak grafika po lewej i prawej stronie delikatnie się przesuwa, a środek strony z formularzem pozostaje czytelny.</p>
     <p>Przewiń trochę w dół i zwróć uwagę, jak grafika po lewej i prawej stronie delikatnie się przesuwa, a środek strony z formularzem pozostaje czytelny.</p>
-    <p>Przewiń trochę w dół i zwróć uwagę, jak grafika po lewej i prawej stronie delikatnie się przesuwa, a środek strony z formularzem pozostaje czytelny.</p>
-    <p>Przewiń trochę w dół i zwróć uwagę, jak grafika po lewej i prawej stronie delikatnie się przesuwa, a środek strony z formularzem pozostaje czytelny.</p>
-    <p>Przewiń trochę w dół i zwróć uwagę, jak grafika po lewej i prawej stronie delikatnie się przesuwa, a środek strony z formularzem pozostaje czytelny.</p>
-    <p>Jeśli chcesz mocniejszy efekt, później możemy podkręcić szybkość ruchu albo dodać inne warstwy tła.</p>
   </div>
 
   <!-- Dodatkowa sekcja, żeby strona była dłuższa i dawała się przewijać -->
@@ -86,259 +65,385 @@
       <label for="email">E-mail:</label>
       <input type="email" id="email" maxlength="50" required placeholder="max. 50 znaków">
 
-      <label for="choice">Wybierz opcję:</label>
-      <select id="choice">
-        <option value="Opcja 1" id="opt1">Opcja 1</option>
-        <option value="Opcja 2" id="opt2">Opcja 2</option>
-        <option value="Opcja 3" id="opt3">Opcja 3</option>
-        <option value="Opcja 4" id="opt4">Opcja 4</option>
-      </select>
-
-      <!-- PANEL EDYCJI NAZW OPCJI -->
-      <!-- Wygląd panelu: lekko rozjaśnione, półprzezroczyste tło, żeby nie był ciężki ani za ciemny; style robione pod resztę strony. -->
-      <div id="editOptionsPanel" class="edit-options-panel">
-        <div class="edit-options-title">Edytuj nazwy opcji</div> <!-- Czerwony, by odróżnić nagłówek -->
-        <div class="edit-options-fields">
-          <label>
-            <span>Opcja 1:</span> <!-- Pole do zmiany nazwy Opcji 1 -->
-            <input type="text" id="editOpt1" value="Opcja 1" maxlength="40" autocomplete="off">
-          </label>
-          <label>
-            <span>Opcja 2:</span>
-            <input type="text" id="editOpt2" value="Opcja 2" maxlength="40" autocomplete="off">
-          </label>
-          <label>
-            <span>Opcja 3:</span>
-            <input type="text" id="editOpt3" value="Opcja 3" maxlength="40" autocomplete="off">
-          </label>
-          <label>
-            <span>Opcja 4:</span>
-            <input type="text" id="editOpt4" value="Opcja 4" maxlength="40" autocomplete="off">
-          </label>
+      <!-- POLE WYBORU 1 -->
+      <div class="choice-group">
+        <div class="choice-row">
+          <div class="choice-select-wrapper">
+            <label for="choice1">Wybierz opcję 1:</label>
+            <select id="choice1"></select>
+          </div>
+          <button type="button" class="add-option-btn-inline" data-choice="1" title="Dodaj nową opcję">+</button>
+        </div>
+        <!-- PANEL EDYCJI - wysuwany -->
+        <div class="edit-options-panel collapsed" id="editPanel1">
+          <div class="edit-options-title clickable" data-panel="1">
+            <span>Edytuj nazwy opcji</span>
+            <span class="toggle-icon">▼</span>
+          </div>
+          <div class="edit-options-fields" id="editFields1"></div>
         </div>
       </div>
-      <script>
-        // Po załadowaniu DOM, skrypt przypisuje inputy do opcji i aktualizuje je na bieżąco (bez przeładowania strony).
-        document.addEventListener('DOMContentLoaded', function() { // <-- start gdy strona gotowa
-          const options = [
-            { input: document.getElementById('editOpt1'), option: document.getElementById('opt1') },
-            { input: document.getElementById('editOpt2'), option: document.getElementById('opt2') },
-            { input: document.getElementById('editOpt3'), option: document.getElementById('opt3') },
-            { input: document.getElementById('editOpt4'), option: document.getElementById('opt4') },
-          ];
-          // Każdy input obserwuje wpisywanie i zmienia treść oraz wartość odpowiedniej opcji w <select>
-          options.forEach(({input, option}) => {
-            input.addEventListener('input', function() {
-              const text = input.value.trim(); // nie pozwól na sam enter/spacje
-              // Jeśli pole puste, wstaw placeholder "(nazwa opcji...)"
-              option.textContent = text.length > 0 ? text : "(nazwa opcji...)";
-              option.value = text.length > 0 ? text : "Opcja";
-            });
-          });
-        });
-      </script>
+
+      <!-- POLE WYBORU 2 -->
+      <div class="choice-group">
+        <div class="choice-row">
+          <div class="choice-select-wrapper">
+            <label for="choice2">Wybierz opcję 2:</label>
+            <select id="choice2"></select>
+          </div>
+          <button type="button" class="add-option-btn-inline" data-choice="2" title="Dodaj nową opcję">+</button>
+        </div>
+        <!-- PANEL EDYCJI - wysuwany -->
+        <div class="edit-options-panel collapsed" id="editPanel2">
+          <div class="edit-options-title clickable" data-panel="2">
+            <span>Edytuj nazwy opcji</span>
+            <span class="toggle-icon">▼</span>
+          </div>
+          <div class="edit-options-fields" id="editFields2"></div>
+        </div>
+      </div>
+
+      <!-- POLE WYBORU 3 -->
+      <div class="choice-group">
+        <div class="choice-row">
+          <div class="choice-select-wrapper">
+            <label for="choice3">Wybierz opcję 3:</label>
+            <select id="choice3"></select>
+          </div>
+          <button type="button" class="add-option-btn-inline" data-choice="3" title="Dodaj nową opcję">+</button>
+        </div>
+        <!-- PANEL EDYCJI - wysuwany -->
+        <div class="edit-options-panel collapsed" id="editPanel3">
+          <div class="edit-options-title clickable" data-panel="3">
+            <span>Edytuj nazwy opcji</span>
+            <span class="toggle-icon">▼</span>
+          </div>
+          <div class="edit-options-fields" id="editFields3"></div>
+        </div>
+      </div>
 
       <!-- PRZYCISKI: Submit dodaje osobę, Reset czyści pola, Download pobiera plik -->
       <button type="submit">Potwierdź</button>
       <button type="reset">Wyczyść</button>
-      <!-- <button onclick="window.location.href='//127.0.0.1:5500/'">Przejdź do wyboru moich stron</button> -->
       <button id="undoBtn" type="button" class="btn-undo">Cofnij ostatni</button>
       
-      <!-- PRZYCISK POBIERANIA: 
-           1. id="downloadBtn" - dzięki temu JavaScript "widzi" ten przycisk.
-           2. type="button" - ważne! Zapobiega wyskakiwaniu alertu o pustych polach przy pobieraniu.
-           3. display:none - przycisk jest ukryty, dopóki nie uzbieramy odpowiedniej liczby osób. -->
+      <!-- PRZYCISK POBIERANIA -->
       <button id="downloadBtn" type="button" class="download-btn">Pobierz plik</button>
       
-      <!-- WIZUALNA LISTA OSÓB: Tutaj na żywo pojawiają się imiona -->
+      <!-- WIZUALNA LISTA OSÓB -->
       <div id="peopleListContainer">
-        <!-- Tytuł listy - domyślnie ukryty -->
         <span id="listTitle" class="list-title">Aktualnie dodani:</span>
-        
-        <!-- Lista <ul>: Używamy Flexboxa, żeby kafelki stały obok siebie i przeskakiwały do nowej linii -->
         <ul id="peopleList" class="people-list"></ul>
-        
-        <!-- "Bezpiecznik": Tu pojawi się napis "...i X osób więcej", gdy lista będzie długa -->
         <p id="morePeopleCount" class="more-people-count"></p>
       </div>
     </form>
   </div>
+
   <script>
     // =================== BLOK ANIMACJI VIDEO, INTERFEJSU, GWIAZDEK, TŁA ===================
-    // Animacja startowa i ruch treści
-    window.addEventListener("load", () => document.body.classList.add("loaded")); // Aktywacja animacji przy starcie
+    window.addEventListener("load", () => document.body.classList.add("loaded"));
 
-    
-    // SPLASH intro video logic - lock with overlay until "MateuszIntro.mp4" playback ends
+    // SPLASH intro video logic
     window.addEventListener("DOMContentLoaded", function() {
-  const splash = document.getElementById("heroSplash");
-  const vid = document.getElementById("introVideo");
+      const splash = document.getElementById("heroSplash");
+      const vid = document.getElementById("introVideo");
 
-  // NOWE: Sprawdzenie, czy użytkownik już widział intro w tej sesji (do zamknięcia karty)
-  if (sessionStorage.getItem("introPlayed")) {
-    if (splash) splash.style.display = "none"; // Jeśli widział, usuwamy splash natychmiast
-    document.body.classList.remove("splashing");
-    return; // Kończymy działanie, nie puszczamy wideo ponownie
-  }
-
-  // Jeśli to pierwsza wizyta w tej sesji, dodajemy klasę startową
-  document.body.classList.add("splashing");
-
-  if (vid) {
-    vid.currentTime = 0;
-    vid.muted = true;
-    
-    // Próba odtworzenia wideo (zabezpieczenie przed blokadą autoplay przez przeglądarkę)
-    vid.play().catch(() => {
-      hideSplash(); // Jeśli przeglądarka zablokuje start, od razu chowa splash, by nie wisiał na ekranie
-    });
-
-    // Oryginalne: Jeśli z jakiegoś powodu video nie wystartuje, zabezpieczenie timeoutem (15s)
-    let fallbackTimeout = setTimeout(hideSplash, 15000);
-
-    // Oryginalne: Czekamy na koniec filmu, aby schować splash
-    vid.addEventListener("ended", function() {
-      clearTimeout(fallbackTimeout);
-      hideSplash();
-    });
-  } else {
-    // Oryginalne: Jeśli video nie istnieje, chowaj splash po 8s
-    setTimeout(hideSplash, 8000);
-  }
-
-  // Funkcja chowająca splash z animacją
-  function hideSplash() {
-    if (splash && !splash.classList.contains("hide")) {
-      splash.classList.add("hide");
-
-      // NOWE: Zapisujemy w pamięci przeglądarki, że intro zostało już wyświetlone
-      sessionStorage.setItem("introPlayed", "true");
-
-      setTimeout(() => {
-        splash.style.display = "none";
+      if (sessionStorage.getItem("introPlayed")) {
+        if (splash) splash.style.display = "none";
         document.body.classList.remove("splashing");
-      }, 700);
-    }
-  }
-});
+        return;
+      }
 
-    // Wyłapanie głównych kontenerów do lekkiego parallaxa (przy scrollowaniu)
-    const contentEls = document.querySelectorAll(".container, .container2");     // Pobranie głównych kontenerów
+      document.body.classList.add("splashing");
 
-    // Parallax ZAWARTOŚCI — animacja na scroll, dla subtelnego efektu przesuwania:
+      if (vid) {
+        vid.currentTime = 0;
+        vid.muted = true;
+        
+        vid.play().catch(() => { hideSplash(); });
+
+        let fallbackTimeout = setTimeout(hideSplash, 15000);
+
+        vid.addEventListener("ended", function() {
+          clearTimeout(fallbackTimeout);
+          hideSplash();
+        });
+      } else {
+        setTimeout(hideSplash, 8000);
+      }
+
+      function hideSplash() {
+        if (splash && !splash.classList.contains("hide")) {
+          splash.classList.add("hide");
+          sessionStorage.setItem("introPlayed", "true");
+          setTimeout(() => {
+            splash.style.display = "none";
+            document.body.classList.remove("splashing");
+          }, 700);
+        }
+      }
+    });
+
+    // Parallax
+    const contentEls = document.querySelectorAll(".container, .container2");
     window.addEventListener("scroll", () => {
-      const scrollY = window.scrollY;                                           // Pozycja scrolla pionowego
-      // Nie używamy GSAP do tego efektu, żeby nie przeszkadzać w micro-efektach (zostaje klasyczny translateY)
+      const scrollY = window.scrollY;
       contentEls.forEach(el => { el.style.transform = `translateY(${-scrollY * 0.02}px)`; });
     });
 
-    // Logika tła i ruchomego księżyca
-    let isMobile = window.innerWidth <= 768;                                    // Proste wykrycie urządzenia mobilnego
-    window.addEventListener("resize", () => isMobile = window.innerWidth <= 768); // Aktualizacja zmiennej przy zmianie rozmiaru okna
+    // Tło
+    let isMobile = window.innerWidth <= 768;
+    window.addEventListener("resize", () => isMobile = window.innerWidth <= 768);
 
-    // ANIMACJA Warstw tła — księżyc, boczne elementy (ruch względem scrolla)
     function updateBackgrounds() {
       const scrollY = window.scrollY;
-      const mStr = isMobile ? 0.11 : 0.06;                                      // Siła ruchu księżyca w zależności od ekranu
-      const sStr = isMobile ? 0.12 : 0.28;                                      // Siła ruchu bocznych grafik
-      const mY = (160 + scrollY * 0.5 * sStr) + (isMobile ? scrollY * 1.5 : 0); // Wyliczenie pozycji Y dla księżyca
-
-      document.body.style.backgroundPosition =                                  // Pozycja dla wszystkich warstw tła naraz
-        `${5 + scrollY * mStr}% ${mY}px, 50% ${-scrollY * sStr}px, 95% ${-scrollY * sStr}px, center center`;
+      const mStr = isMobile ? 0.11 : 0.06;
+      const sStr = isMobile ? 0.12 : 0.28;
+      const mY = (160 + scrollY * 0.5 * sStr) + (isMobile ? scrollY * 1.5 : 0);
+      document.body.style.backgroundPosition = `${5 + scrollY * mStr}% ${mY}px, 50% ${-scrollY * sStr}px, 95% ${-scrollY * sStr}px, center center`;
     }
-    updateBackgrounds(); // uruchom od razu przy starcie
-    window.addEventListener('scroll', updateBackgrounds); // odśwież przy każdym scrollu
+    updateBackgrounds();
+    window.addEventListener('scroll', updateBackgrounds);
 
-    // --- OPTYMALIZACJA RUCHU GWIAZD ---
-
-    // Uwaga: tu klasyczny system — prosta pętla requestAnimationFrame, nie GSAP!
-    // Dzięki temu jest superpłynnie (animacja "masowana" przy każdym przesunięciu myszki).
-
-    // Zbierz wszystkie obiekty-gwiazdy do tablicy
+    // Gwiazdy
     const stars = document.querySelectorAll(".star-layer");
-    let mouseX = window.innerWidth/2, mouseY = window.innerHeight/2; // Domyślnie środek okna
+    let mouseX = window.innerWidth/2, mouseY = window.innerHeight/2;
 
-    // Aktualizuj pozycję myszki - im szybciej, tym lepiej (nie obciążamy animacją, tylko zapisujemy stan)
     window.addEventListener("mousemove", (e) => {
       mouseX = e.clientX;
       mouseY = e.clientY;
     });
 
-    // Funkcja animująca gwiazdy w nieskończonej pętli — odpowiadają na ruchy myszki
     function animateStars() {
-      // Wylicz przesunięcie względem środka ekranu (dzielnik - im większy, tym efekt słabszy)
       const moveX = (mouseX - window.innerWidth/2) / 45;
       const moveY = (mouseY - window.innerHeight/2) / 45;
       stars.forEach((star, index) => {
-        // Każda kolejna gwiazda przesuwa się delikatnie mocniej, żeby uzyskać efekt głębi
         const factor = 1 + index * 0.2;
-        // Ustaw tranformacje CSS: subtelny parallax 3D
         star.style.transform = `translate3d(${moveX * factor}px, ${moveY * factor}px, 0)`;
       });
-      requestAnimationFrame(animateStars); // Zapętlenie: co każde 1/60 sekundy (60fps)
+      requestAnimationFrame(animateStars);
     }
-    animateStars(); // Start "żywej" animacji gwiazdek
-
-    
-    // ==============================
-
+    animateStars();
   </script>
   
-  <!-- SKRYPT LOGIKI FORMULARZA -->
+  <!-- SKRYPT LOGIKI FORMULARZA I ZARZĄDZANIA OPCJAMI -->
   <script>
-    // Deklaracja głównych zmiennych i przycisków
+    // =================== ZARZĄDZANIE OPCJAMI WYBORU ===================
+    // Każde pole wyboru ma swoją własną listę opcji
+    const optionsLists = {
+      1: [
+        { id: 1, name: "Opcja 1" },
+        { id: 2, name: "Opcja 2" },
+        { id: 3, name: "Opcja 3" },
+        { id: 4, name: "Opcja 4" }
+      ],
+      2: [
+        { id: 1, name: "Opcja A" },
+        { id: 2, name: "Opcja B" },
+        { id: 3, name: "Opcja C" },
+        { id: 4, name: "Opcja D" }
+      ],
+      3: [
+        { id: 1, name: "Opcja I" },
+        { id: 2, name: "Opcja II" },
+        { id: 3, name: "Opcja III" },
+        { id: 4, name: "Opcja IV" }
+      ]
+    };
+    
+    const optionIdCounters = { 1: 5, 2: 5, 3: 5 };
+
+    // Funkcja generująca opcje w <select>
+    function renderSelectOptions(choiceNum) {
+      const select = document.getElementById(`choice${choiceNum}`);
+      if (!select) return;
+      select.innerHTML = "";
+      
+      optionsLists[choiceNum].forEach(opt => {
+        const option = document.createElement("option");
+        option.value = opt.name;
+        option.textContent = opt.name;
+        option.dataset.optionId = opt.id;
+        select.appendChild(option);
+      });
+    }
+
+    // Funkcja generująca pola edycji w panelu
+    function renderEditFields(choiceNum) {
+      const fieldsContainer = document.getElementById(`editFields${choiceNum}`);
+      if (!fieldsContainer) return;
+      fieldsContainer.innerHTML = "";
+      
+      optionsLists[choiceNum].forEach((opt, index) => {
+        const label = document.createElement("label");
+        label.className = "option-edit-row";
+        label.innerHTML = `
+          <span>Opcja ${index + 1}:</span>
+          <input type="text" value="${opt.name}" maxlength="40" autocomplete="off" data-option-id="${opt.id}" data-choice="${choiceNum}" class="option-edit-input">
+          <button type="button" class="remove-option-btn" data-option-id="${opt.id}" data-choice="${choiceNum}" title="Usuń tę opcję">✕</button>
+        `;
+        fieldsContainer.appendChild(label);
+      });
+      
+      // Event listenery do inputów (edycja nazw)
+      fieldsContainer.querySelectorAll(".option-edit-input").forEach(input => {
+        input.addEventListener("input", function() {
+          const optionId = parseInt(this.dataset.optionId);
+          const choiceNum = parseInt(this.dataset.choice);
+          const text = this.value.trim();
+          
+          const optionObj = optionsLists[choiceNum].find(o => o.id === optionId);
+          if (optionObj) {
+            optionObj.name = text.length > 0 ? text : "Opcja";
+          }
+          renderSelectOptions(choiceNum);
+        });
+      });
+      
+      // Event listenery do przycisków usuwania
+      fieldsContainer.querySelectorAll(".remove-option-btn").forEach(btn => {
+        btn.addEventListener("click", function() {
+          const optionId = parseInt(this.dataset.optionId);
+          const choiceNum = parseInt(this.dataset.choice);
+          
+          if (optionsLists[choiceNum].length <= 1) {
+            alert("Musisz mieć przynajmniej jedną opcję!");
+            return;
+          }
+          
+          optionsLists[choiceNum] = optionsLists[choiceNum].filter(o => o.id !== optionId);
+          renderSelectOptions(choiceNum);
+          renderEditFields(choiceNum);
+        });
+      });
+    }
+
+    // Funkcja dodająca nową opcję
+    function addNewOption(choiceNum) {
+      const newOption = {
+        id: optionIdCounters[choiceNum]++,
+        name: `Opcja ${optionsLists[choiceNum].length + 1}`
+      };
+      
+      optionsLists[choiceNum].push(newOption);
+      renderSelectOptions(choiceNum);
+      renderEditFields(choiceNum);
+      
+      // Rozwiń panel jeśli jest zwinięty
+      const panel = document.getElementById(`editPanel${choiceNum}`);
+      if (panel && panel.classList.contains("collapsed")) {
+        panel.classList.remove("collapsed");
+        updateToggleIcon(choiceNum, true);
+      }
+      
+      // Focus na nowym polu
+      setTimeout(() => {
+        const newInput = document.querySelector(`input[data-option-id="${newOption.id}"][data-choice="${choiceNum}"]`);
+        if (newInput) {
+          newInput.focus();
+          newInput.select();
+        }
+      }, 50);
+    }
+
+    // Funkcja przełączająca widoczność panelu
+    function toggleEditPanel(choiceNum) {
+      const panel = document.getElementById(`editPanel${choiceNum}`);
+      if (!panel) return;
+      
+      const isCollapsed = panel.classList.toggle("collapsed");
+      updateToggleIcon(choiceNum, !isCollapsed);
+    }
+
+    // Funkcja aktualizująca ikonę strzałki
+    function updateToggleIcon(choiceNum, isExpanded) {
+      const title = document.querySelector(`.edit-options-title[data-panel="${choiceNum}"]`);
+      if (!title) return;
+      
+      const icon = title.querySelector(".toggle-icon");
+      if (icon) {
+        icon.textContent = isExpanded ? "▲" : "▼";
+      }
+    }
+
+    // Inicjalizacja po załadowaniu DOM
+    document.addEventListener("DOMContentLoaded", function() {
+      // Generujemy początkowe opcje dla wszystkich 3 pól wyboru
+      for (let i = 1; i <= 3; i++) {
+        renderSelectOptions(i);
+        renderEditFields(i);
+      }
+      
+      // Przyciski dodawania nowych opcji
+      document.querySelectorAll(".add-option-btn-inline").forEach(btn => {
+        btn.addEventListener("click", function() {
+          const choiceNum = parseInt(this.dataset.choice);
+          addNewOption(choiceNum);
+        });
+      });
+      
+      // Nagłówki paneli edycji (klikalne)
+      document.querySelectorAll(".edit-options-title.clickable").forEach(title => {
+        title.addEventListener("click", function() {
+          const choiceNum = parseInt(this.dataset.panel);
+          toggleEditPanel(choiceNum);
+        });
+      });
+    });
+
+    // =================== LOGIKA FORMULARZA ===================
     const form = document.querySelector("form"); 
     const downloadBtn = document.getElementById("downloadBtn"); 
     const undoBtn = document.getElementById("undoBtn");
-    const EntriesLimit = 2;                                                     // Limit osób do pokazania pobierania
-    let entries = [], personCounter = 1;                                        // Tablica danych i licznik ID
+    const EntriesLimit = 2;
+    let entries = [], personCounter = 1;
 
-    // Zarządzanie kafelkami osób na liście
     function updateVisualList() {
       const list = document.getElementById("peopleList"), title = document.getElementById("listTitle"), more = document.getElementById("morePeopleCount");
-      list.innerHTML = "";                                                      // Czyszczenie listy przed zmianą
-      title.style.display = entries.length > 0 ? "block" : "none";               // Pokazanie tytułu jeśli są dane
+      list.innerHTML = "";
+      title.style.display = entries.length > 0 ? "block" : "none";
 
-      entries.slice(0, 5).forEach(p => {                                        // Rysowanie max 5 kafelków (bezpiecznik)
+      entries.slice(0, 5).forEach(p => {
         const li = document.createElement("li");
-        li.innerHTML = `<span>👤</span> ${p.name}`;                             // Wstawienie ikony i imienia
+        li.innerHTML = `<span>👤</span> ${p.name}`;
         list.appendChild(li);
       });
-      more.innerText = entries.length > 5 ? `...i ${entries.length - 5} osób więcej.` : ""; // Info o ukrytych
-      if (entries.length < EntriesLimit) downloadBtn.style.display = "none";     // Ukrycie pobierania przy małej liczbie
+      more.innerText = entries.length > 5 ? `...i ${entries.length - 5} osób więcej.` : "";
+      if (entries.length < EntriesLimit) downloadBtn.style.display = "none";
     }
 
-    // Funkcja "Cofnij ostatni" (Usuwanie z tablicy)
     undoBtn.onclick = () => {
-      if (entries.length > 0) { entries.pop(); personCounter--; updateVisualList(); } // Zdjęcie ostatniej osoby
+      if (entries.length > 0) { entries.pop(); personCounter--; updateVisualList(); }
       else alert("Lista jest pusta!");
     };
 
-    // Wysyłanie formularza (Dodawanie osoby)
     form.addEventListener("submit", (e) => {
-      e.preventDefault();                                                       // Zablokowanie odświeżania strony
-      const name = document.getElementById("name").value.trim(), email = document.getElementById("email").value.trim(), choice = document.getElementById("choice").value;
+      e.preventDefault();
+      const name = document.getElementById("name").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const choice1 = document.getElementById("choice1").value;
+      const choice2 = document.getElementById("choice2").value;
+      const choice3 = document.getElementById("choice3").value;
 
-      if (entries.length >= 100) return alert("Limit 100 osób!");               // Blokada przed botami/przepełnieniem
-      entries.push({ id: personCounter++, name, email, choice });               // Dodanie obiektu do pamięci RAM
-      updateVisualList(); form.reset();                                         // Odświeżenie widoku i czyszczenie pól
-      if (entries.length >= EntriesLimit) downloadBtn.style.display = "inline-block"; // Pokazanie przycisku pobierz
+      if (entries.length >= 100) return alert("Limit 100 osób!");
+      entries.push({ id: personCounter++, name, email, choice1, choice2, choice3 });
+      updateVisualList(); form.reset();
+      if (entries.length >= EntriesLimit) downloadBtn.style.display = "inline-block";
     });
 
-    // Generowanie profesjonalnego pliku .XLSX (Excel)
     downloadBtn.onclick = () => {
-      if (typeof XLSX === 'undefined') return alert("Błąd: Brak biblioteki Excel!"); // Sprawdzenie czy link w head działa
+      if (typeof XLSX === 'undefined') return alert("Błąd: Brak biblioteki Excel!");
       const t = new Date(), ts = `${String(t.getDate()).padStart(2,'0')}-${String(t.getMonth()+1).padStart(2,'0')}_${t.getHours()}-${t.getMinutes()}`;
-      const data = [["ID", "Imię", "Email", "Opcja"], ...entries.map(p => [p.id, p.name, p.email, p.choice])]; // Przygotowanie tabeli
+      const data = [["ID", "Imię", "Email", "Opcja 1", "Opcja 2", "Opcja 3"], ...entries.map(p => [p.id, p.name, p.email, p.choice1, p.choice2, p.choice3])];
       
-      const ws = XLSX.utils.aoa_to_sheet(data);                                 // Zamiana danych na arkusz
-      ws['!cols'] = data.map((_, i) => ({ wch: Math.min(Math.max(...data.map(r => r[i]?.toString().length || 0)) + 3, 40) })); // Auto-szerokość
+      const ws = XLSX.utils.aoa_to_sheet(data);
+      ws['!cols'] = data.map((_, i) => ({ wch: Math.min(Math.max(...data.map(r => r[i]?.toString().length || 0)) + 3, 40) }));
 
-      const wb = XLSX.utils.book_new();                                         // Stworzenie nowego skoroszytu
-      XLSX.utils.book_append_sheet(wb, ws, "Lista");                            // Dodanie arkusza do pliku
-      XLSX.writeFile(wb, `lista_${entries.length}_osob_${ts}.xlsx`);            // Pobranie pliku z datą w nazwie
+      const wb = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, ws, "Lista");
+      XLSX.writeFile(wb, `lista_${entries.length}_osob_${ts}.xlsx`);
 
-      entries = []; personCounter = 1; downloadBtn.style.display = "none"; updateVisualList(); // Reset strony
+      entries = []; personCounter = 1; downloadBtn.style.display = "none"; updateVisualList();
     };
   </script>
 </body>
