@@ -1,153 +1,87 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+/* =================== RESET I BAZA =================== */
+* { margin: 0; padding: 0; box-sizing: border-box; } /* reset: zeruje marginesy, paddingi, box-sizing */
+
+body {
+  font-family: "Georgia", "Times New Roman", serif; /* czcionka szeryfowa */
+  line-height: 1.7; /* odstęp między liniami tekstu */
+  color: #e8e8e8; /* jasny kolor tekstu */
+  min-height: 100vh; /* min. wysokość = 100% wysokości ekranu */
+  padding: 3rem 1.5rem 3rem 1.5rem;
+  padding-top: 90px; /* odstęp dla logo bara */
+  opacity: 0; /* przezroczystość: 0 = niewidoczny */
+  transform: translateY(20px); /* przesunięcie w dół o 20px */
+  transition: opacity 1s ease-out, transform 1s ease-out; /* animacja zmiany opacity i transform */
+  /* Tło: księżyc + grafika + gradient */
+  background: url("ksiezyc.png") 12% 10% / 2% auto no-repeat,
+              url("moje-tlo.png") 5% center / 100% auto no-repeat,
+              linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  background-attachment: fixed, fixed, fixed; /* tło przyklejone do okna */
 }
-/* Hero sekcja z wideo - pełnoekranowy splash */
-.hero-overlay {
-  position: fixed;
-  z-index: 9999;
-  left: 0; top: 0; right: 0; bottom: 0;
-  width: 100vw;
-  height: 100vh;
-  background: #000;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transition: opacity 0.6s cubic-bezier(0.77,0,0.175,1);
-  opacity: 1;
-  pointer-events: all;
-}
-.hero-overlay.hide {
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.7s cubic-bezier(0.77,0,0.175,1);
+body.loaded { opacity: 1; transform: translateY(0); } /* po załadowaniu: widoczny, bez przesunięcia */
+body.splashing { overflow: hidden !important; height: 100vh !important; } /* blokada scrolla podczas splash */
+
+/* Mobile - tło */
+@media (max-width: 768px) { /* style tylko dla ekranów <= 768px */
+  body {
+    background: url("ksiezyc.png") 6% 10% / 5% auto no-repeat,
+                url("moje-tlo.png") center top / auto 150% no-repeat,
+                linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    background-attachment: scroll, scroll, fixed; /* scroll dla wydajności na mobile */
+    padding-top: 70px;
+  }
 }
 
-.hero-video-section {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 0;
-  margin: 0 0 32px 0;
-  width: 100%;
+/* =================== HERO SPLASH VIDEO =================== */
+.hero-overlay {
+  position: fixed; /* pozycja stała względem okna */
+  z-index: 9999; /* warstwa na samej górze */
+  inset: 0; /* skrót: top:0, right:0, bottom:0, left:0 */
+  width: 100vw; /* 100% szerokości okna */
+  height: 100vh; /* 100% wysokości okna */
   background: #000;
-  /* tło na całą szerokość */
+  display: flex; /* flexbox - łatwe centrowanie */
+  justify-content: center; /* centrowanie w poziomie */
+  align-items: center; /* centrowanie w pionie */
+  opacity: 1;
+  transition: opacity 0.6s cubic-bezier(0.77,0,0.175,1); /* płynne zanikanie */
 }
-.hero-video-wrapper {
-  width: 100%;
-  max-width: 900px; /* Możesz dopasować do pożądanego max rozmiaru */
-  box-sizing: border-box;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 24px 0 0 0;
-  background: #000; /* czarne tło zapobiega mignięciu białego przed wczytaniem */
-}
-.hero-video-section video,
+.hero-overlay.hide { opacity: 0; pointer-events: none; } /* ukryty: przezroczysty + brak interakcji */
 .hero-overlay video {
-  width: 100%;
-  height: auto;
-  display: block;
-  border-radius: 20px;
-  box-shadow: 0 8px 32px 0 rgba(0,0,0,0.32), 0 1.5px 5px 0 rgba(26, 36, 53, 0.14); /* nowoczesna lekka rama */
-  background: #000;
-}
-.hero-overlay video {
-  max-width: 900px;
-  /* na mniejszych ekranach */
-  width: calc(100vw - 32px);
-  max-height: 96vh;
+  width: calc(100vw - 32px); /* szerokość = okno - 32px marginesu */
+  max-width: 900px; /* maksymalna szerokość */
+  max-height: 96vh; /* maksymalna wysokość */
+  border-radius: 20px; /* zaokrąglone rogi */
+  box-shadow: 0 8px 32px rgba(0,0,0,0.32); /* cień pod wideo */
 }
 @media (max-width: 700px) {
-  .hero-video-wrapper {
-    max-width: 100vw;
-    padding: 8px 0 0 0;
-  }
-  .hero-video-section video,
-  .hero-overlay video {
-    border-radius: 12px;
-  }
-  .hero-overlay video {
-    width: calc(100vw - 10px);
-    max-width: 99vw;
-  }
-}
-body.splashing {
-  overflow: hidden !important;
-  height: 100vh !important;
-  /* zabezpieczenie przed scrollowaniem pod spodem */
+  .hero-overlay video { border-radius: 12px; width: calc(100vw - 10px); }
 }
 
-/* styl początkowy, minimalne przesunięcie i przezroczystość */
-body {
-  opacity: 0;
-  transform: translateY(20px); /* subtelne przesunięcie w dół */
-  transition: opacity 1s ease-out, transform 1s ease-out;
-}
-
-/* po wczytaniu strony */
-body.loaded {
-  opacity: 1;
-  transform: translateY(0); /* wraca do pozycji normalnej */
-}
-body {
-  font-family: "Georgia", "Times New Roman", serif;
-  line-height: 1.7;
-  /* tło: DWA KSIĘŻYCE + dwie grafiki po bokach + gradient pod spodem */
-  background:
-    /* 0) Księżyc LEWY – osobna warstwa, którą będziemy ruszać w JS */
-    url("ksiezyc.png") 12% 10% / 2% auto no-repeat,
-    /* 1) pierwsze tło po LEWEJ, trochę „wsunięte” do środka (5%) i szerokie na ok. 90% */
-    url("moje-tlo.png") 5% center / 100% auto no-repeat,
-    linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-  background-attachment: fixed, fixed, fixed, fixed, fixed; /* wszystkie warstwy „przyklejone” do okna */
-  min-height: 100vh;
-  color: #e8e8e8;
-  padding: 3rem 1.5rem;
-}
-/* Dostosowanie tła środkowego do ekranów mobilnych (lepsze wypełnienie) */
-@media (max-width: 768px) {
-  body {
-    background:
-      url("ksiezyc.png") 6% 10% / 5% auto no-repeat,
-      url("moje-tlo.png") center top / auto 150% no-repeat, /* wydłużamy tło w pionie */
-      linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-    background-attachment: scroll, scroll, fixed; /* mobile - scroll dla lepszej wydajności */
-  }
-}
-/* Klasa dla wszystkich gwiazd */
+/* =================== GWIAZDY (animowane w JS) =================== */
 .star-layer {
-  position: fixed;
-  pointer-events: none;
-  z-index: -1;
-  /* transition: transform 0.1s; <-- USUWAMY TO, bo to często powoduje "skakanie" */
-  will-change: transform; /* Mówi przeglądarce: "użyj karty graficznej do ruchu" */
+  position: fixed; /* stała pozycja na ekranie */
+  pointer-events: none; /* element niełapliwy dla myszki */
+  z-index: -1; /* warstwa pod wszystkim */
+  will-change: transform; /* optymalizacja GPU - przygotuj na zmiany transform */
 }
+#star1 { top: 15%; left: 10%; width: 40px; opacity: 0.8; } /* pozycja i wielkość gwiazdy 1 */
+#star2 { top: 40%; left: 80%; width: 30px; opacity: 0.6; } /* pozycja i wielkość gwiazdy 2 */
+#star3 { top: 75%; left: 15%; width: 50px; opacity: 0.4; } /* pozycja i wielkość gwiazdy 3 */
+#star4 { top: 70%; left: 80%; width: 45px; opacity: 0.7; } /* pozycja i wielkość gwiazdy 4 */
 
-/* Ustawiamy każdą gwiazdę w innym miejscu, żeby nie były w kupie */
-#star1 { top: 15%; left: 10%; width: 40px; opacity: 0.8; }
-#star2 { top: 40%; left: 80%; width: 30px; opacity: 0.6; }
-#star3 { top: 75%; left: 15%; width: 50px; opacity: 0.4; }
-#star4 { top: 70%; left: 80%; width: 45px; opacity: 0.7; }
-
+/* =================== KONTENERY GŁÓWNE =================== */
 .container {
-  /* zwężam środek, żeby po bokach było więcej miejsca  na efekt tła */
-  max-width: 480px;
-  margin: 0 auto;
-  padding: 2.5rem;
-
-  /* półprzezroczyste, ale wyraźne tło „glassmorphism” */
-  background: rgba(10, 10, 25, 0.5); /* ciemniejsze, mniej przezroczyste */
-  border-radius: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.55);
-
-  /* rozmazuje to, co jest ZA tym divem (czyli Twoje tło z boków) */
-  backdrop-filter: blur(8px);
+  max-width: 480px; /* maksymalna szerokość kontenera */
+  margin: 0 auto; /* centrowanie: auto margines lewy/prawy */
+  padding: 2.5rem; /* wewnętrzny odstęp */
+  background: rgba(10, 10, 25, 0.5); /* tło: ciemne, półprzezroczyste */
+  border-radius: 16px; /* zaokrąglone rogi */
+  border: 1px solid rgba(255, 255, 255, 0.12); /* subtelna ramka */
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.55); /* cień pod kontenerem */
+  backdrop-filter: blur(8px); /* rozmycie tła pod elementem (glassmorphism) */
 }
 .container2 {
-  max-width: 680px; /* Rozszerzony panel formularza */
+  max-width: 680px; /* szerszy kontener dla formularza */
   margin: 2.5rem auto 0;
   padding: 2rem 2.5rem;
   background: rgba(0, 0, 0, 0.25);
@@ -157,40 +91,112 @@ body {
   backdrop-filter: blur(8px);
 }
 
+/* =================== TYPOGRAFIA =================== */
 h1 {
-  font-size: 1.9rem;
-  font-weight: 400;
+  font-size: 1.9rem; /* wielkość czcionki */
+  font-weight: 400; /* grubość czcionki (normalna) */
   margin-bottom: 1.25rem;
-  color: #e94560;
-  letter-spacing: 0.02em;
-  text-align: center;
+  color: #e94560; /* czerwony akcent */
+  letter-spacing: 0.02em; /* odstęp między literami */
+  text-align: center; /* centrowanie tekstu */
 }
-
-p {
-  margin-bottom: 0.75rem;
-  color: rgba(232, 232, 232, 0.9);
-  font-size: 1.05rem;
-  text-align: center;
-}
-
+p { margin-bottom: 0.75rem; color: rgba(232, 232, 232, 0.9); font-size: 1.05rem; text-align: center; }
 a {
   color: #e94560;
-  text-decoration: none;
-  border-bottom: 1px solid rgba(233, 69, 96, 0.4);
-  transition: border-color 0.2s, color 0.2s;
+  text-decoration: none; /* bez podkreślenia */
+  border-bottom: 1px solid rgba(233, 69, 96, 0.4); /* dolna ramka jako podkreślenie */
+  transition: border-color 0.2s, color 0.2s; /* animacja zmiany koloru i ramki */
+}
+a:hover { color: #ff6b6b; border-bottom-color: #ff6b6b; } /* hover: jaśniejszy czerwony */
+
+/* =================== NAV LOGO BAR =================== */
+.nav-logo-bar {
+  position: fixed; /* stała pozycja */
+  top: 24px;
+  left: 14%;
+  z-index: 30; /* warstwa nad treścią */
+  display: flex; /* flexbox dla układu */
+  align-items: center; /* centrowanie w pionie */
+  gap: 18px; /* odstęp między elementami */
+  background: rgba(37, 37, 44, 0.44);
+  border-radius: 32px; /* mocno zaokrąglone rogi */
+  padding: 7px 32px 7px 20px;
+  min-width: 220px;
+  max-width: 95vw;
+  backdrop-filter: blur(8px) saturate(143%); /* rozmycie + nasycenie tła */
+  border: 1.5px solid rgba(140,140,227,.09);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.06), 0 1.5px 7px -1.5px rgba(0,0,0,0.13);
+  transform: translateX(-50%) scale(1); /* przesunięcie + skala */
+  transform-origin: left center; /* punkt odniesienia transformacji */
+  animation: dropbarIn 850ms cubic-bezier(0.31, 1.19, 0.68, 1) 0.1s 1 normal both; /* animacja wejścia */
+  transition: transform 0.28s cubic-bezier(.31,1.19,.68,1), box-shadow 0.18s, gap 0.34s; /* płynne przejścia */
+}
+.nav-logo-bar a { border-bottom: none; }
+@keyframes dropbarIn { /* definicja animacji wejścia */
+  0% { transform: translateX(-50%) translateY(-50px) scale(0.97); opacity: 0; } /* start: wyżej, mniejszy, niewidoczny */
+  100% { transform: translateX(-50%) translateY(0) scale(1); opacity: 1; } /* koniec: na miejscu, pełny rozmiar, widoczny */
+}
+.nav-logo-bar:hover, .nav-logo-bar:focus-within {
+  transform: translateX(-50%) scale(1.18); /* powiększenie przy hover */
+  box-shadow: 0 10px 44px #e9456066, 0 4px 22px -2px #ff6b6bbb; /* czerwona poświata */
+  gap: 38px; /* większy odstęp przy hover */
 }
 
-a:hover {
-  color: #ff6b6b;
-  border-bottom-color: #ff6b6b;
+.logo-mateusz {
+  height: 34px;
+  width: 40px;
+  object-fit: contain; /* zachowaj proporcje obrazka */
+  border-radius: 14px;
+  background: linear-gradient(118deg, #222428 70%, #3575ea 100%); /* gradient tła */
+  filter: drop-shadow(0 2px 8px rgba(86,162,255,.12)); /* cień pod logo */
+  transition: box-shadow 0.18s, transform 0.32s, scale 0.32s;
+  cursor: pointer; /* kursor rączki */
 }
-form label {
-  display: block;
-  margin-bottom: 0.3rem;
-  font-weight: 600;
+.nav-logo-bar:hover .logo-mateusz, .nav-logo-bar:focus-within .logo-mateusz {
+  scale: 2.4; /* powiększenie logo przy hover na rodzicu */
+  box-shadow: 0 8px 32px #e9456077, 0 2px 8px -1px #ff6b6bcc;
 }
+.logo-mateusz:hover {
+  filter: drop-shadow(0 0 8px #e945604d);
+  transform: rotate(-6deg) scale(1.15); /* obrót + powiększenie */
+}
+
+.logo-title {
+  font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+  font-weight: 700;
+  font-size: 1.36rem;
+  letter-spacing: 1.2px;
+  background: linear-gradient(100deg, #e94560 0%, #ff6b6b 90%);
+  -webkit-background-clip: text; /* gradient na tekście (webkit) */
+  -webkit-text-fill-color: transparent; /* przezroczysty tekst (webkit) */
+  background-clip: text; /* gradient na tekście (standard) */
+  text-shadow: 0 1px 4px #c53643bb;
+}
+
+/* Mobile - nav bar */
+@media (max-width: 720px) {
+  .nav-logo-bar {
+    min-width: 133px;
+    padding: 6px 16px 6px 10px;
+    left: 50%;
+    top: 30px;
+    gap: 10px;
+    transform: translateX(-50%) scale(1) !important; /* !important = nadpisz wszystko */
+  }
+  .nav-logo-bar:hover, .nav-logo-bar:focus-within {
+    transform: translateX(-50%) scale(1.1) !important;
+    box-shadow: 0 6px 28px #e94560aa;
+    gap: 16px;
+  }
+  .logo-mateusz { height: 33px; width: 33px; }
+  .nav-logo-bar:hover .logo-mateusz { scale: 1.45; }
+  .logo-title { font-size: 1.02rem; }
+}
+
+/* =================== FORMULARZ =================== */
+form label { display: block; margin-bottom: 0.3rem; font-weight: 600; } /* block = każdy w nowej linii */
 form input, form select {
-  width: 100%;
+  width: 100%; /* pełna szerokość */
   padding: 0.5rem;
   margin-bottom: 1rem;
   border-radius: 6px;
@@ -205,191 +211,54 @@ form button {
   margin-right: 0.6rem;
   background: #e94560;
   color: #fff;
-  cursor: pointer;
-  transition: background 0.2s;
+  cursor: pointer; /* kursor rączki */
+  transition: background 0.2s; /* animacja tła */
 }
-form button[type="reset"],[id="undoBtn"]{ /* mozna tez uzyc bardzie pancernego skrotu zamiast te id w [] czyli tak: , #undoBtn{*/ 
+form button:hover { background: #ff6b6b; }
+form button[type="reset"], #undoBtn {
   background: #16213e;
   color: #e94560;
   border: 1px solid #e94560;
 }
-form button:hover { background: #ff6b6b; }
 
-.download-btn {
-  display: none;
-  margin-top: 10px;
-}
-.list-title {
-  display: none;
-}
-.people-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  list-style: none;
-  padding: 0;
-}
-.more-people-count {
-  font-style: italic;
-  color: #888;
-  font-size: 0.8rem;
-  margin-top: 5px;
-}
+/* =================== GRUPA WYBORU (checkbox + select) =================== */
+.choice-group { margin-bottom: 1rem; }
+.choice-header { display: flex; align-items: center; gap: 8px; margin-bottom: 0.3rem; }
+.choice-label-text { font-weight: 600; cursor: pointer; }
 
-/* dodatkowa sekcja, żeby było co scrollować */
-
-.section-long h2 {
-  margin-bottom: 1rem;
-  color: #f6f6f6;
-  text-align: center;
-}
-
-.section-long p {
-  text-align: left;
-  margin-bottom: 0.75rem;
-}
-
-      /* Panel do edycji opcji - styl dopasowany do reszty strony: */
-
-.edit-options-panel { /* Cały kontener z polami do edycji nazw opcji */
-  margin-top: 10px; /* Odstęp od selecta - zmniejszony */
-  background: rgba(42,52,75,0.10); /* Tło jasne, lekko transparentne, nie za ciemne */
-  border: 1.5px solid #223043; /* Ciemna, niebiesko-grafitowa ramka */
-  border-radius: 10px; /* Mniejszy promień */
-  box-shadow: 0 2px 10px 0 rgba(20,30,40,0.07);
-  padding: 8px 12px 6px 12px; /* Odchudzony padding */
-  max-width: 440px; /* Maks. szerokość pod desktop */
-  margin-bottom: 12px; /* Zmniejszony margines dolny */
-  transition: box-shadow 0.18s;
-  backdrop-filter: blur(5.5px); /* Rozmycie tła tuż pod spodem, jak reszta strony */
-}
-.edit-options-title { /* Tytuł sekcji edytowania nazw */
-  color: #e94560; /* czerwony taki jak przycisku/akcentów */
-  font-size: 0.95em; /* Mniejszy font */
-  letter-spacing: 0.2px;
-  margin-bottom: 6px; /* Zmniejszony margines */
-  font-weight: 600;
-}
-.edit-options-fields { /* Wszystkie pola w środku panelu */
-  display: flex;
-  flex-direction: column;
-  gap: 7px;
-}
-.edit-options-fields label { /* Układ jednego pola do edycji */
-  display: flex;
-  align-items: center;
-  font-size: 1em;
-  color: #fff; /* białe, jak większość tekstu na stronie */
-  font-weight: 400;
-  letter-spacing: 0.01em;
-}
-.edit-options-fields span { /* Tekst "Opcja X:" przy polu edycyjnym */
-  min-width: 78px;
-  margin-right: 9px;
-  color: #fff; /* Biały, dla czytelności i kontrastu */
-  font-size: 1em;
-  font-weight: 500;
-}
-.edit-options-fields input[type="text"] { /* Pola input do zmiany nazw opcji */
-  flex: 1;
-  font-size: 1em;
-  border: 1.5px solid #234; /* subtelna ramka */
-  border-radius: 8px;
-  padding: 5px 11px 5px 10px;
-  background: rgba(225,244,255, 0.09); /* bardzo jasny, nie koliduje z motywem reszty strony */
-  color: #fff; /* tekst biały, jak wszędzie */
-  box-shadow: none; /* brak poświaty */
-  transition: border 0.18s, background 0.14s;
-}
-.edit-options-fields input[type="text"]:focus { /* Podświetlenie inputa: ramka czerwona */
-  border: 1.5px solid #e94560;
-  background: rgba(49,120,189,0.09);
-  outline: none;
-}
-@media (max-width: 700px) {
-  .edit-options-panel {
-    padding: 8.5px 6.5px 10px 6.5px;
-    max-width: 98vw; /* Pełna szerokość na tel. */
-  }
-  .edit-options-fields span {
-    min-width: 60px;
-    font-size: 0.97em;
-  }
-}
-
-/* --- STYLE DLA ZARZĄDZANIA OPCJAMI --- */
-
-/* Grupa pola wyboru (checkbox + label + select + przycisk + panel edycji) */
-.choice-group {
-  margin-bottom: 1rem;
-}
-
-/* Nagłówek z checkboxem i etykietą */
-.choice-header {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 0.3rem;
-}
-
-/* Tekst etykiety pola wyboru */
-.choice-label-text {
-  font-weight: 600;
-  cursor: pointer;
-}
-
-/* Kontener checkboxa z tooltipem */
+/* Checkbox custom */
 .checkbox-label {
-  position: relative;
+  position: relative; /* pozycja względna - dla tooltipa */
   display: flex;
   align-items: center;
   cursor: pointer;
 }
-
-/* Ukryty natywny checkbox */
-.choice-checkbox {
-  position: absolute;
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-
-/* Własny wygląd checkboxa */
+.choice-checkbox { position: absolute; opacity: 0; width: 0; height: 0; } /* ukryty natywny checkbox */
 .checkbox-custom {
   width: 20px;
   height: 20px;
   border: 2px solid #e94560;
   border-radius: 4px;
   background: #16213e;
-  position: relative;
-  transition: all 0.2s ease;
+  transition: all 0.2s ease; /* animacja wszystkich zmian */
 }
-
-/* Checkbox zaznaczony */
-.choice-checkbox:checked + .checkbox-custom {
-  background: #e94560;
-}
-
-/* Znacznik "fajeczki" wewnątrz checkboxa */
-.choice-checkbox:checked + .checkbox-custom::after {
+.choice-checkbox:checked + .checkbox-custom { background: #e94560; } /* zaznaczony: czerwone tło */
+.choice-checkbox:checked + .checkbox-custom::after { /* fajka po zaznaczeniu */
   content: "✓";
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%); /* centrowanie absolutne */
   color: #fff;
   font-size: 14px;
   font-weight: bold;
 }
-
-/* Hover na checkboxie */
 .checkbox-label:hover .checkbox-custom {
   border-color: #ff6b6b;
-  box-shadow: 0 0 8px rgba(233, 69, 96, 0.4);
+  box-shadow: 0 0 8px rgba(233, 69, 96, 0.4); /* poświata przy hover */
 }
-
-/* Tooltip po najechaniu na checkbox */
-.checkbox-label::after {
+/* Tooltip checkbox */
+.checkbox-label::after { /* dymek z podpowiedzią */
   content: "Zaznacz, aby uwzględnić w pliku .xlsx";
   position: absolute;
   left: 28px;
@@ -400,43 +269,76 @@ form button:hover { background: #ff6b6b; }
   padding: 6px 10px;
   border-radius: 6px;
   font-size: 0.75em;
-  font-weight: 400;
-  white-space: nowrap;
+  white-space: nowrap; /* tekst w jednej linii */
   opacity: 0;
-  visibility: hidden;
+  visibility: hidden; /* ukryty (niewidoczny + nieklikalny) */
   transition: opacity 0.2s, visibility 0.2s;
   border: 1px solid #e94560;
   z-index: 100;
-  pointer-events: none;
+  pointer-events: none; /* nie blokuje kliknięć */
 }
+.checkbox-label:hover::after { opacity: 1; visibility: visible; } /* pokaż tooltip przy hover */
 
-/* Pokaż tooltip po najechaniu */
-.checkbox-label:hover::after {
-  opacity: 1;
-  visibility: visible;
+/* Select wrapper */
+.choice-row { display: flex; align-items: flex-end; gap: 8px; }
+.choice-select-wrapper { flex: 1; } /* flex: 1 = zajmuje całą dostępną przestrzeń */
+.choice-select-wrapper label { margin-bottom: 0.3rem; }
+.choice-select-wrapper select { margin-bottom: 0; }
+
+/* =================== PANEL EDYCJI OPCJI =================== */
+.edit-options-panel {
+  margin-top: 10px;
+  background: rgba(42,52,75,0.10);
+  border: 1.5px solid #223043;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(20,30,40,0.07);
+  padding: 8px 12px 6px 12px;
+  max-width: 440px;
+  margin-bottom: 12px;
+  backdrop-filter: blur(5.5px);
 }
-
-/* Wiersz z selectem i przyciskiem dodawania */
-.choice-row {
+.edit-options-title {
+  color: #e94560;
+  font-size: 0.95em; /* em = względem do rodzica */
+  letter-spacing: 0.2px;
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+.edit-options-title.clickable {
+  cursor: pointer;
   display: flex;
-  align-items: flex-end;
-  gap: 8px;
+  justify-content: space-between; /* elementy na krańcach */
+  align-items: center;
+  user-select: none; /* zablokuj zaznaczanie tekstu */
+  transition: color 0.2s;
+}
+.edit-options-title.clickable:hover { color: #ff6b6b; }
+.toggle-icon { font-size: 0.8em; transition: transform 0.3s ease; }
+.edit-options-panel.collapsed .edit-options-fields { display: none; } /* zwinięty: ukryj pola */
+.edit-options-panel.collapsed .toggle-icon { transform: rotate(0deg); }
+.edit-options-panel:not(.collapsed) .toggle-icon { transform: rotate(180deg); } /* rozwinięty: strzałka w górę */
+
+/* Pola edycji */
+.edit-options-fields { display: flex; flex-direction: column; gap: 7px; } /* kolumna z odstępami */
+.edit-options-fields label { display: flex; align-items: center; font-size: 1em; color: #fff; font-weight: 400; }
+.edit-options-fields span { min-width: 78px; margin-right: 9px; color: #fff; font-size: 1em; font-weight: 500; }
+.edit-options-fields input[type="text"] {
+  flex: 1; /* zajmuje resztę miejsca */
+  font-size: 1em;
+  border: 1.5px solid #234;
+  border-radius: 8px;
+  padding: 5px 11px;
+  background: rgba(225,244,255, 0.09);
+  color: #fff;
+  transition: border 0.18s, background 0.14s;
+}
+.edit-options-fields input[type="text"]:focus { /* styl przy fokusie (kliknięciu) */
+  border: 1.5px solid #e94560;
+  background: rgba(49,120,189,0.09);
+  outline: none; /* usuń domyślną ramkę przeglądarki */
 }
 
-/* Wrapper dla label + select */
-.choice-select-wrapper {
-  flex: 1;
-}
-
-.choice-select-wrapper label {
-  margin-bottom: 0.3rem;
-}
-
-.choice-select-wrapper select {
-  margin-bottom: 0;
-}
-
-/* Przycisk dodawania opcji inline (obok selecta) */
+/* Przycisk dodawania opcji */
 .add-option-btn-inline {
   background: #e94560;
   color: #fff;
@@ -446,50 +348,13 @@ form button:hover { background: #ff6b6b; }
   cursor: pointer;
   font-size: 1.1em;
   font-weight: 700;
-  line-height: 1;
+  line-height: 1; /* wysokość linii = 1x wielkość czcionki */
   transition: background 0.2s;
   margin-bottom: 0;
 }
+.add-option-btn-inline:hover { background: #ff6b6b; }
 
-.add-option-btn-inline:hover {
-  background: #ff6b6b;
-}
-
-/* Kontener przycisków do zarządzania opcjami */
-.options-controls {
-  margin-top: 10px;
-  margin-bottom: 6px;
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-
-/* Przycisk dodawania nowej opcji - mniejszy, czerwony jak inne przyciski */
-.add-option-btn {
-  background: #e94560;
-  color: #fff;
-  border: none;
-  padding: 4px 10px;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 0.8em;
-  font-weight: 500;
-  transition: background 0.2s;
-}
-
-.add-option-btn:hover {
-  background: #ff6b6b;
-}
-
-/* Wiersz edycji opcji (label zawierający span, input i przycisk usuwania) */
-.option-edit-row {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  flex-wrap: nowrap;
-}
-
-/* Przycisk usuwania opcji - mały, granatowy */
+/* Przycisk usuwania opcji */
 .remove-option-btn {
   background: #16213e;
   color: #e94560;
@@ -502,314 +367,38 @@ form button:hover { background: #ff6b6b; }
   min-width: 24px;
   transition: all 0.2s ease;
 }
+.remove-option-btn:hover { background: #e94560; color: #fff; }
 
-.remove-option-btn:hover {
-  background: #e94560;
-  color: #fff;
-}
+/* Wiersz edycji opcji */
+.option-edit-row { display: flex; align-items: center; gap: 8px; flex-wrap: nowrap; } /* nowrap = bez zawijania */
 
-/* --- STYLE DLA ZWIJANIA/PORUSZANIA PANELU EDYCJI --- */
-
-/* Klikalny nagłówek panelu */
-.edit-options-title.clickable {
-  cursor: pointer;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  user-select: none;
-  transition: color 0.2s;
-}
-
-.edit-options-title.clickable:hover {
-  color: #ff6b6b;
-}
-
-/* Ikonka strzałki */
-.toggle-icon {
-  font-size: 0.8em;
-  transition: transform 0.3s ease;
-}
-
-/* Panel zwinięty - ukryj pola edycji */
-.edit-options-panel.collapsed .edit-options-fields {
-  display: none;
-}
-
-/* Panel zwinięty - obróć strzałkę */
-.edit-options-panel.collapsed .toggle-icon {
-  transform: rotate(0deg);
-}
-
-/* Panel rozwinięty - strzałka w górę */
-.edit-options-panel:not(.collapsed) .toggle-icon {
-  transform: rotate(180deg);
-}
-
-/* Responsywność dla zarządzania opcjami */
+/* Mobile - panel edycji */
 @media (max-width: 700px) {
-  .options-controls {
-    flex-direction: column;
-  }
-  
-  .add-option-btn {
-    width: fit-content;
-  }
-  
-  .option-edit-row {
-    flex-wrap: wrap;
-  }
-  
-  .remove-option-btn {
-    margin-left: auto;
-  }
-  
-  .choice-row {
-    flex-wrap: wrap;
-  }
-  
-  .add-option-btn-inline {
-    width: 100%;
-    margin-top: 0.5rem;
-  }
+  .edit-options-panel { padding: 8.5px 6.5px 10px 6.5px; max-width: 98vw; }
+  .edit-options-fields span { min-width: 60px; font-size: 0.97em; }
+  .option-edit-row { flex-wrap: wrap; } /* zezwól na zawijanie */
+  .remove-option-btn { margin-left: auto; }
+  .choice-row { flex-wrap: wrap; }
+  .add-option-btn-inline { width: 100%; margin-top: 0.5rem; }
 }
 
-/* NOWOCZESNE LOGO + ANIMACJA
-   ---------------------------------------------------------
-   Efekt docelowy:
-    - Po najechaniu myszką na cały .nav-logo-bar lub na fokus (tab/na fonie), cały kontener powiększa się, 
-      a logo powiększa się dodatkowo bardziej.
-    - Jednocześnie tekst oraz sam box przesuwa się odpowiednio na prawo, by zrobić miejsce dla powiększającego się logo
-      (dzięki transform-origin i powiększaniu kontenera).
-    - Wszystko jest smooth i łatwo później poprzestawiać sobie parametry animacji/skali/rozdzielności!
-    - Kod zawiera dużo komentarzy do samodzielnych eksperymentów.
-   ---------------------------------------------------------
-*/
-
-/* Ustawienia wyjściowe dla baru/kontenera */
-.nav-logo-bar {
-  position: fixed;
-  top: 24px;
-  left: 14%;
-  transform: translateX(-50%) scale(1); /* startowe */
-  transform-origin: left center;        /* punkt rozrostu/lewy (odsuwa zawartość na prawo przy powiększaniu) */
-  z-index: 30;
-  display: flex;
-  align-items: center;
-  gap: 18px; /* odstęp logo-tekst */
-  background: rgba(37, 37, 44, 0.44);
-  border-radius: 32px;
-  /* Główna poświata wokół baru na start - neutralna, zmienia się po hover */
-  box-shadow: 0 6px 18px 0px rgba(0,0,0,0.06), 0 1.5px 7px -1.5px rgba(0,0,0,0.13);
-  padding: 7px 32px 7px 20px;
-  min-width: 220px;
-  max-width: 95vw;
-  backdrop-filter: blur(8px) saturate(143%);
-  border: 1.5px solid rgba(140,140,227,.09);
-  animation: dropbarIn 850ms cubic-bezier(0.31, 1.19, 0.68, 1) 0.1s 1 normal both;
-  /* Smooth transitions ułatwiające dalsze zabawy */
-  transition:
-    transform 0.28s cubic-bezier(.31,1.19,.68,1),
-    box-shadow 0.18s cubic-bezier(.13,.77,.77,1.13),
-    gap 0.34s;
-}
-
-/* SZYBKA NAPRAWA: wyłącz podkreślenie/link underline na logo tylko w tym pasku */
-.nav-logo-bar a {
-  border-bottom: none;
-}
-
-/* Animacja wejścia kontenera */
-@keyframes dropbarIn {
-    0%   { transform: translateX(-50%) translateY(-50px) scale(0.97); opacity: 0; }
-    100% { transform: translateX(-50%) translateY(0) scale(1); opacity: 1; }
-}
-
-/* Hover/focus: cały kontener się rozrasta w lewo (robi miejsce powiększającemu się logo), odstęp rośnie!
-   Poświata (box-shadow) pasuje do czerwieni z h1 i przycisków */
-.nav-logo-bar:hover,
-.nav-logo-bar:focus-within {
-  transform: translateX(-50%) scale(1.18); /* zmień scale wg uznania */
-  /* poświata w mocno czerwonym #e94560 + lekko różowawe #ff6b6b dla "boom" */
-  box-shadow: 
-    0 10px 44px 0px #e9456066,             /* mocna czerwona poświata */
-    0 4px 22px -2px #ff6b6bbb,             /* dodatkowy rozbłysk jak na buttonach */
-    0 0.5px 2px 0px #ea5a6c22;             /* delikatny różany rant */
-  gap: 38px;  /* odstęp logo-tekst — poeksperymentuj, jeśli chcesz! */
-}
-
-/* Samo logo – rośnie bardziej niż reszta */
-.logo-mateusz {
-  height: 34px;
-  width: 40px;
-  object-fit: contain;
-  /* Delikatna niebieska poświata na start, potem na hover poniżej jest czerwono */
-  filter: drop-shadow(0 2px 8px rgba(86,162,255,.12));
-  border-radius: 14px;
-  background: linear-gradient(118deg, #222428 70%, #3575ea 100%);
-  box-shadow: 0 4px 16px -7px #5689ff13;
-  /* Uwaga! Możesz użyć scale albo transform: scale – poniżej rekomendowane są obie opcje na zmianę */
-  transition:
-    box-shadow 0.18s cubic-bezier(.11,.67,.7,1.54),
-    transform 0.32s cubic-bezier(.31,1.19,.68,1),
-    scale 0.32s cubic-bezier(.31,1.19,.68,1);
-  z-index: 2;
-  cursor: pointer;
-}
-.nav-logo-bar:hover .logo-mateusz,
-.nav-logo-bar:focus-within .logo-mateusz {
-  /* Możesz zmieniać scale — im większa, tym logo wyraźniej się powiększa względem kontenera */
-  scale: 2.4; /* zmień np. na 2.8 jak chcesz "boom", wtedy dopasuj gap wyżej! */
-  /* poświata przy hover - czerwień h1 i buttonów */
-  box-shadow: 
-    0 8px 32px 0px #e9456077,    /* dominujący cieniowany czerwony */
-    0 2px 8px -1px #ff6b6bcc,    /* cieplejsza łuna, tylko na hover */
-    0 0.5px 1.5px 0px #e9456035; /* lekki róż */
-}
-
-/* Tekst — scale dziedziczy po kontenerze automatycznie, ale jeśli chcesz oddzielnie animować font-size, możesz!
-   (poniżej przejście na font-size, letter-spacing — eksperymentuj dowolnie) */
-.logo-title {
-  font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
-  font-weight: 700;
-  font-size: 1.36rem;
-  letter-spacing: 1.2px;
-  background: linear-gradient(100deg, #e94560 0%, #ff6b6b 90%);
-  color: #e94560;
-  text-shadow:
-    0 1px 4px #c53643bb;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  filter: brightness(1.19) blur(0.01px);
-  line-height: 1.2;
-  margin-left: 1px;
-  transition:
-    font-size 0.18s cubic-bezier(.31,1.15,.69,1.09),
-    letter-spacing 0.18s,
-    color 0.18s;
-}
-
-/* -------- RESPONSYWNOŚĆ (telefon) ------------
-   Na telefonach całość powiększa się mniej,
-   powiększ też logo, ale NIE za dużo – by nie wyjeżdżało w górę ekranu.
-   Wersja phone-friendly! 
-*/
-@media(max-width: 720px) {
-  .nav-logo-bar {
-    min-width: 133px;
-    padding: 6px 16px 6px 10px;
-    left: 50%;
-    top: 30px;
-    gap: 10px; /* mniej odstępu */
-    transform: translateX(-50%) scale(1) !important;
-  }
-  .nav-logo-bar:hover,
-  .nav-logo-bar:focus-within {
-    transform: translateX(-50%) scale(1.1) !important; /* mniejsze powiększenie mobile */
-    /* Poświata także na mobilu pasuje do kolorów h1/button */
-    box-shadow: 
-      0 6px 28px 0px #e94560aa,
-      0 2px 11px -2px #ff6b6ba8,
-      0 0.5px 1px 0px #ea5a6c25;
-    gap: 16px;
-  }
-  .logo-mateusz { height: 33px; width: 33px;}
-  .nav-logo-bar:hover .logo-mateusz,
-  .nav-logo-bar:focus-within .logo-mateusz {
-    scale: 1.45; /* nie 2.2! — spróbuj 1.6, 1.8, aż znajdziesz sweet-spot */
-    /* Poświata logo na mobilu stricte czerwona */
-    box-shadow: 
-      0 6px 20px 0px #e9456088,
-      0 1.5px 5px -1px #ff6b6b77,
-      0 0.5px 1px 0px #e9456022;
-  }
-  .logo-title   { font-size: 1.02rem;}
-}
-
-/* ------------- DODATKOWE UWAGI -------------
-- Zmieniaj wartości 'scale' w .nav-logo-bar i .logo-mateusz, by popracować nad najlepszą proporcją "boom" logo do rozciągania boxa!
-- Zmieniaj 'gap', by tekst nie zachodził nigdy na powiększone logo.
-- transform-origin: left center pozwala na "rozrost" w prawo, tekst nie zachodzi na ikonę.
-- Możesz też dodać animowanie padding, jeśli chcesz.
-
-/* Przykład: Subtelny efekt po najechaniu myszką na logo-mateusz */
-/* Po najechaniu samym logo lekko je obracamy i dodajemy cień, a napis obok delikatnie zmienia kolor */
-.logo-mateusz:hover {
-  filter: drop-shadow(0 0 8px #e945604d);
-  transform: rotate(-6deg) scale(1.15);
-  transition: 
-    filter 0.25s cubic-bezier(.13,1.07,.45,1.12),
-    transform 0.23s cubic-bezier(.13,1.07,.45,1.12);
-}
-.logo-mateusz:hover + .logo-title {
-  color: #e94560;
-  transition: 
-    color 0.22s cubic-bezier(.13,1.07,.45,1.12);
-}
-
-/* dodatkowy styl dla odstępu - by logo nie zakrywało zawartości */
-body {
-  padding-top: 90px;
-}
-@media(max-width: 540px) {
-  body { padding-top: 70px;}
-}
-
-/* Styl dla kafelków osób na liście */
+/* =================== LISTA OSÓB =================== */
+.download-btn { display: none; margin-top: 10px; } /* ukryty domyślnie */
+.list-title { display: none; }
+#listTitle { display: block; margin-top: 15px; margin-bottom: 10px; color: #e94560; font-weight: bold; }
+.people-list { display: flex; flex-wrap: wrap; gap: 10px; list-style: none; padding: 0; } /* lista bez kropek */
 #peopleList li {
-  background: rgba(228, 228, 228, 0.15); /* Twój kolor główny, ale bardzo przezroczysty */
+  background: rgba(228, 228, 228, 0.15);
   backdrop-filter: blur(15px);
-  /* border: 1px solid rgba(216, 216, 216, 0.3); */
   padding: 6px 12px;
   border-radius: 20px;
   color: #fff;
   font-size: 0.85rem;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-  /*transition: transform 0.2s ease;*/
-  transition: all 0.3s ease;           /* Płynna animacja przy pojawianiu się */
+  transition: all 0.3s ease; /* animacja wszystkich zmian */
   display: flex;
   align-items: center;
   gap: 5px;
 }
-
-#peopleList li:hover {
-  transform: translateY(-3px);
-  transform: scale(1.10); /* Lekkie powiększenie przy najechaniu */
-  background: rgba(27, 43, 85, 0.447);
-  /* background: rgba(91, 69, 233, 0.25); */
-}
-#listTitle {
-  display: block;
-  margin-top: 15px;
-  margin-bottom: 10px;
-  color: #e94560;
-  font-weight: bold;
-} 
-/* GWIAZDA */
-/* #star {
-  position: fixed;
-  width: 40px; /* rozmiar gwiazdy */
-  /* height: 40px;
-  background: url("gwiazda.png") no-repeat center/contain;
-  top: 0;
-  left: 0;
-  pointer-events: none; /* żeby nie przeszkadzała w klikanie */
-  /* z-index: 999; /* nad wszystkim */
-  /* transition: transform 0.1s ease-out; /* płynne przesuwanie */
-/* } */
-/* Przezroczystość samego diva
-rgba(10, 10, 25, 0.7)
-To są 4 liczby:
-10, 10, 25 – kolor (R, G, B)
-0.7 – przezroczystość (alpha):
-1 – całkowicie nieprzezroczysty (pełny kolor)
-0.7 – lekko przezroczysty
-0.3 – bardzo przezroczysty
-0 – całkowicie przezroczysty (niewidoczny)
-Czyli jak chcesz:
-mniej przezroczysty: np. rgba(10, 10, 25, 0.9)
-bardziej przezroczysty: np. rgba(10, 10, 25, 0.4)
-2. Jak mocno ma się rozmazywać tło pod spodem
-backdrop-filter: blur(14px);
-większa liczba = mocniejsze rozmazanie (np. blur(20px))
-mniejsza liczba = delikatne rozmazanie (np. blur(4px)), albo można całkiem wyłączyć (usunąć linię). */
+#peopleList li:hover { transform: scale(1.10); background: rgba(27, 43, 85, 0.447); } /* powiększenie + zmiana tła */
+.more-people-count { font-style: italic; color: #888; font-size: 0.8rem; margin-top: 5px; }
