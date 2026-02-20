@@ -50,7 +50,8 @@
       <div class="choice-group">
         <div class="choice-header">
           <label class="checkbox-label">
-            <input type="checkbox" id="includeChoice1" checked class="choice-checkbox" aria-label="Uwzględnij opcję 1">
+            <!-- Checkbox domyślnie odznaczony -->
+            <input type="checkbox" id="includeChoice1" class="choice-checkbox" aria-label="Uwzględnij opcję 1">
             <span class="checkbox-custom"></span>
           </label>
           <label for="choice1" class="choice-label-text">Wybierz opcję 1:</label>
@@ -59,12 +60,14 @@
           <div class="choice-select-wrapper">
             <select id="choice1"></select>
           </div>
-          <button type="button" class="add-option-btn-inline" data-choice="1" title="Dodaj nową opcję">+</button>
         </div>
         <div class="edit-options-panel collapsed" id="editPanel1">
+          <!-- Tytuł panelu edycji z przyciskiem dodawania opcji -->
           <div class="edit-options-title clickable" data-panel="1">
             <span>Edytuj nazwy opcji</span>
             <span class="toggle-icon">▼</span>
+            <!-- Przycisk "+" przeniesiony obok tytułu panelu edycji -->
+            <button type="button" class="add-option-btn-inline" data-choice="1" title="Dodaj nową opcję">+</button>
           </div>
           <div class="edit-options-fields" id="editFields1"></div>
         </div>
@@ -74,7 +77,8 @@
       <div class="choice-group">
         <div class="choice-header">
           <label class="checkbox-label">
-            <input type="checkbox" id="includeChoice2" checked class="choice-checkbox" aria-label="Uwzględnij opcję 2">
+            <!-- Checkbox domyślnie odznaczony -->
+            <input type="checkbox" id="includeChoice2" class="choice-checkbox" aria-label="Uwzględnij opcję 2">
             <span class="checkbox-custom"></span>
           </label>
           <label for="choice2" class="choice-label-text">Wybierz opcję 2:</label>
@@ -83,12 +87,14 @@
           <div class="choice-select-wrapper">
             <select id="choice2"></select>
           </div>
-          <button type="button" class="add-option-btn-inline" data-choice="2" title="Dodaj nową opcję">+</button>
         </div>
         <div class="edit-options-panel collapsed" id="editPanel2">
+          <!-- Tytuł panelu edycji z przyciskiem dodawania opcji -->
           <div class="edit-options-title clickable" data-panel="2">
             <span>Edytuj nazwy opcji</span>
             <span class="toggle-icon">▼</span>
+            <!-- Przycisk "+" przeniesiony obok tytułu panelu edycji -->
+            <button type="button" class="add-option-btn-inline" data-choice="2" title="Dodaj nową opcję">+</button>
           </div>
           <div class="edit-options-fields" id="editFields2"></div>
         </div>
@@ -98,7 +104,8 @@
       <div class="choice-group">
         <div class="choice-header">
           <label class="checkbox-label">
-            <input type="checkbox" id="includeChoice3" checked class="choice-checkbox" aria-label="Uwzględnij opcję 3">
+            <!-- Checkbox domyślnie odznaczony -->
+            <input type="checkbox" id="includeChoice3" class="choice-checkbox" aria-label="Uwzględnij opcję 3">
             <span class="checkbox-custom"></span>
           </label>
           <label for="choice3" class="choice-label-text">Wybierz opcję 3:</label>
@@ -107,19 +114,21 @@
           <div class="choice-select-wrapper">
             <select id="choice3"></select>
           </div>
-          <button type="button" class="add-option-btn-inline" data-choice="3" title="Dodaj nową opcję">+</button>
         </div>
         <div class="edit-options-panel collapsed" id="editPanel3">
+          <!-- Tytuł panelu edycji z przyciskiem dodawania opcji -->
           <div class="edit-options-title clickable" data-panel="3">
             <span>Edytuj nazwy opcji</span>
             <span class="toggle-icon">▼</span>
+            <!-- Przycisk "+" przeniesiony obok tytułu panelu edycji -->
+            <button type="button" class="add-option-btn-inline" data-choice="3" title="Dodaj nową opcję">+</button>
           </div>
           <div class="edit-options-fields" id="editFields3"></div>
         </div>
       </div>
 
       <!-- Przyciski -->
-      <button type="submit">Potwierdź</button>
+      <button type="submit">Dodaj</button>
       <button type="reset">Wyczyść</button>
       <button id="undoBtn" type="button" class="btn-undo">Cofnij ostatni</button>
       <button id="downloadBtn" type="button" class="download-btn">Pobierz plik</button>
@@ -213,6 +222,7 @@
     };
     
     const optionIdCounters = { 1: 5, 2: 5, 3: 5 };
+    const MAX_OPTIONS_PER_CHOICE = 15; // Limit maksymalnej liczby opcji w każdym polu wyboru
 
     function renderSelectOptions(choiceNum) {
       const select = document.getElementById(`choice${choiceNum}`);
@@ -269,15 +279,21 @@
     }
 
     function addNewOption(choiceNum) {
+      const panel = document.getElementById(`editPanel${choiceNum}`);
+      // Zabezpieczenie: nie można dodać opcji gdy panel jest zwinięty
+      if (panel && panel.classList.contains("collapsed")) {
+        alert("Najpierw rozwiń panel edycji!"); // Komunikat dla użytkownika
+        return;
+      }
+      // Zabezpieczenie: sprawdzenie limitu opcji
+      if (optionsLists[choiceNum].length >= MAX_OPTIONS_PER_CHOICE) {
+        alert(`Maksymalna liczba opcji to ${MAX_OPTIONS_PER_CHOICE}!`); // Komunikat o limicie
+        return;
+      }
       const newOption = { id: optionIdCounters[choiceNum]++, name: `Opcja ${optionsLists[choiceNum].length + 1}` };
       optionsLists[choiceNum].push(newOption);
       renderSelectOptions(choiceNum);
       renderEditFields(choiceNum);
-      const panel = document.getElementById(`editPanel${choiceNum}`);
-      if (panel && panel.classList.contains("collapsed")) {
-        panel.classList.remove("collapsed");
-        updateToggleIcon(choiceNum, true);
-      }
       setTimeout(() => {
         const newInput = document.querySelector(`input[data-option-id="${newOption.id}"][data-choice="${choiceNum}"]`);
         if (newInput) { newInput.focus(); newInput.select(); }
@@ -304,7 +320,8 @@
         renderEditFields(i);
       }
       document.querySelectorAll(".add-option-btn-inline").forEach(btn => {
-        btn.addEventListener("click", function() {
+        btn.addEventListener("click", function(e) {
+          e.stopPropagation(); // Zatrzymuje propagację - zapobiega zwijaniu panelu przy kliknięciu "+"
           addNewOption(parseInt(this.dataset.choice));
         });
       });
@@ -365,11 +382,7 @@
         include1, include2, include3
       });
       updateVisualList(); form.reset();
-      
-      // Przywracamy checkboxy do stanu domyślnego (zaznaczone)
-      document.getElementById("includeChoice1").checked = true;
-      document.getElementById("includeChoice2").checked = true;
-      document.getElementById("includeChoice3").checked = true;
+      // Checkboxy pozostają odznaczone po resecie formularza (domyślny stan)
       
       if (entries.length >= EntriesLimit) downloadBtn.style.display = "inline-block";
     });
