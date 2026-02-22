@@ -1,10 +1,23 @@
+/* =================== ZMIENNE CSS (CSS Variables) =================== */
+/* [EN: Centralized design tokens for consistency and easy theming] / [PL: Centralne tokeny projektowe dla spójności i łatwego zarządzania motywem] */
+:root {
+  /* Primary accent color - used for buttons, highlights, interactive elements */
+  --main-color: #e94560;
+  --accent-color: #ff6b6b;
+  --secondary-color: #16213e;
+  --text-color: #e8e8e8;
+  --bg-gradient-start: #1a1a2e;
+  --bg-gradient-mid: #16213e;
+  --bg-gradient-end: #0f3460;
+}
+
 /* =================== RESET I BAZA =================== */
 * { margin: 0; padding: 0; box-sizing: border-box; } /* reset: zeruje marginesy, paddingi, box-sizing */
 
 body {
   font-family: "Georgia", "Times New Roman", serif; /* czcionka szeryfowa */
   line-height: 1.7; /* odstęp między liniami tekstu */
-  color: #e8e8e8; /* jasny kolor tekstu */
+  color: var(--text-color); /* jasny kolor tekstu [EN: using CSS variable for consistency] / [PL: użyto zmiennej CSS dla spójności] */
   min-height: 100vh; /* min. wysokość = 100% wysokości ekranu */
   padding: 3rem 1.5rem 3rem 1.5rem;
   padding-top: 90px; /* odstęp dla logo bara */
@@ -14,7 +27,8 @@ body {
   /* Tło: księżyc + grafika + gradient */
   background: url("ksiezyc.png") 12% 10% / 2% auto no-repeat,
               url("moje-tlo.png") 5% center / 100% auto no-repeat,
-              linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+              linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-mid) 50%, var(--bg-gradient-end) 100%);
+  /* [EN: Using CSS variables for gradient colors to ensure thematic consistency] / [PL: Użyto zmiennych CSS dla kolorów gradientu dla zachowania spójności motywu] */
   background-attachment: fixed, fixed, fixed; /* tło przyklejone do okna */
 }
 body.loaded { opacity: 1; transform: translateY(0); } /* po załadowaniu: widoczny, bez przesunięcia */
@@ -25,7 +39,7 @@ body.splashing { overflow: hidden !important; height: 100vh !important; } /* blo
   body {
     background: url("ksiezyc.png") 6% 10% / 5% auto no-repeat,
                 url("moje-tlo.png") center top / auto 150% no-repeat,
-                linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+                linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-mid) 50%, var(--bg-gradient-end) 100%);
     background-attachment: scroll, scroll, fixed; /* scroll dla wydajności na mobile */
     padding-top: 70px;
   }
@@ -96,18 +110,18 @@ h1 {
   font-size: 1.9rem; /* wielkość czcionki */
   font-weight: 400; /* grubość czcionki (normalna) */
   margin-bottom: 1.25rem;
-  color: #e94560; /* czerwony akcent */
+  color: var(--main-color); /* czerwony akcent [EN: using CSS variable] / [PL: użyto zmiennej CSS] */
   letter-spacing: 0.02em; /* odstęp między literami */
   text-align: center; /* centrowanie tekstu */
 }
 p { margin-bottom: 0.75rem; color: rgba(232, 232, 232, 0.9); font-size: 1.05rem; text-align: center; }
 a {
-  color: #e94560;
+  color: var(--main-color); /* główny kolor akcentu */
   text-decoration: none; /* bez podkreślenia */
-  border-bottom: 1px solid rgba(233, 69, 96, 0.4); /* dolna ramka jako podkreślenie */
+  border-bottom: 1px solid rgba(233, 69, 96, 0.4); /* dolna ramka jako podkreślenie [EN: accent color with opacity] / [PL: kolor akcentu z przezroczystością] */
   transition: border-color 0.2s, color 0.2s; /* animacja zmiany koloru i ramki */
 }
-a:hover { color: #ff6b6b; border-bottom-color: #ff6b6b; } /* hover: jaśniejszy czerwony */
+a:hover { color: var(--accent-color); border-bottom-color: var(--accent-color); } /* hover: jaśniejszy czerwony [EN: using accent variable] / [PL: użyto zmiennej accent] */
 
 /* =================== NAV LOGO BAR =================== */
 .nav-logo-bar {
@@ -138,7 +152,8 @@ a:hover { color: #ff6b6b; border-bottom-color: #ff6b6b; } /* hover: jaśniejszy 
 }
 .nav-logo-bar:hover, .nav-logo-bar:focus-within {
   transform: translateX(-50%) scale(1.18); /* powiększenie przy hover */
-  box-shadow: 0 10px 44px #e9456066, 0 4px 22px -2px #ff6b6bbb; /* czerwona poświata */
+  /* [EN: Glow effect using main and accent colors with opacity] / [PL: Efekt poświaty z użyciem kolorów main i accent z przezroczystością] */
+  box-shadow: 0 10px 44px var(--main-color)66, 0 4px 22px -2px var(--accent-color)bb;
   gap: 38px; /* większy odstęp przy hover */
 }
 
@@ -154,11 +169,12 @@ a:hover { color: #ff6b6b; border-bottom-color: #ff6b6b; } /* hover: jaśniejszy 
 }
 .nav-logo-bar:hover .logo-mateusz, .nav-logo-bar:focus-within .logo-mateusz {
   scale: 2.4; /* powiększenie logo przy hover na rodzicu */
-  box-shadow: 0 8px 32px #e9456077, 0 2px 8px -1px #ff6b6bcc;
+  box-shadow: 0 8px 32px var(--main-color)77, 0 2px 8px -1px var(--accent-color)cc;
 }
 .logo-mateusz:hover {
-  filter: drop-shadow(0 0 8px #e945604d);
-  transform: rotate(-6deg) scale(1.15); /* obrót + powiększenie */
+  filter: drop-shadow(0 0 8px var(--main-color)4d);
+  /* [EN: Rotation + scaling on hover for dynamic effect] / [PL: Obrót + skalowanie przy hover dla dynamicznego efektu] */
+  transform: rotate(-6deg) scale(1.15);
 }
 
 .logo-title {
@@ -166,11 +182,13 @@ a:hover { color: #ff6b6b; border-bottom-color: #ff6b6b; } /* hover: jaśniejszy 
   font-weight: 700;
   font-size: 1.36rem;
   letter-spacing: 1.2px;
-  background: linear-gradient(100deg, #e94560 0%, #ff6b6b 90%);
+  background: linear-gradient(100deg, var(--main-color) 0%, var(--accent-color) 90%);
+  /* [EN: Gradient text effect] / [PL: Efekt gradientu na tekście] */
   -webkit-background-clip: text; /* gradient na tekście (webkit) */
   -webkit-text-fill-color: transparent; /* przezroczysty tekst (webkit) */
   background-clip: text; /* gradient na tekście (standard) */
-  text-shadow: 0 1px 4px #c53643bb;
+  text-shadow: 0 1px 4px var(--main-color)bb;
+  /* [EN: Using main color with opacity via hex notation] / [PL: Użyto koloru main z przezroczystością przez notację hex] */
 }
 
 /* Mobile - nav bar */
@@ -185,7 +203,7 @@ a:hover { color: #ff6b6b; border-bottom-color: #ff6b6b; } /* hover: jaśniejszy 
   }
   .nav-logo-bar:hover, .nav-logo-bar:focus-within {
     transform: translateX(-50%) scale(1.1) !important;
-    box-shadow: 0 6px 28px #e94560aa;
+    box-shadow: 0 6px 28px var(--main-color)aa;
     gap: 16px;
   }
   .logo-mateusz { height: 33px; width: 33px; }
@@ -201,7 +219,7 @@ form input, form select {
   margin-bottom: 1rem;
   border-radius: 6px;
   border: 1px solid #444;
-  background: #22264a;
+  background: #22264a; /* ciemne tło pól formularza */
   color: #fff;
 }
 form button {
@@ -209,16 +227,16 @@ form button {
   border: none;
   border-radius: 6px;
   margin-right: 0.6rem;
-  background: #e94560;
+  background: var(--main-color); /* [EN: Primary button color] / [PL: Główny kolor przycisku] */
   color: #fff;
   cursor: pointer; /* kursor rączki */
   transition: background 0.2s; /* animacja tła */
 }
-form button:hover { background: #ff6b6b; }
+form button:hover { background: var(--accent-color); } /* [EN: Hover uses accent color] / [PL: Hover używa koloru accent] */
 form button[type="reset"], #undoBtn {
-  background: #16213e;
-  color: #e94560;
-  border: 1px solid #e94560;
+  background: var(--secondary-color); /* [EN: Secondary button background] / [PL: Tło drugorzędnych przycisków] */
+  color: var(--main-color);
+  border: 1px solid var(--main-color);
 }
 
 /* =================== GRUPA WYBORU (checkbox + select) =================== */
@@ -237,12 +255,12 @@ form button[type="reset"], #undoBtn {
 .checkbox-custom {
   width: 20px;
   height: 20px;
-  border: 2px solid #e94560;
+  border: 2px solid var(--main-color); /* [EN: Using main color for border] / [PL: Użyto koloru main dla obramowania] */
   border-radius: 4px;
-  background: #16213e;
+  background: var(--secondary-color); /* [EN: Using secondary color for background] / [PL: Użyto koloru secondary dla tła] */
   transition: all 0.2s ease; /* animacja wszystkich zmian */
 }
-.choice-checkbox:checked + .checkbox-custom { background: #e94560; } /* zaznaczony: czerwone tło */
+.choice-checkbox:checked + .checkbox-custom { background: var(--main-color); } /* zaznaczony: czerwone tło */
 .choice-checkbox:checked + .checkbox-custom::after { /* fajka po zaznaczeniu */
   content: "✓";
   position: absolute;
@@ -254,7 +272,7 @@ form button[type="reset"], #undoBtn {
   font-weight: bold;
 }
 .checkbox-label:hover .checkbox-custom {
-  border-color: #ff6b6b;
+  border-color: var(--accent-color);
   box-shadow: 0 0 8px rgba(233, 69, 96, 0.4); /* poświata przy hover */
 }
 /* Tooltip checkbox */
@@ -273,7 +291,7 @@ form button[type="reset"], #undoBtn {
   opacity: 0;
   visibility: hidden; /* ukryty (niewidoczny + nieklikalny) */
   transition: opacity 0.2s, visibility 0.2s;
-  border: 1px solid #e94560;
+  border: 1px solid var(--main-color);
   z-index: 100;
   pointer-events: none; /* nie blokuje kliknięć */
 }
@@ -298,7 +316,7 @@ form button[type="reset"], #undoBtn {
   backdrop-filter: blur(5.5px);
 }
 .edit-options-title {
-  color: #e94560;
+  color: var(--main-color); /* [EN: Title uses main color] / [PL: Tytuł używa koloru main] */
   font-size: 0.95em; /* em = względem do rodzica */
   letter-spacing: 0.2px;
   margin-bottom: 6px;
@@ -312,7 +330,7 @@ form button[type="reset"], #undoBtn {
   user-select: none; /* zablokuj zaznaczanie tekstu */
   transition: color 0.2s;
 }
-.edit-options-title.clickable:hover { color: #ff6b6b; }
+.edit-options-title.clickable:hover { color: var(--accent-color); } /* [EN: Hover uses accent color] / [PL: Hover używa koloru accent] */
 .toggle-icon { font-size: 0.8em; transition: transform 0.3s ease; }
 .edit-options-panel.collapsed .edit-options-fields { display: none; } /* zwinięty: ukryj pola */
 .edit-options-panel.collapsed .toggle-icon { transform: rotate(0deg); }
@@ -333,14 +351,14 @@ form button[type="reset"], #undoBtn {
   transition: border 0.18s, background 0.14s;
 }
 .edit-options-fields input[type="text"]:focus { /* styl przy fokusie (kliknięciu) */
-  border: 1.5px solid #e94560;
+  border: 1.5px solid var(--main-color);
   background: rgba(49,120,189,0.09);
   outline: none; /* usuń domyślną ramkę przeglądarki */
 }
 
 /* Przycisk dodawania opcji */
 .add-option-btn-inline {
-  background: #e94560;
+  background: var(--main-color);
   color: #fff;
   border: none;
   padding: 0.5rem 0.8rem;
@@ -352,13 +370,13 @@ form button[type="reset"], #undoBtn {
   transition: background 0.2s;
   margin-bottom: 0;
 }
-.add-option-btn-inline:hover { background: #ff6b6b; }
+.add-option-btn-inline:hover { background: var(--accent-color); }
 
 /* Przycisk usuwania opcji */
 .remove-option-btn {
-  background: #16213e;
-  color: #e94560;
-  border: 1px solid #e94560;
+  background: var(--secondary-color);
+  color: var(--main-color);
+  border: 1px solid var(--main-color);
   padding: 3px 8px;
   border-radius: 5px;
   cursor: pointer;
@@ -367,7 +385,7 @@ form button[type="reset"], #undoBtn {
   min-width: 24px;
   transition: all 0.2s ease;
 }
-.remove-option-btn:hover { background: #e94560; color: #fff; }
+.remove-option-btn:hover { background: var(--main-color); color: #fff; }
 
 /* Wiersz edycji opcji */
 .option-edit-row { display: flex; align-items: center; gap: 8px; flex-wrap: nowrap; } /* nowrap = bez zawijania */
@@ -385,7 +403,7 @@ form button[type="reset"], #undoBtn {
 /* =================== LISTA OSÓB =================== */
 .download-btn { display: none; margin-top: 10px; } /* ukryty domyślnie */
 .list-title { display: none; }
-#listTitle { display: block; margin-top: 15px; margin-bottom: 10px; color: #e94560; font-weight: bold; }
+#listTitle { display: block; margin-top: 15px; margin-bottom: 10px; color: var(--main-color); font-weight: bold; } /* [EN: Using main color] / [PL: Użyto koloru main] */
 .people-list { display: flex; flex-wrap: wrap; gap: 10px; list-style: none; padding: 0; } /* lista bez kropek */
 #peopleList li {
   background: rgba(228, 228, 228, 0.15);

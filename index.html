@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Stona zbierania danych użytkowników z możliwością pobrania w formacie Excel (.xlsx) z animowanym interfejsem.">
   <title>Strona Mateusza typ 5</title>
   <link rel="stylesheet" href="styles.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script> <!-- biblioteka animacji GSAP -->
@@ -10,192 +11,231 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js" integrity="sha512-r22gChDnGvBylk90+2e/ycr3RVrDi8DIOkIGNhJlKfuyQM4tIRAI062MaV8sfjQKYVGjOBaZBOA87z+IhZE9DA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> <!-- biblioteka Excel -->
 </head>
 <body>
-  <!-- SPLASH HERO VIDEO - intro wyświetlane przy wejściu -->
+  <!-- [EN: Splash hero video overlay - displayed on page entry] / [PL: Overlay wideo intro - wyświetlane przy wejściu na stronę] -->
   <div class="hero-overlay" id="heroSplash">
     <video src="MateuszIntro.mp4" autoplay muted playsinline tabindex="-1" preload="auto" aria-label="Intro Mateusza" id="introVideo"></video>
   </div>
 
-  <!-- Pasek z logo - stała nawigacja na górze -->
-  <div class="nav-logo-bar">
+  <!-- [EN: Header with logo - fixed navigation bar at top] / [PL: Header z logo - stały pasek nawigacyjny na górze] -->
+  <header class="nav-logo-bar">
     <a href="./"><img src="logo Mateusz.png" alt="Logo Mateusza" class="logo-mateusz"></a>
     <span class="logo-title">Mateusz App</span>
-  </div>
+  </header>
 
-  <!-- Gwiazdy - elementy dekoracyjne animowane w JS -->
+  <!-- [EN: Stars - decorative elements animated with JavaScript] / [PL: Gwiazdy - elementy dekoracyjne animowane w JavaScript] -->
   <img src="gwiazda.png" id="star1" class="star-layer" alt="gwiazda"> 
   <img src="gwiazda.png" id="star2" class="star-layer" alt="gwiazda">
   <img src="gwiazda.png" id="star3" class="star-layer" alt="gwiazda">
   <img src="gwiazda.png" id="star4" class="star-layer" alt="gwiazda">
 
-  <!-- Kontener główny z opisem strony -->
-  <div class="container">
+  <!-- [EN: Main content area - using semantic <main> tag] / [PL: Główna treść strony - użyto semantycznego tagu <main>] -->
+  <main class="container">
     <h1>Witaj!</h1>
-    <p>To jest prosta strona internetowa mająca na celu zbieranie informacji wpisywanych przez uzytkownika i mozliwosc pobrania ich w formacie <strong>.xlsx</strong></p>
-    <p>Ja, Mateusz, zroibłem to samemu z lekk pomoca Gemini AI Cursor Ai i Gpt Ai.</p>
-    <p>Bez zbędnych dodatków — tylko HTML i odrobina CSS. <stong>ALE Z WYCZYSZCZONYM KODEM</stong></p>
+    <p>To jest prosta strona internetowa mająca na celu zbieranie informacji wpisywanych przez użytkownika i możliwość pobrania ich w formacie <strong>.xlsx</strong>.</p>
+    <p>Ja, Mateusz, zrobiłem to samemu z lekką pomocą Gemini AI, Cursor AI i GPT AI.</p>
+    <p>Bez zbędnych dodatków — tylko HTML i odrobina CSS. <strong>ALE Z WYCZYSZCZONYM KODEM</strong>.</p>
     <h2>Trochę więcej treści do scrollowania</h2>
     <h2>Trochę więcej treści do scrollowania</h2>
     <h2>Trochę więcej treści do scrollowania</h2>
     <p>To jest dodatkowa sekcja, która sprawia, że strona ma większą wysokość, więc możesz wygodnie przewijać i obserwować ruch tła po bokach.</p>
     <p>Możesz tu później wstawić swój tekst, listę projektów, blog, cokolwiek. Na razie jest to tylko "wypełniacz", żeby mieć gdzie testować efekt.</p>
-  </div>
+  </main>
 
-  <!-- Formularz - główna funkcjonalność strony -->
-  <div class="container2">
+  <!-- [EN: Form section - main functionality of the page] / [PL: Sekcja formularza - główna funkcjonalność strony] -->
+  <section class="container2">
     <form id="mainForm">
       <label for="name">Imię:</label>
       <input type="text" id="name" maxlength="35" required placeholder="max. 35 znaków">
       <label for="email">E-mail:</label>
       <input type="email" id="email" maxlength="50" required placeholder="max. 50 znaków">
 
-      <!-- POLE WYBORU 1 - checkbox + select + panel edycji -->
+      <!-- [EN: Choice field 1 - checkbox + dropdown + edit panel] / [PL: Pole wyboru 1 - checkbox + lista rozwijana + panel edycji] -->
       <div class="choice-group">
         <div class="choice-header">
           <label class="checkbox-label">
-            <input type="checkbox" id="includeChoice1" class="choice-checkbox" aria-label="Uwzględnij opcję 1"> <!-- czy uwzględnić w Excel -->
-            <span class="checkbox-custom"></span> <!-- własny wygląd checkboxa -->
+            <input type="checkbox" id="includeChoice1" class="choice-checkbox" aria-label="Uwzględnij opcję 1">
+            <!-- [EN: Whether to include this field in Excel export] / [PL: Czy uwzględnić to pole w eksporcie Excel] -->
+            <span class="checkbox-custom"></span>
+            <!-- [EN: Custom checkbox styling] / [PL: Niestandardowy wygląd checkboxa] -->
           </label>
           <label for="choice1" class="choice-label-text">Wybierz opcję 1:</label>
+          <!-- [EN: Label for choice selection] / [PL: Etykieta wyboru opcji] -->
         </div>
         <div class="choice-row">
-          <div class="choice-select-wrapper"><select id="choice1"></select></div> <!-- lista rozwijana -->
+          <div class="choice-select-wrapper">
+            <select id="choice1"></select>
+            <!-- [EN: Dropdown list populated via JavaScript] / [PL: Lista rozwijana wypełniana dynamicznie przez JS] -->
+          </div>
         </div>
-        <div class="edit-options-panel collapsed" id="editPanel1"> <!-- panel edycji (zwinięty domyślnie) -->
+        <div class="edit-options-panel collapsed" id="editPanel1">
+          <!-- [EN: Edit panel for customizing option names (collapsed by default)] / [PL: Panel edycji nazw opcji (domyślnie zwinięty)] -->
           <div class="edit-options-title clickable" data-panel="1">
             <span>Edytuj nazwy opcji</span>
-            <span class="toggle-icon">▼</span> <!-- strzałka rozwijania -->
-            <button type="button" class="add-option-btn-inline" data-choice="1" title="Dodaj nową opcję">+</button> <!-- przycisk dodawania -->
+            <!-- [EN: Edit option names] / [PL: Edytuj nazwy opcji] -->
+            <span class="toggle-icon">▼</span>
+            <!-- [EN: Expand/collapse indicator] / [PL: Wskaźnik rozwijania/zwijania] -->
+            <button type="button" class="add-option-btn-inline" data-choice="1" title="Dodaj nową opcję">+</button>
+            <!-- [EN: Button to add new option] / [PL: Przycisk dodawania nowej opcji] -->
           </div>
-          <div class="edit-options-fields" id="editFields1"></div> <!-- pola edycji generowane w JS -->
+          <div class="edit-options-fields" id="editFields1"></div>
+          <!-- [EN: Dynamic fields for editing options (created by JS)] / [PL: Dynamiczne pola edycji opcji (tworzone przez JS)] -->
         </div>
       </div>
 
-      <!-- POLE WYBORU 2 -->
+      <!-- [EN: Choice field 2] / [PL: Pole wyboru 2] -->
       <div class="choice-group">
         <div class="choice-header">
           <label class="checkbox-label">
             <input type="checkbox" id="includeChoice2" class="choice-checkbox" aria-label="Uwzględnij opcję 2">
+            <!-- [EN: Whether to include this field in Excel export] / [PL: Czy uwzględnić to pole w eksporcie Excel] -->
             <span class="checkbox-custom"></span>
+            <!-- [EN: Custom checkbox styling] / [PL: Niestandardowy wygląd checkboxa] -->
           </label>
           <label for="choice2" class="choice-label-text">Wybierz opcję 2:</label>
+          <!-- [EN: Label for choice selection] / [PL: Etykieta wyboru opcji] -->
         </div>
         <div class="choice-row">
-          <div class="choice-select-wrapper"><select id="choice2"></select></div>
+          <div class="choice-select-wrapper">
+            <select id="choice2"></select>
+            <!-- [EN: Dropdown list populated via JavaScript] / [PL: Lista rozwijana wypełniana dynamicznie przez JS] -->
+          </div>
         </div>
         <div class="edit-options-panel collapsed" id="editPanel2">
+          <!-- [EN: Edit panel for customizing option names (collapsed by default)] / [PL: Panel edycji nazw opcji (domyślnie zwinięty)] -->
           <div class="edit-options-title clickable" data-panel="2">
             <span>Edytuj nazwy opcji</span>
+            <!-- [EN: Edit option names] / [PL: Edytuj nazwy opcji] -->
             <span class="toggle-icon">▼</span>
+            <!-- [EN: Expand/collapse indicator] / [PL: Wskaźnik rozwijania/zwijania] -->
             <button type="button" class="add-option-btn-inline" data-choice="2" title="Dodaj nową opcję">+</button>
+            <!-- [EN: Button to add new option] / [PL: Przycisk dodawania nowej opcji] -->
           </div>
           <div class="edit-options-fields" id="editFields2"></div>
+          <!-- [EN: Dynamic fields for editing options (created by JS)] / [PL: Dynamiczne pola edycji opcji (tworzone przez JS)] -->
         </div>
       </div>
 
-      <!-- POLE WYBORU 3 -->
+      <!-- [EN: Choice field 3] / [PL: Pole wyboru 3] -->
       <div class="choice-group">
         <div class="choice-header">
           <label class="checkbox-label">
             <input type="checkbox" id="includeChoice3" class="choice-checkbox" aria-label="Uwzględnij opcję 3">
+            <!-- [EN: Whether to include this field in Excel export] / [PL: Czy uwzględnić to pole w eksporcie Excel] -->
             <span class="checkbox-custom"></span>
+            <!-- [EN: Custom checkbox styling] / [PL: Niestandardowy wygląd checkboxa] -->
           </label>
           <label for="choice3" class="choice-label-text">Wybierz opcję 3:</label>
+          <!-- [EN: Label for choice selection] / [PL: Etykieta wyboru opcji] -->
         </div>
         <div class="choice-row">
-          <div class="choice-select-wrapper"><select id="choice3"></select></div>
+          <div class="choice-select-wrapper">
+            <select id="choice3"></select>
+            <!-- [EN: Dropdown list populated via JavaScript] / [PL: Lista rozwijana wypełniana dynamicznie przez JS] -->
+          </div>
         </div>
         <div class="edit-options-panel collapsed" id="editPanel3">
+          <!-- [EN: Edit panel for customizing option names (collapsed by default)] / [PL: Panel edycji nazw opcji (domyślnie zwinięty)] -->
           <div class="edit-options-title clickable" data-panel="3">
             <span>Edytuj nazwy opcji</span>
+            <!-- [EN: Edit option names] / [PL: Edytuj nazwy opcji] -->
             <span class="toggle-icon">▼</span>
+            <!-- [EN: Expand/collapse indicator] / [PL: Wskaźnik rozwijania/zwijania] -->
             <button type="button" class="add-option-btn-inline" data-choice="3" title="Dodaj nową opcję">+</button>
+            <!-- [EN: Button to add new option] / [PL: Przycisk dodawania nowej opcji] -->
           </div>
           <div class="edit-options-fields" id="editFields3"></div>
+          <!-- [EN: Dynamic fields for editing options (created by JS)] / [PL: Dynamiczne pola edycji opcji (tworzone przez JS)] -->
         </div>
       </div>
 
-      <!-- Przyciski formularza -->
-      <button type="submit">Dodaj</button> <!-- dodaje osobę do listy -->
-      <button type="reset">Wyczyść</button> <!-- czyści formularz -->
-      <button id="undoBtn" type="button" class="btn-undo">Cofnij ostatni</button> <!-- usuwa ostatni wpis -->
-      <button id="downloadBtn" type="button" class="download-btn">Pobierz plik</button> <!-- pobiera Excel (ukryty do czasu) -->
+      <!-- [EN: Form buttons] / [PL: Przyciski formularza] -->
+      <button type="submit">Dodaj</button> <!-- [EN: Add person to list] / [PL: Dodaje osobę do listy] -->
+      <button type="reset">Wyczyść</button> <!-- [EN: Clear form] / [PL: Czyści formularz] -->
+      <button id="undoBtn" type="button" class="btn-undo">Cofnij ostatni</button> <!-- [EN: Remove last entry] / [PL: Usuwa ostatni wpis] -->
+      <button id="downloadBtn" type="button" class="download-btn">Pobierz plik</button> <!-- [EN: Download Excel file (hidden until ready)] / [PL: Pobiera plik Excel (ukryty do czasu)] -->
       
-      <!-- Lista dodanych osób -->
-      <div id="peopleListContainer">
+      <!-- [EN: List of added people - using semantic <section> tag] / [PL: Lista dodanych osób - użyto semantycznego tagu <section>] -->
+      <section id="peopleListContainer">
         <span id="listTitle" class="list-title">Aktualnie dodani:</span>
-        <ul id="peopleList" class="people-list"></ul> <!-- lista generowana w JS -->
-        <p id="morePeopleCount" class="more-people-count"></p> <!-- info o większej liczbie osób -->
-      </div>
+        <ul id="peopleList" class="people-list"></ul> <!-- [EN: List generated by JavaScript] / [PL: Lista generowana w JS] -->
+        <p id="morePeopleCount" class="more-people-count"></p> <!-- [EN: Info about additional people beyond 5] / [PL: Informacja o większej liczbie osób] -->
+      </section>
     </form>
-  </div>
+  </section>
 
   <script>
     // =================== ANIMACJE, TŁO, GWIAZDY ===================
-    window.addEventListener("load", () => document.body.classList.add("loaded")); // uruchamia animację wejścia po załadowaniu
+    // [EN: Page load animation trigger] / [PL: Wyzwalacz animacji po załadowaniu strony]
+    window.addEventListener("load", () => document.body.classList.add("loaded"));
 
+    // [EN: Initialize splash video and background animations] / [PL: Inicjalizacja wideo intro i animacji tła]
     window.addEventListener("DOMContentLoaded", function() {
       const splash = document.getElementById("heroSplash"), vid = document.getElementById("introVideo");
-      if (sessionStorage.getItem("introPlayed")) { if (splash) splash.style.display = "none"; document.body.classList.remove("splashing"); return; } // pomiń jeśli już było
-      document.body.classList.add("splashing"); // blokuje scroll podczas intro
+      // [EN: Skip intro if already played in this session] / [PL: Pomiń intro jeśli już zostało odtworzone w tej sesji]
+      if (sessionStorage.getItem("introPlayed")) { if (splash) splash.style.display = "none"; document.body.classList.remove("splashing"); return; }
+      document.body.classList.add("splashing"); // [EN: Block scrolling during intro] / [PL: Blokuj scroll podczas intro]
       if (vid) {
-        vid.currentTime = 0; vid.muted = true; // wyciszone wymagane dla autoplay
-        vid.play().catch(() => { hideSplash(); }); // jeśli błąd -> ukryj splash
-        let fallback = setTimeout(hideSplash, 15000); // maksymalnie 15s intro
-        vid.addEventListener("ended", () => { clearTimeout(fallback); hideSplash(); }); // po zakończeniu wideo
-      } else setTimeout(hideSplash, 8000); // brak wideo -> ukryj po 8s
+        vid.currentTime = 0; vid.muted = true; // [EN: Muted required for autoplay] / [PL: Wyciszone wymagane dla autoplay]
+        vid.play().catch(() => { hideSplash(); }); // [EN: On error, hide splash] / [PL: Jeśli błąd, ukryj splash]
+        let fallback = setTimeout(hideSplash, 15000); // [EN: Maximum 15s intro duration] / [PL: Maksymalnie 15s trwania intro]
+        vid.addEventListener("ended", () => { clearTimeout(fallback); hideSplash(); }); // [EN: Hide splash when video ends] / [PL: Ukryj splash po zakończeniu wideo]
+      } else setTimeout(hideSplash, 8000); // [EN: No video, hide after 8s] / [PL: Brak wideo, ukryj po 8s]
+      // [EN: Hide splash screen with animation] / [PL: Ukryj ekran splash z animacją]
       function hideSplash() {
         if (splash && !splash.classList.contains("hide")) {
-          splash.classList.add("hide"); sessionStorage.setItem("introPlayed", "true"); // zapamiętaj w sesji
-          setTimeout(() => { splash.style.display = "none"; document.body.classList.remove("splashing"); }, 700); // ukryj po animacji
+          splash.classList.add("hide"); sessionStorage.setItem("introPlayed", "true"); // [EN: Remember in session] / [PL: Zapamiętaj w sesji]
+          setTimeout(() => { splash.style.display = "none"; document.body.classList.remove("splashing"); }, 700); // [EN: Remove after animation completes] / [PL: Usuń po zakończeniu animacji]
         }
       }
     });
 
-    // Efekt parallax dla kontenerów przy scrollu
+    // [EN: Parallax effect for content containers on scroll] / [PL: Efekt parallax dla kontenerów treści przy scrollu]
     const contentEls = document.querySelectorAll(".container, .container2");
-    window.addEventListener("scroll", () => { const y = window.scrollY; contentEls.forEach(el => el.style.transform = `translateY(${-y * 0.02}px)`); }); // subtelne przesunięcie
+    window.addEventListener("scroll", () => { const y = window.scrollY; contentEls.forEach(el => el.style.transform = `translateY(${-y * 0.02}px)`); }); // [EN: Subtle vertical movement] / [PL: Subtelne pionowe przesunięcie]
 
-    // Wykrywanie urządzenia mobilnego
+    // [EN: Mobile device detection] / [PL: Wykrywanie urządzenia mobilnego]
     let isMobile = window.innerWidth <= 768;
     window.addEventListener("resize", () => isMobile = window.innerWidth <= 768);
 
-    // Aktualizacja pozycji tła przy scrollu (parallax)
+    // [EN: Update background position for parallax effect] / [PL: Aktualizacja pozycji tła dla efektu parallax]
     function updateBackgrounds() {
-      const y = window.scrollY, mStr = isMobile ? 0.11 : 0.06, sStr = isMobile ? 0.12 : 0.28; // różna siła dla mobile/desktop
+      const y = window.scrollY, mStr = isMobile ? 0.11 : 0.06, sStr = isMobile ? 0.12 : 0.28; // [EN: Different strength for mobile/desktop] / [PL: Różna siła dla mobile/desktop]
       const mY = (160 + y * 0.5 * sStr) + (isMobile ? y * 1.5 : 0);
       document.body.style.backgroundPosition = `${5 + y * mStr}% ${mY}px, 50% ${-y * sStr}px, 95% ${-y * sStr}px, center center`;
     }
     updateBackgrounds(); window.addEventListener('scroll', updateBackgrounds);
 
-    // Animacja gwiazd podążających za kursorem
+    // [EN: Star animation following cursor] / [PL: Animacja gwiazd podążających za kursorem]
     const stars = document.querySelectorAll(".star-layer");
-    let mouseX = window.innerWidth/2, mouseY = window.innerHeight/2; // domyślnie środek ekranu
-    window.addEventListener("mousemove", e => { mouseX = e.clientX; mouseY = e.clientY; }); // śledź kursor
+    let mouseX = window.innerWidth/2, mouseY = window.innerHeight/2; // [EN: Default to screen center] / [PL: Domyślnie środek ekranu]
+    window.addEventListener("mousemove", e => { mouseX = e.clientX; mouseY = e.clientY; }); // [EN: Track cursor position] / [PL: Śledź pozycję kursora]
     function animateStars() {
-      const moveX = (mouseX - window.innerWidth/2) / 45, moveY = (mouseY - window.innerHeight/2) / 45; // oblicz przesunięcie
-      stars.forEach((s, i) => s.style.transform = `translate3d(${moveX * (1 + i * 0.2)}px, ${moveY * (1 + i * 0.2)}px, 0)`); // każda gwiazda z inną prędkością
-      requestAnimationFrame(animateStars); // pętla animacji 60fps
+      const moveX = (mouseX - window.innerWidth/2) / 45, moveY = (mouseY - window.innerHeight/2) / 45; // [EN: Calculate offset] / [PL: Oblicz przesunięcie]
+      // [EN: Each star moves at slightly different speed for depth effect] / [PL: Każda gwiazda porusza się nieco inną prędkością dla efektu głębi]
+      stars.forEach((s, i) => s.style.transform = `translate3d(${moveX * (1 + i * 0.2)}px, ${moveY * (1 + i * 0.2)}px, 0)`);
+      requestAnimationFrame(animateStars); // [EN: 60fps animation loop] / [PL: Pętla animacji 60fps]
     }
     animateStars();
   </script>
   
   <script>
     // =================== ZARZĄDZANIE OPCJAMI WYBORU ===================
-    const optionsLists = { // domyślne opcje dla każdego pola wyboru
+    // [EN: Default options for each choice field] / [PL: Domyślne opcje dla każdego pola wyboru]
+    const optionsLists = {
       1: [{ id: 1, name: "Opcja 1" }, { id: 2, name: "Opcja 2" }, { id: 3, name: "Opcja 3" }, { id: 4, name: "Opcja 4" }],
       2: [{ id: 1, name: "Opcja A" }, { id: 2, name: "Opcja B" }, { id: 3, name: "Opcja C" }, { id: 4, name: "Opcja D" }],
       3: [{ id: 1, name: "Opcja I" }, { id: 2, name: "Opcja II" }, { id: 3, name: "Opcja III" }, { id: 4, name: "Opcja IV" }]
     };
-    const optionIdCounters = { 1: 5, 2: 5, 3: 5 }, MAX_OPTIONS = 15; // liczniki ID i limit opcji
+    const optionIdCounters = { 1: 5, 2: 5, 3: 5 }, MAX_OPTIONS = 15; // [EN: ID counters and option limit] / [PL: Liczniki ID i limit opcji]
 
-    // Renderuje opcje w elemencie <select>
+    // [EN: Render options in a select element] / [PL: Renderuje opcje w elemencie <select>]
     function renderSelectOptions(n) {
       const sel = document.getElementById(`choice${n}`); if (!sel) return;
       sel.innerHTML = "";
-      optionsLists[n].forEach(o => { const opt = document.createElement("option"); opt.value = opt.textContent = o.name; opt.dataset.optionId = o.id; sel.appendChild(opt); }); // tworzy <option> dla każdej opcji
+      optionsLists[n].forEach(o => { const opt = document.createElement("option"); opt.value = opt.textContent = o.name; opt.dataset.optionId = o.id; sel.appendChild(opt); }); // [EN: Create option element for each item] / [PL: Tworzy <option> dla każdej opcji]
     }
 
-    // Renderuje pola edycji nazw opcji w panelu
+    // [EN: Render edit fields panel for customizing option names] / [PL: Renderuje pola edycji nazw opcji w panelu]
     function renderEditFields(n) {
       const container = document.getElementById(`editFields${n}`); if (!container) return;
       container.innerHTML = "";
@@ -204,84 +244,105 @@
         label.innerHTML = `<span>Opcja ${i + 1}:</span><input type="text" value="${o.name}" maxlength="40" autocomplete="off" data-option-id="${o.id}" data-choice="${n}" class="option-edit-input"><button type="button" class="remove-option-btn" data-option-id="${o.id}" data-choice="${n}" title="Usuń">✕</button>`;
         container.appendChild(label);
       });
-      // Obsługa zmiany nazwy opcji
+      // [EN: Handle option name changes] / [PL: Obsługa zmiany nazwy opcji]
       container.querySelectorAll(".option-edit-input").forEach(inp => {
         inp.addEventListener("input", function() {
-          const obj = optionsLists[+this.dataset.choice].find(o => o.id === +this.dataset.optionId); // znajdź opcję po ID
-          if (obj) obj.name = this.value.trim() || "Opcja"; renderSelectOptions(+this.dataset.choice); // zaktualizuj nazwę i select
+          const obj = optionsLists[+this.dataset.choice].find(o => o.id === +this.dataset.optionId); // [EN: Find option by ID] / [PL: Znajdź opcję po ID]
+          if (obj) obj.name = this.value.trim() || "Opcja"; renderSelectOptions(+this.dataset.choice); // [EN: Update name and refresh select] / [PL: Zaktualizuj nazwę i przerysuj select]
         });
       });
-      // Obsługa usuwania opcji
+      // [EN: Handle option removal] / [PL: Obsługa usuwania opcji]
       container.querySelectorAll(".remove-option-btn").forEach(btn => {
         btn.addEventListener("click", function() {
           const n = +this.dataset.choice;
-          if (optionsLists[n].length <= 1) { alert("Musisz mieć przynajmniej jedną opcję!"); return; } // minimum 1 opcja
-          optionsLists[n] = optionsLists[n].filter(o => o.id !== +this.dataset.optionId); // usuń z listy
-          renderSelectOptions(n); renderEditFields(n); // przerysuj
+          if (optionsLists[n].length <= 1) { alert("Musisz mieć przynajmniej jedną opcję!"); return; } // [EN: Minimum 1 option required] / [PL: Minimum 1 opcja wymagana]
+          optionsLists[n] = optionsLists[n].filter(o => o.id !== +this.dataset.optionId); // [EN: Remove from list] / [PL: Usuń z listy]
+          renderSelectOptions(n); renderEditFields(n); // [EN: Re-render] / [PL: Przerysuj]
         });
       });
     }
 
-    // Dodaje nową opcję do listy
+    // [EN: Add new option to list] / [PL: Dodaje nową opcję do listy]
     function addNewOption(n) {
       const panel = document.getElementById(`editPanel${n}`);
-      if (panel?.classList.contains("collapsed")) { alert("Najpierw rozwiń panel edycji!"); return; } // zabezpieczenie: panel musi być rozwinięty
-      if (optionsLists[n].length >= MAX_OPTIONS) { alert(`Maksymalnie ${MAX_OPTIONS} opcji!`); return; } // sprawdź limit
-      const newOpt = { id: optionIdCounters[n]++, name: `Opcja ${optionsLists[n].length + 1}` }; // utwórz nową opcję
-      optionsLists[n].push(newOpt); renderSelectOptions(n); renderEditFields(n); // dodaj i przerysuj
-      setTimeout(() => { const inp = document.querySelector(`input[data-option-id="${newOpt.id}"][data-choice="${n}"]`); if (inp) { inp.focus(); inp.select(); } }, 50); // focus na nowe pole
+      if (panel?.classList.contains("collapsed")) { alert("Najpierw rozwiń panel edycji!"); return; } // [EN: Panel must be expanded] / [PL: Panel musi być rozwinięty]
+      if (optionsLists[n].length >= MAX_OPTIONS) { alert(`Maksymalnie ${MAX_OPTIONS} opcji!`); return; } // [EN: Check limit] / [PL: Sprawdź limit]
+      const newOpt = { id: optionIdCounters[n]++, name: `Opcja ${optionsLists[n].length + 1}` }; // [EN: Create new option] / [PL: Utwórz nową opcję]
+      optionsLists[n].push(newOpt); renderSelectOptions(n); renderEditFields(n); // [EN: Add and re-render] / [PL: Dodaj i przerysuj]
+      setTimeout(() => { const inp = document.querySelector(`input[data-option-id="${newOpt.id}"][data-choice="${n}"]`); if (inp) { inp.focus(); inp.select(); } }, 50); // [EN: Focus on new field] / [PL: Fokus na nowe pole]
     }
 
-    // Przełącza widoczność panelu edycji
+    // [EN: Toggle edit panel visibility] / [PL: Przełącza widoczność panelu edycji]
     function toggleEditPanel(n) { const p = document.getElementById(`editPanel${n}`); if (!p) return; p.classList.toggle("collapsed"); updateToggleIcon(n, !p.classList.contains("collapsed")); }
-    function updateToggleIcon(n, expanded) { const icon = document.querySelector(`.edit-options-title[data-panel="${n}"] .toggle-icon`); if (icon) icon.textContent = expanded ? "▲" : "▼"; } // zmienia strzałkę
+    function updateToggleIcon(n, expanded) { const icon = document.querySelector(`.edit-options-title[data-panel="${n}"] .toggle-icon`); if (icon) icon.textContent = expanded ? "▲" : "▼"; } // [EN: Change arrow icon] / [PL: Zmienia strzałkę]
 
-    // Inicjalizacja po załadowaniu DOM
+    // [EN: Initialize after DOM loads] / [PL: Inicjalizacja po załadowaniu DOM]
     document.addEventListener("DOMContentLoaded", () => {
-      for (let i = 1; i <= 3; i++) { renderSelectOptions(i); renderEditFields(i); } // renderuj wszystkie 3 pola
-      document.querySelectorAll(".add-option-btn-inline").forEach(b => b.addEventListener("click", e => { e.stopPropagation(); addNewOption(+b.dataset.choice); })); // przycisk "+" (stopPropagation zapobiega zwijaniu)
-      document.querySelectorAll(".edit-options-title.clickable").forEach(t => t.addEventListener("click", () => toggleEditPanel(+t.dataset.panel))); // kliknięcie w tytuł rozwija/zwija
+      for (let i = 1; i <= 3; i++) { renderSelectOptions(i); renderEditFields(i); } // [EN: Render all 3 choice fields] / [PL: Renderuj wszystkie 3 pola]
+      // [EN: Add button listeners] / [PL: Dodaj listenery przycisków]
+      document.querySelectorAll(".add-option-btn-inline").forEach(b => b.addEventListener("click", e => { e.stopPropagation(); addNewOption(+b.dataset.choice); })); // [EN: stopPropagation prevents panel collapse] / [PL: stopPropagation zapobiega zwijaniu]
+      document.querySelectorAll(".edit-options-title.clickable").forEach(t => t.addEventListener("click", () => toggleEditPanel(+t.dataset.panel))); // [EN: Click title to expand/collapse] / [PL: Kliknięcie w tytuł rozwija/zwija]
     });
 
     // =================== LOGIKA FORMULARZA ===================
+    // [EN: Form state constants] / [PL: Stałe stanu formularza]
     const form = document.querySelector("form"), downloadBtn = document.getElementById("downloadBtn"), undoBtn = document.getElementById("undoBtn");
-    const LIMIT = 2; let entries = [], counter = 1; // minimalna liczba wpisów, lista wpisów, licznik ID
+    const LIMIT = 2; let entries = [], counter = 1; // [EN: Minimum entries for download, entries array, ID counter] / [PL: Minimalna liczba wpisów do pobrania, lista wpisów, licznik ID]
 
-    // Aktualizuje wizualną listę osób
+    // [EN: Update visual list of people] / [PL: Aktualizuje wizualną listę osób]
     function updateList() {
       const list = document.getElementById("peopleList"), title = document.getElementById("listTitle"), more = document.getElementById("morePeopleCount");
-      list.innerHTML = ""; title.style.display = entries.length ? "block" : "none"; // pokaż/ukryj tytuł
-      entries.slice(0, 5).forEach(p => { const li = document.createElement("li"); li.innerHTML = `<span>👤</span> ${p.name}`; list.appendChild(li); }); // pokaż max 5 osób
-      more.innerText = entries.length > 5 ? `...i ${entries.length - 5} osób więcej.` : ""; // info o większej liczbie
-      if (entries.length < LIMIT) downloadBtn.style.display = "none"; // ukryj przycisk pobierania
+      list.innerHTML = ""; title.style.display = entries.length ? "block" : "none"; // [EN: Show/hide title] / [PL: Pokaż/ukryj tytuł]
+      entries.slice(0, 5).forEach(p => { const li = document.createElement("li"); li.innerHTML = `<span>👤</span> ${p.name}`; list.appendChild(li); }); // [EN: Show max 5 people] / [PL: Pokaż max 5 osób]
+      more.innerText = entries.length > 5 ? `...i ${entries.length - 5} osób więcej.` : ""; // [EN: Info about more people] / [PL: Informacja o większej liczbie]
+      if (entries.length < LIMIT) downloadBtn.style.display = "none"; // [EN: Hide download button until limit reached] / [PL: Ukryj przycisk pobierania aż do osiągnięcia limitu]
     }
 
-    // Cofnij ostatni wpis
+    // [EN: Undo last entry] / [PL: Cofnij ostatni wpis]
     undoBtn.onclick = () => { if (entries.length) { entries.pop(); counter--; updateList(); } else alert("Lista jest pusta!"); };
 
-    // Obsługa wysłania formularza
+    // [EN: Handle form submission] / [PL: Obsługa wysłania formularza]
     form.addEventListener("submit", e => {
-      e.preventDefault(); // nie przeładowuj strony
-      if (entries.length >= 100) return alert("Limit 100 osób!"); // maksymalny limit
-      entries.push({ id: counter++, name: document.getElementById("name").value.trim(), email: document.getElementById("email").value.trim(),
-        choice1: document.getElementById("choice1").value, choice2: document.getElementById("choice2").value, choice3: document.getElementById("choice3").value,
-        include1: document.getElementById("includeChoice1").checked, include2: document.getElementById("includeChoice2").checked, include3: document.getElementById("includeChoice3").checked }); // dodaj wpis z danymi
-      updateList(); form.reset(); // zaktualizuj listę i wyczyść formularz
-      if (entries.length >= LIMIT) downloadBtn.style.display = "inline-block"; // odblokuj pobieranie
+      e.preventDefault(); // [EN: Prevent page reload] / [PL: Nie przeładowuj strony]
+      if (entries.length >= 100) return alert("Limit 100 osób!"); // [EN: Maximum limit] / [PL: Maksymalny limit]
+      entries.push({ 
+        id: counter++, 
+        name: document.getElementById("name").value.trim(), 
+        email: document.getElementById("email").value.trim(),
+        choice1: document.getElementById("choice1").value, 
+        choice2: document.getElementById("choice2").value, 
+        choice3: document.getElementById("choice3").value,
+        include1: document.getElementById("includeChoice1").checked, 
+        include2: document.getElementById("includeChoice2").checked, 
+        include3: document.getElementById("includeChoice3").checked 
+      }); // [EN: Add entry with all data] / [PL: Dodaj wpis z danymi]
+      updateList(); form.reset(); // [EN: Update list and clear form] / [PL: Zaktualizuj listę i wyczyść formularz]
+      if (entries.length >= LIMIT) downloadBtn.style.display = "inline-block"; // [EN: Unlock download when limit reached] / [PL: Odblokuj pobieranie gdy osiągnięto limit]
     });
 
-    // Pobieranie pliku Excel
+    // [EN: Download Excel file] / [PL: Pobieranie pliku Excel]
     downloadBtn.onclick = () => {
       if (typeof XLSX === 'undefined') return alert("Błąd: Brak biblioteki Excel!");
-      const t = new Date(), ts = `${String(t.getDate()).padStart(2,'0')}-${String(t.getMonth()+1).padStart(2,'0')}_${t.getHours()}-${t.getMinutes()}`; // timestamp w nazwie pliku
-      const headers = ["ID", "Imię", "Email"], inc1 = entries.some(e => e.include1), inc2 = entries.some(e => e.include2), inc3 = entries.some(e => e.include3); // sprawdź które kolumny są potrzebne
-      if (inc1) headers.push("Opcja 1"); if (inc2) headers.push("Opcja 2"); if (inc3) headers.push("Opcja 3"); // dodaj nagłówki dynamicznie
+      const t = new Date(), ts = `${String(t.getDate()).padStart(2,'0')}-${String(t.getMonth()+1).padStart(2,'0')}_${t.getHours()}-${t.getMinutes()}`; // [EN: Timestamp in filename] / [PL: Timestamp w nazwie pliku]
+      const headers = ["ID", "Imię", "Email"], 
+            inc1 = entries.some(e => e.include1), 
+            inc2 = entries.some(e => e.include2), 
+            inc3 = entries.some(e => e.include3); // [EN: Check which columns are needed] / [PL: Sprawdź które kolumny są potrzebne]
+      if (inc1) headers.push("Opcja 1"); if (inc2) headers.push("Opcja 2"); if (inc3) headers.push("Opcja 3"); // [EN: Add headers dynamically] / [PL: Dodaj nagłówki dynamicznie]
       const data = [headers];
-      entries.forEach(p => { const r = [p.id, p.name, p.email]; if (inc1) r.push(p.include1 ? p.choice1 : "-"); if (inc2) r.push(p.include2 ? p.choice2 : "-"); if (inc3) r.push(p.include3 ? p.choice3 : "-"); data.push(r); }); // buduj dane z uwzględnieniem checkboxów
-      const ws = XLSX.utils.aoa_to_sheet(data); // array of arrays -> sheet
-      ws['!cols'] = data.map((_, i) => ({ wch: Math.min(Math.max(...data.map(r => r[i]?.toString().length || 0)) + 3, 40) })); // auto-szerokość kolumn
-      const wb = XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb, ws, "Lista"); XLSX.writeFile(wb, `lista_${entries.length}_osob_${ts}.xlsx`); // utwórz i pobierz plik
-      entries = []; counter = 1; downloadBtn.style.display = "none"; updateList(); // reset po pobraniu
+      entries.forEach(p => { 
+        const r = [p.id, p.name, p.email]; 
+        if (inc1) r.push(p.include1 ? p.choice1 : "-"); 
+        if (inc2) r.push(p.include2 ? p.choice2 : "-"); 
+        if (inc3) r.push(p.include3 ? p.choice3 : "-"); 
+        data.push(r); 
+      }); // [EN: Build data with checkbox inclusion] / [PL: Buduj dane z uwzględnieniem checkboxów]
+      const ws = XLSX.utils.aoa_to_sheet(data); // [EN: Convert array of arrays to sheet] / [PL: Konwersja array of arrays -> sheet]
+      ws['!cols'] = data.map((_, i) => ({ wch: Math.min(Math.max(...data.map(r => r[i]?.toString().length || 0)) + 3, 40) })); // [EN: Auto-width columns] / [PL: Auto-szerokość kolumn]
+      const wb = XLSX.utils.book_new(); 
+      XLSX.utils.book_append_sheet(wb, ws, "Lista"); 
+      XLSX.writeFile(wb, `lista_${entries.length}_osob_${ts}.xlsx`); // [EN: Create and download file] / [PL: Utwórz i pobierz plik]
+      entries = []; counter = 1; downloadBtn.style.display = "none"; updateList(); // [EN: Reset after download] / [PL: Reset po pobraniu]
     };
   </script>
 </body>
