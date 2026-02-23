@@ -1,3 +1,5 @@
+/* [EN] Strona-6 project - Mateusz User 2026 / [PL] Projekt Strona-6 - Mateusz User 2026 */
+
 /* =================== ZMIENNE CSS (CSS Variables) =================== */
 /* [EN: Centralized design tokens for consistency and easy theming] / [PL: Centralne tokeny projektowe dla spójności i łatwego zarządzania motywem] */
 :root {
@@ -12,7 +14,7 @@
 }
 
 /* =================== RESET I BAZA =================== */
-* { margin: 0; padding: 0; box-sizing: border-box; } /* reset: zeruje marginesy, paddingi, box-sizing */
+* { margin: 0; padding: 0; box-sizing: border-box; } /* [EN: Reset default margins, paddings, and set box-sizing] / [PL: Reset domyślnych marginesów, paddingów i ustawienie box-sizing] */
 
 body {
   font-family: "Georgia", "Times New Roman", serif; /* czcionka szeryfowa */
@@ -123,15 +125,18 @@ a {
 }
 a:hover { color: var(--accent-color); border-bottom-color: var(--accent-color); } /* hover: jaśniejszy czerwony [EN: using accent variable] / [PL: użyto zmiennej accent] */
 
-/* =================== NAV LOGO BAR =================== */
+/* =================== NAV LOGO BAR - HOVER ANIMATIONS =================== */
+/* [EN: Fixed navigation bar with logo and title] / [PL: Stały pasek nawigacyjny z logo i tytułem] */
 .nav-logo-bar {
-  position: fixed; /* stała pozycja */
-  top: 24px;
-  left: 14%;
+  position: fixed; /* [EN: Fixed position] / [PL: Stała pozycja] */
+  top: 20px;
+  left: 50%; /* [EN: Centered horizontally] / [PL: Wyśrodkowanie poziome] */
+  transform: translateX(-50%) scale(1); /* [EN: Start: shifted left, scale 1] / [PL: Start: przesunięcie w lewo, skala 1] */
+  transform-origin: left center; /* punkt odniesienia transformacji - lewy środek */
   z-index: 30; /* warstwa nad treścią */
   display: flex; /* flexbox dla układu */
   align-items: center; /* centrowanie w pionie */
-  gap: 18px; /* odstęp między elementami */
+  gap: 5px; /* [EN: Smaller initial gap between logo and title] / [PL: Mniejszy początkowy odstęp między logo a tytułem] */
   background: rgba(37, 37, 44, 0.44);
   border-radius: 32px; /* mocno zaokrąglone rogi */
   padding: 7px 32px 7px 20px;
@@ -140,43 +145,71 @@ a:hover { color: var(--accent-color); border-bottom-color: var(--accent-color); 
   backdrop-filter: blur(8px) saturate(143%); /* rozmycie + nasycenie tła */
   border: 1.5px solid rgba(140,140,227,.09);
   box-shadow: 0 6px 18px rgba(0,0,0,0.06), 0 1.5px 7px -1.5px rgba(0,0,0,0.13);
-  transform: translateX(-50%) scale(1); /* przesunięcie + skala */
-  transform-origin: left center; /* punkt odniesienia transformacji */
   animation: dropbarIn 850ms cubic-bezier(0.31, 1.19, 0.68, 1) 0.1s 1 normal both; /* animacja wejścia */
   transition: transform 0.28s cubic-bezier(.31,1.19,.68,1), box-shadow 0.18s, gap 0.34s; /* płynne przejścia */
 }
-.nav-logo-bar a { border-bottom: none; }
+.nav-logo-bar a { border-bottom: none; /* usuń podkreślenie linku */ }
+
 @keyframes dropbarIn { /* definicja animacji wejścia */
   0% { transform: translateX(-50%) translateY(-50px) scale(0.97); opacity: 0; } /* start: wyżej, mniejszy, niewidoczny */
   100% { transform: translateX(-50%) translateY(0) scale(1); opacity: 1; } /* koniec: na miejscu, pełny rozmiar, widoczny */
 }
-.nav-logo-bar:hover, .nav-logo-bar:focus-within {
-  transform: translateX(-50%) scale(1.18); /* powiększenie przy hover */
-  /* [EN: Glow effect using main and accent colors with opacity] / [PL: Efekt poświaty z użyciem kolorów main i accent z przezroczystością] */
-  box-shadow: 0 10px 44px var(--main-color)66, 0 4px 22px -2px var(--accent-color)bb;
-  gap: 38px; /* większy odstęp przy hover */
+
+/* Hover/focus na cały bar - powiększenie i efekt poświaty */
+.nav-logo-bar:hover,
+.nav-logo-bar:focus-within {
+  transform: translateX(-50%) scale(1.18); /* [EN: Scale up by 18%] / [PL: Powiększenie o 18%] */
+  /* Efekt poświaty z kolorami main i accent z przezroczystością (hex notation) */
+  box-shadow: 
+    0 10px 44px 0px var(--main-color)66,             /* mocna czerwona poświata */
+    0 4px 22px -2px var(--accent-color)bb,           /* dodatkowy rozbłysk różowy */
+    0 0.5px 2px 0px #ea5a6c22;                       /* delikatny różowy rant */
+  gap: 38px;  /* [EN: Larger gap between logo and title on hover] / [PL: Większy odstęp między logo a tytułem przy hover] */
 }
 
+/* Logo obrazek */
 .logo-mateusz {
   height: 34px;
   width: 40px;
-  object-fit: contain; /* zachowaj proporcje obrazka */
+  object-fit: contain; /* [EN: Preserve image proportions] / [PL: Zachowaj proporcje obrazka] */
   border-radius: 14px;
   background: linear-gradient(118deg, #222428 70%, #3575ea 100%); /* gradient tła */
-  filter: drop-shadow(0 2px 8px rgba(86,162,255,.12)); /* cień pod logo */
-  transition: box-shadow 0.18s, transform 0.32s, scale 0.32s;
+  filter: drop-shadow(0 2px 8px rgba(86,162,255,.12)); /* [EN: Subtle blue glow initially] / [PL: Subtelna niebieska poświata na starcie] */
+  transition: 
+    box-shadow 0.18s cubic-bezier(.11,.67,.7,1.54),
+    transform 0.32s cubic-bezier(.31,1.19,.68,1),
+    scale 0.32s cubic-bezier(.31,1.19,.68,1);
+  z-index: 2;
   cursor: pointer; /* kursor rączki */
 }
-.nav-logo-bar:hover .logo-mateusz, .nav-logo-bar:focus-within .logo-mateusz {
-  scale: 2.4; /* powiększenie logo przy hover na rodzicu */
-  box-shadow: 0 8px 32px var(--main-color)77, 0 2px 8px -1px var(--accent-color)cc;
-}
-.logo-mateusz:hover {
-  filter: drop-shadow(0 0 8px var(--main-color)4d);
-  /* [EN: Rotation + scaling on hover for dynamic effect] / [PL: Obrót + skalowanie przy hover dla dynamicznego efektu] */
-  transform: rotate(-6deg) scale(1.15);
+
+/* Logo powiększa się bardziej niż bar przy hover */
+.nav-logo-bar:hover .logo-mateusz,
+.nav-logo-bar:focus-within .logo-mateusz {
+  scale: 2.4; /* powiększenie logo względem kontenera */
+  box-shadow: 
+    0 8px 32px 0px var(--main-color)77,    /* dominujący czerwony cień */
+    0 2px 8px -1px var(--accent-color)cc,  /* cieplejsza łuna */
+    0 0.5px 1.5px 0px var(--main-color)35; /* lekki róż */
 }
 
+/* Hover tylko na logo - obrót + dodatkowe podświetlenie */
+.logo-mateusz:hover {
+  filter: drop-shadow(0 0 8px var(--main-color)4d); /* czerwona poświata */
+  transform: rotate(-6deg) scale(1.15); /* lekkie obrocenie i skalowanie */
+  transition: 
+    filter 0.25s cubic-bezier(.13,1.07,.45,1.12),
+    transform 0.23s cubic-bezier(.13,1.07,.45,1.12);
+}
+
+/* [EN: When logo is hovered, title changes color to main accent] / [PL: Przy hoverze na logo, tytuł zmienia kolor na główny akcent] */
+.logo-mateusz:hover + .logo-title,
+.nav-logo-bar:hover .logo-title {
+  color: var(--main-color);
+  transition: color 0.22s cubic-bezier(.13,1.07,.45,1.12);
+}
+
+/* Tytuł "Mateusz App" */
 .logo-title {
   font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
   font-weight: 700;
@@ -184,31 +217,50 @@ a:hover { color: var(--accent-color); border-bottom-color: var(--accent-color); 
   letter-spacing: 1.2px;
   background: linear-gradient(100deg, var(--main-color) 0%, var(--accent-color) 90%);
   /* [EN: Gradient text effect] / [PL: Efekt gradientu na tekście] */
-  -webkit-background-clip: text; /* gradient na tekście (webkit) */
-  -webkit-text-fill-color: transparent; /* przezroczysty tekst (webkit) */
-  background-clip: text; /* gradient na tekście (standard) */
-  text-shadow: 0 1px 4px var(--main-color)bb;
-  /* [EN: Using main color with opacity via hex notation] / [PL: Użyto koloru main z przezroczystością przez notację hex] */
+  -webkit-background-clip: text; /* [EN: gradient on text (webkit)] / [PL: gradient na tekście (webkit)] */
+  -webkit-text-fill-color: transparent; /* [EN: Transparent text (webkit)] / [PL: Przezroczysty tekst (webkit)] */
+  background-clip: text; /* [EN: gradient on text (standard)] / [PL: gradient na tekście (standard)] */
+  text-shadow: 0 1px 4px var(--main-color)bb; /* [EN: Text shadow] / [PL: Cień tekstu] */
+  filter: brightness(1.19) blur(0.01px);
+  line-height: 1.0;
+  margin-left: 5px; /* [EN: Slight left margin from logo] / [PL: Mały margines lewy od logo] */
+  padding: 4px 0; /* [EN: Added vertical padding to match logo height] / [PL: Dodano pionowy padding, aby wyrównać wysokość do logo] */
+  margin-top: 4px; /* [EN: Added margin-top to vertically center text with logo] / [PL: Dodano margines górny, aby wyśrodkować tekst względem logo] */
+  align-self: center; /* [EN: Center vertically in flex container] / [PL: Wyśrodkowanie w pionie w kontenerze flex] */
+  transition: 
+    font-size 0.18s cubic-bezier(.31,1.15,.69,1.09),
+    letter-spacing 0.18s,
+    color 0.18s;;
 }
 
-/* Mobile - nav bar */
+/* Mobile - Responsywność paska nawigacyjnego */
 @media (max-width: 720px) {
   .nav-logo-bar {
     min-width: 133px;
     padding: 6px 16px 6px 10px;
     left: 50%;
     top: 30px;
-    gap: 10px;
-    transform: translateX(-50%) scale(1) !important; /* !important = nadpisz wszystko */
+    gap: 10px; /* mniejszy odstęp na mobile */
+    transform: translateX(-50%) scale(1) !important; /* !important nadpisuje hover transform */
   }
-  .nav-logo-bar:hover, .nav-logo-bar:focus-within {
-    transform: translateX(-50%) scale(1.1) !important;
-    box-shadow: 0 6px 28px var(--main-color)aa;
+  .nav-logo-bar:hover,
+  .nav-logo-bar:focus-within {
+    transform: translateX(-50%) scale(1.1) !important; /* mniejsze powiększenie na mobile */
+    box-shadow: 
+      0 6px 28px 0px var(--main-color)aa,    /* czerwona poświata */
+      0 2px 11px -2px var(--accent-color)a8, /* różowy rozbłysk */
+      0 0.5px 1px 0px var(--main-color)25;   /* delikatny rant */
     gap: 16px;
   }
-  .logo-mateusz { height: 33px; width: 33px; }
-  .nav-logo-bar:hover .logo-mateusz { scale: 1.45; }
-  .logo-title { font-size: 1.02rem; }
+  .logo-mateusz { 
+    height: 33px; 
+    width: 33px; 
+  }
+  .nav-logo-bar:hover .logo-mateusz,
+  .nav-logo-bar:focus-within .logo-mateusz {
+    scale: 1.45; /* mniejsze powiększenie logo na mobile */
+  }
+  .logo-title { font-size: 1.02rem; } /* mniejszy tekst na mobile */
 }
 
 /* =================== FORMULARZ =================== */
@@ -244,7 +296,7 @@ form button[type="reset"], #undoBtn {
 .choice-header { display: flex; align-items: center; gap: 8px; margin-bottom: 0.3rem; }
 .choice-label-text { font-weight: 600; cursor: pointer; }
 
-/* Checkbox custom */
+/* Custom checkbox */
 .checkbox-label {
   position: relative; /* pozycja względna - dla tooltipa */
   display: flex;
@@ -298,21 +350,21 @@ form button[type="reset"], #undoBtn {
 .checkbox-label:hover::after { opacity: 1; visibility: visible; } /* pokaż tooltip przy hover */
 
 /* Select wrapper */
-.choice-row { display: flex; align-items: flex-end; gap: 8px; }
+.choice-row { display: flex; align-items: flex-end; gap: 4px; } /* [EN: Row with small gap] / [PL: Wiersz z małym odstępem] */
 .choice-select-wrapper { flex: 1; } /* flex: 1 = zajmuje całą dostępną przestrzeń */
 .choice-select-wrapper label { margin-bottom: 0.3rem; }
 .choice-select-wrapper select { margin-bottom: 0; }
 
 /* =================== PANEL EDYCJI OPCJI =================== */
 .edit-options-panel {
-  margin-top: 10px;
+  margin-top: 8px; /* [EN: Margin top] / [PL: Margines górny] */
   background: rgba(42,52,75,0.10);
   border: 1.5px solid #223043;
   border-radius: 10px;
   box-shadow: 0 2px 10px rgba(20,30,40,0.07);
-  padding: 8px 12px 6px 12px;
+  padding: 6px 10px 5px 10px; /* [EN: Padding: top right bottom left (reduced)] / [PL: Padding: góra prawo dół lewo (zmniejszone)] */
   max-width: 440px;
-  margin-bottom: 12px;
+  margin-bottom: 10px; /* [EN: Margin bottom] / [PL: Margines dolny] */
   backdrop-filter: blur(5.5px);
 }
 .edit-options-title {
@@ -337,15 +389,15 @@ form button[type="reset"], #undoBtn {
 .edit-options-panel:not(.collapsed) .toggle-icon { transform: rotate(180deg); } /* rozwinięty: strzałka w górę */
 
 /* Pola edycji */
-.edit-options-fields { display: flex; flex-direction: column; gap: 7px; } /* kolumna z odstępami */
+.edit-options-fields { display: flex; flex-direction: column; gap: 4px; } /* [EN: Column with gaps between fields] / [PL: Kolumna z odstępami między polami] */
 .edit-options-fields label { display: flex; align-items: center; font-size: 1em; color: #fff; font-weight: 400; }
-.edit-options-fields span { min-width: 78px; margin-right: 9px; color: #fff; font-size: 1em; font-weight: 500; }
+.edit-options-fields span { min-width: 60px; margin-right: 7px; color: #fff; font-size: 1em; font-weight: 500; } /* [EN: Min width and margin for label] / [PL: Min. szerokość i margines dla etykiety] */
 .edit-options-fields input[type="text"] {
-  flex: 1; /* zajmuje resztę miejsca */
+  flex: 1; /* [EN: Takes remaining space] / [PL: Zajmuje resztę miejsca] */
   font-size: 1em;
   border: 1.5px solid #234;
   border-radius: 8px;
-  padding: 5px 11px;
+  padding: 4px 9px; /* [EN: Reduced padding] / [PL: Zmniejszone padding] */
   background: rgba(225,244,255, 0.09);
   color: #fff;
   transition: border 0.18s, background 0.14s;
@@ -388,7 +440,7 @@ form button[type="reset"], #undoBtn {
 .remove-option-btn:hover { background: var(--main-color); color: #fff; }
 
 /* Wiersz edycji opcji */
-.option-edit-row { display: flex; align-items: center; gap: 8px; flex-wrap: nowrap; } /* nowrap = bez zawijania */
+.option-edit-row { display: flex; align-items: center; gap: 4px; flex-wrap: nowrap; } /* [EN: Row without wrapping, small gap] / [PL: Wiersz bez zawijania, mały odstęp] */
 
 /* Mobile - panel edycji */
 @media (max-width: 700px) {

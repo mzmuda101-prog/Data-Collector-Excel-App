@@ -1,3 +1,4 @@
+<!-- [EN] Strona-6 project - Mateusz User 2026 / [PL] Projekt Strona-6 - Mateusz User 2026 -->
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -292,10 +293,10 @@
     // [EN: Update visual list of people] / [PL: Aktualizuje wizualną listę osób]
     function updateList() {
       const list = document.getElementById("peopleList"), title = document.getElementById("listTitle"), more = document.getElementById("morePeopleCount");
-      list.innerHTML = ""; title.style.display = entries.length ? "block" : "none"; // [EN: Show/hide title] / [PL: Pokaż/ukryj tytuł]
+      list.innerHTML = ""; title.style.display = entries.length ? "block" : "none"; // [EN: Show/hide title] / [PL: Pokaż/ukryj tytuł
       entries.slice(0, 5).forEach(p => { const li = document.createElement("li"); li.innerHTML = `<span>👤</span> ${p.name}`; list.appendChild(li); }); // [EN: Show max 5 people] / [PL: Pokaż max 5 osób]
-      more.innerText = entries.length > 5 ? `...i ${entries.length - 5} osób więcej.` : ""; // [EN: Info about more people] / [PL: Informacja o większej liczbie]
-      if (entries.length < LIMIT) downloadBtn.style.display = "none"; // [EN: Hide download button until limit reached] / [PL: Ukryj przycisk pobierania aż do osiągnięcia limitu]
+      more.innerText = entries.length > 5 ? `...i ${entries.length - 5} osób więcej.` : ""; // [EN: Info about more people] / [PL: Informacja o większej liczbie
+      if (entries.length < LIMIT) downloadBtn.style.display = "none"; // [EN: Hide download button until limit reached] / [PL: Ukryj przycisk pobierania aż do osiągnięcia limitu
     }
 
     // [EN: Undo last entry] / [PL: Cofnij ostatni wpis]
@@ -303,8 +304,8 @@
 
     // [EN: Handle form submission] / [PL: Obsługa wysłania formularza]
     form.addEventListener("submit", e => {
-      e.preventDefault(); // [EN: Prevent page reload] / [PL: Nie przeładowuj strony]
-      if (entries.length >= 100) return alert("Limit 100 osób!"); // [EN: Maximum limit] / [PL: Maksymalny limit]
+      e.preventDefault(); // [EN: Prevent page reload] / [PL: Nie przeładowuj strony
+      if (entries.length >= 100) return alert("Limit 100 osób!"); // [EN: Maximum limit] / [PL: Maksymalny limit
       entries.push({ 
         id: counter++, 
         name: document.getElementById("name").value.trim(), 
@@ -315,20 +316,20 @@
         include1: document.getElementById("includeChoice1").checked, 
         include2: document.getElementById("includeChoice2").checked, 
         include3: document.getElementById("includeChoice3").checked 
-      }); // [EN: Add entry with all data] / [PL: Dodaj wpis z danymi]
-      updateList(); form.reset(); // [EN: Update list and clear form] / [PL: Zaktualizuj listę i wyczyść formularz]
-      if (entries.length >= LIMIT) downloadBtn.style.display = "inline-block"; // [EN: Unlock download when limit reached] / [PL: Odblokuj pobieranie gdy osiągnięto limit]
+      }); // [EN: Add entry with all data] / [PL: Dodaj wpis z danymi
+      updateList(); form.reset(); // [EN: Update list and clear form] / [PL: Zaktualizuj listę i wyczyść formularz
+      if (entries.length >= LIMIT) downloadBtn.style.display = "inline-block"; // [EN: Unlock download when limit reached] / [PL: Odblokuj pobieranie gdy osiągnięto limit
     });
 
     // [EN: Download Excel file] / [PL: Pobieranie pliku Excel]
     downloadBtn.onclick = () => {
       if (typeof XLSX === 'undefined') return alert("Błąd: Brak biblioteki Excel!");
-      const t = new Date(), ts = `${String(t.getDate()).padStart(2,'0')}-${String(t.getMonth()+1).padStart(2,'0')}_${t.getHours()}-${t.getMinutes()}`; // [EN: Timestamp in filename] / [PL: Timestamp w nazwie pliku]
+      const t = new Date(), ts = `${String(t.getDate()).padStart(2,'0')}-${String(t.getMonth()+1).padStart(2,'0')}_${t.getHours()}-${t.getMinutes()}`; // [EN: Timestamp in filename] / [PL: Timestamp w nazwie pliku
       const headers = ["ID", "Imię", "Email"], 
             inc1 = entries.some(e => e.include1), 
             inc2 = entries.some(e => e.include2), 
-            inc3 = entries.some(e => e.include3); // [EN: Check which columns are needed] / [PL: Sprawdź które kolumny są potrzebne]
-      if (inc1) headers.push("Opcja 1"); if (inc2) headers.push("Opcja 2"); if (inc3) headers.push("Opcja 3"); // [EN: Add headers dynamically] / [PL: Dodaj nagłówki dynamicznie]
+            inc3 = entries.some(e => e.include3); // [EN: Check which columns are needed] / [PL: Sprawdź które kolumny są potrzebne
+      if (inc1) headers.push("Opcja 1"); if (inc2) headers.push("Opcja 2"); if (inc3) headers.push("Opcja 3"); // [EN: Add headers dynamically] / [PL: Dodaj nagłówki dynamicznie
       const data = [headers];
       entries.forEach(p => { 
         const r = [p.id, p.name, p.email]; 
@@ -336,13 +337,13 @@
         if (inc2) r.push(p.include2 ? p.choice2 : "-"); 
         if (inc3) r.push(p.include3 ? p.choice3 : "-"); 
         data.push(r); 
-      }); // [EN: Build data with checkbox inclusion] / [PL: Buduj dane z uwzględnieniem checkboxów]
-      const ws = XLSX.utils.aoa_to_sheet(data); // [EN: Convert array of arrays to sheet] / [PL: Konwersja array of arrays -> sheet]
-      ws['!cols'] = data.map((_, i) => ({ wch: Math.min(Math.max(...data.map(r => r[i]?.toString().length || 0)) + 3, 40) })); // [EN: Auto-width columns] / [PL: Auto-szerokość kolumn]
+      }); // [EN: Build data with checkbox inclusion] / [PL: Buduj dane z uwzględnieniem checkboxów
+      const ws = XLSX.utils.aoa_to_sheet(data); // [EN: Convert array of arrays to sheet] / [PL: Konwersja array of arrays -> sheet
+      ws['!cols'] = data.map((_, i) => ({ wch: Math.min(Math.max(...data.map(r => r[i]?.toString().length || 0)) + 3, 40) })); // [EN: Auto-width columns] / [PL: Auto-szerokość kolumn
       const wb = XLSX.utils.book_new(); 
       XLSX.utils.book_append_sheet(wb, ws, "Lista"); 
-      XLSX.writeFile(wb, `lista_${entries.length}_osob_${ts}.xlsx`); // [EN: Create and download file] / [PL: Utwórz i pobierz plik]
-      entries = []; counter = 1; downloadBtn.style.display = "none"; updateList(); // [EN: Reset after download] / [PL: Reset po pobraniu]
+      XLSX.writeFile(wb, `lista_${entries.length}_osob_${ts}.xlsx`); // [EN: Create and download file] / [PL: Utwórz i pobierz plik
+      entries = []; counter = 1; downloadBtn.style.display = "none"; updateList(); // [EN: Reset after download] / [PL: Reset po pobraniu
     };
   </script>
 </body>
