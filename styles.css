@@ -285,14 +285,21 @@ form button {
   background: var(--main-color); /* [EN: Primary button color] / [PL: Główny kolor przycisku] */
   color: #fff;
   cursor: pointer; /* kursor rączki */
-  transition: background 0.2s; /* animacja tła */
+  transition: background 0.2s, color 0.2s, border-color 0.2s, transform 0.2s; /* animacja reakcji hover */
 }
 .logo-mateusz.is-magnetic-active { will-change: transform; }
-form button:hover { background: var(--accent-color); } /* [EN: Hover uses accent color] / [PL: Hover używa koloru accent] */
+form button:hover {
+  background: var(--accent-color); /* [EN: Hover uses accent color] / [PL: Hover używa koloru accent] */
+  transform: translateY(-1px);
+}
 form button[type="reset"], #undoBtn {
   background: var(--secondary-color); /* [EN: Secondary button background] / [PL: Tło drugorzędnych przycisków] */
   color: var(--main-color);
   border: 1px solid var(--main-color);
+}
+form button[type="reset"]:hover, #undoBtn:hover {
+  color: #fff;
+  border-color: var(--accent-color);
 }
 
 /* =================== GRUPA WYBORU (checkbox + select) =================== */
