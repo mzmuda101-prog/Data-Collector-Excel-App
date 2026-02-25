@@ -169,12 +169,15 @@ a:hover { color: var(--accent-color); border-bottom-color: var(--accent-color); 
 
 /* Logo obrazek */
 .logo-mateusz {
+  --mag-x: 0px;
+  --mag-y: 0px;
   height: 34px;
   width: 40px;
   object-fit: contain; /* [EN: Preserve image proportions] / [PL: Zachowaj proporcje obrazka] */
   border-radius: 14px;
   background: linear-gradient(118deg, #222428 70%, #3575ea 100%); /* gradient tła */
   filter: drop-shadow(0 2px 8px rgba(86,162,255,.12)); /* [EN: Subtle blue glow initially] / [PL: Subtelna niebieska poświata na starcie] */
+  transform: translate3d(var(--mag-x), var(--mag-y), 0);
   transition: 
     box-shadow 0.18s cubic-bezier(.11,.67,.7,1.54),
     transform 0.32s cubic-bezier(.31,1.19,.68,1),
@@ -196,7 +199,7 @@ a:hover { color: var(--accent-color); border-bottom-color: var(--accent-color); 
 /* Hover tylko na logo - obrót + dodatkowe podświetlenie */
 .logo-mateusz:hover {
   filter: drop-shadow(0 0 8px var(--main-color)4d); /* czerwona poświata */
-  transform: rotate(-6deg) scale(1.15); /* lekkie obrocenie i skalowanie */
+  transform: translate3d(var(--mag-x), var(--mag-y), 0) rotate(-6deg) scale(1.15); /* lekkie obrocenie i skalowanie + offset magnetyczny */
   transition: 
     filter 0.25s cubic-bezier(.13,1.07,.45,1.12),
     transform 0.23s cubic-bezier(.13,1.07,.45,1.12);
@@ -284,6 +287,7 @@ form button {
   cursor: pointer; /* kursor rączki */
   transition: background 0.2s; /* animacja tła */
 }
+.logo-mateusz.is-magnetic-active { will-change: transform; }
 form button:hover { background: var(--accent-color); } /* [EN: Hover uses accent color] / [PL: Hover używa koloru accent] */
 form button[type="reset"], #undoBtn {
   background: var(--secondary-color); /* [EN: Secondary button background] / [PL: Tło drugorzędnych przycisków] */

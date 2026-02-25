@@ -93,6 +93,94 @@ function createAndAnimateM() {
     duration: 1.0,
     ease: "power1.inOut"
   });
+
+  // Magnetyczny efekt dla litery "M" (podobny do logo)
+  setupMagneticEffect(mContainer, {
+    activationRadius: 150,
+    maxOffset: 26,
+    strengthFactor: 0.24,
+    enableClickRepel: true,
+    repelStrength: 52
+  });
+}
+
+// Reuzywalny efekt "magnesu" dla dowolnego elementu
+function setupMagneticEffect(element, config = {}) {
+  if (!element || !window.matchMedia("(pointer: fine)").matches) return;
+
+  const activationRadius = config.activationRadius ?? 140;
+  const maxOffset = config.maxOffset ?? 24;
+  const strengthFactor = config.strengthFactor ?? 0.22;
+  const enableClickRepel = config.enableClickRepel ?? false;
+  const repelStrength = config.repelStrength ?? 40;
+
+  let currentX = 0, currentY = 0, targetX = 0, targetY = 0;
+  let animating = false;
+
+  function animateMagnet() {
+    currentX += (targetX - currentX) * 0.22;
+    currentY += (targetY - currentY) * 0.22;
+    element.style.transform = `translate3d(${currentX.toFixed(2)}px, ${currentY.toFixed(2)}px, 0)`;
+
+    if (Math.abs(targetX - currentX) > 0.08 || Math.abs(targetY - currentY) > 0.08) {
+      requestAnimationFrame(animateMagnet);
+    } else {
+      currentX = targetX; currentY = targetY;
+      element.style.transform = `translate3d(${currentX.toFixed(2)}px, ${currentY.toFixed(2)}px, 0)`;
+      animating = false;
+    }
+  }
+
+  function moveToTarget() {
+    if (!animating) { animating = true; requestAnimationFrame(animateMagnet); }
+  }
+
+  function resetMagnet() {
+    targetX = 0; targetY = 0;
+    moveToTarget();
+  }
+
+  document.addEventListener("mousemove", e => {
+    const rect = element.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+    const deltaX = e.clientX - centerX;
+    const deltaY = e.clientY - centerY;
+    const distance = Math.hypot(deltaX, deltaY);
+
+    if (distance <= activationRadius) {
+      const strength = (activationRadius - distance) / activationRadius;
+      targetX = Math.max(-maxOffset, Math.min(maxOffset, deltaX * strengthFactor * strength));
+      targetY = Math.max(-maxOffset, Math.min(maxOffset, deltaY * strengthFactor * strength));
+    } else {
+      targetX = 0; targetY = 0;
+    }
+    moveToTarget();
+  });
+
+  // Krótki "odskok" elementu od kursora po kliknięciu blisko elementu
+  if (enableClickRepel) {
+    document.addEventListener("pointerdown", e => {
+      const rect = element.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+      const deltaX = e.clientX - centerX;
+      const deltaY = e.clientY - centerY;
+      const distance = Math.hypot(deltaX, deltaY);
+
+      // Reakcja tylko na kliknięcie w pobliżu elementu
+      if (distance <= activationRadius) {
+        const normX = distance ? deltaX / distance : 0;
+        const normY = distance ? deltaY / distance : 0;
+        // Odepchnięcie w stronę przeciwną do kliknięcia
+        targetX = Math.max(-maxOffset, Math.min(maxOffset, -normX * repelStrength));
+        targetY = Math.max(-maxOffset, Math.min(maxOffset, -normY * repelStrength));
+        moveToTarget();
+      }
+    });
+  }
+
+  window.addEventListener("blur", resetMagnet);
 }
 
 window.addEventListener("DOMContentLoaded", () => {

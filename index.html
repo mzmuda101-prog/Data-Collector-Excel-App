@@ -283,6 +283,66 @@
       // [EN: Add button listeners] / [PL: Dodaj listenery przycisków]
       document.querySelectorAll(".add-option-btn-inline").forEach(b => b.addEventListener("click", e => { e.stopPropagation(); addNewOption(+b.dataset.choice); })); // [EN: stopPropagation prevents panel collapse] / [PL: stopPropagation zapobiega zwijaniu]
       document.querySelectorAll(".edit-options-title.clickable").forEach(t => t.addEventListener("click", () => toggleEditPanel(+t.dataset.panel))); // [EN: Click title to expand/collapse] / [PL: Kliknięcie w tytuł rozwija/zwija]
+      
+      // =================== Magiczny hover efekt ===================
+      // [EN: Magnetic hover effect for logo in nav bar (desktop pointer only)] / [PL: Magnetyczny efekt hover dla logo w pasku nawigacji (tylko precyzyjny kursor)]
+      const magneticLogo = document.querySelector(".logo-mateusz");
+      if (magneticLogo && window.matchMedia("(pointer: fine)").matches) {
+        const activationRadius = 145; // [EN: Cursor distance that triggers magnet effect] / [PL: Dystans kursora aktywujący efekt]
+        const maxOffset = 34; // [EN: Maximum movement range in px] / [PL: Maksymalny zakres przesunięcia w px]
+
+        let currentX = 0, currentY = 0, targetX = 0, targetY = 0;
+        let animating = false;
+
+        function animateMagnet() {
+          currentX += (targetX - currentX) * 0.22;
+          currentY += (targetY - currentY) * 0.22;
+          magneticLogo.style.setProperty("--mag-x", `${currentX.toFixed(2)}px`);
+          magneticLogo.style.setProperty("--mag-y", `${currentY.toFixed(2)}px`);
+
+          if (Math.abs(targetX - currentX) > 0.08 || Math.abs(targetY - currentY) > 0.08) {
+            requestAnimationFrame(animateMagnet);
+          } else {
+            currentX = targetX; currentY = targetY;
+            magneticLogo.style.setProperty("--mag-x", `${currentX.toFixed(2)}px`);
+            magneticLogo.style.setProperty("--mag-y", `${currentY.toFixed(2)}px`);
+            animating = false;
+          }
+        }
+
+        function moveToTarget() {
+          if (!animating) { animating = true; requestAnimationFrame(animateMagnet); }
+        }
+
+        function resetMagnet() {
+          targetX = 0; targetY = 0;
+          magneticLogo.classList.remove("is-magnetic-active");
+          moveToTarget();
+        }
+
+        document.addEventListener("mousemove", e => {
+          const rect = magneticLogo.getBoundingClientRect();
+          const centerX = rect.left + rect.width / 2;
+          const centerY = rect.top + rect.height / 2;
+          const deltaX = e.clientX - centerX;
+          const deltaY = e.clientY - centerY;
+          const distance = Math.hypot(deltaX, deltaY);
+
+          if (distance <= activationRadius) {
+            const strength = (activationRadius - distance) / activationRadius;
+            targetX = Math.max(-maxOffset, Math.min(maxOffset, deltaX * 0.22 * strength));
+            targetY = Math.max(-maxOffset, Math.min(maxOffset, deltaY * 0.22 * strength));
+            magneticLogo.classList.add("is-magnetic-active");
+          } else {
+            targetX = 0; targetY = 0;
+            magneticLogo.classList.remove("is-magnetic-active");
+          }
+          moveToTarget();
+        });
+
+        magneticLogo.addEventListener("mouseleave", resetMagnet);
+        window.addEventListener("blur", resetMagnet);
+      }
     });
 
     // =================== LOGIKA FORMULARZA ===================
