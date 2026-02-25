@@ -28,6 +28,7 @@
   <img src="gwiazda.png" id="star2" class="star-layer" alt="gwiazda">
   <img src="gwiazda.png" id="star3" class="star-layer" alt="gwiazda">
   <img src="gwiazda.png" id="star4" class="star-layer" alt="gwiazda">
+  <img src="ksiezyc.png" id="moonFloat" class="moon-float" alt="księżyc">
 
   <!-- [EN: Main content area - using semantic <main> tag] / [PL: Główna treść strony - użyto semantycznego tagu <main>] -->
   <main class="container">
@@ -196,13 +197,37 @@
 
     // [EN: Mobile device detection] / [PL: Wykrywanie urządzenia mobilnego]
     let isMobile = window.innerWidth <= 768;
-    window.addEventListener("resize", () => isMobile = window.innerWidth <= 768);
+    window.addEventListener("resize", () => { isMobile = window.innerWidth <= 768; updateBackgrounds(); });
 
     // [EN: Update background position for parallax effect] / [PL: Aktualizacja pozycji tła dla efektu parallax]
     function updateBackgrounds() {
-      const y = window.scrollY, mStr = isMobile ? 0.11 : 0.06, sStr = isMobile ? 0.12 : 0.28; // [EN: Different strength for mobile/desktop] / [PL: Różna siła dla mobile/desktop]
-      const mY = (160 + y * 0.5 * sStr) + (isMobile ? y * 1.5 : 0);
-      document.body.style.backgroundPosition = `${5 + y * mStr}% ${mY}px, 50% ${-y * sStr}px, 95% ${-y * sStr}px, center center`;
+      const y = window.scrollY, bgStrength = isMobile ? 0.14 : 0.08; // [EN: Different background strength for mobile/desktop] / [PL: Różna siła tła dla mobile/desktop]
+      document.body.style.backgroundPosition = `center ${-y * bgStrength}px, center center`;
+
+      // [EN: Moon path based on previous behavior (visible from start, moving right/down)] / [PL: Ścieżka księżyca zgodna z poprzednim zachowaniem (widoczny od startu, ruch w prawo/dół)]
+      const moon = document.getElementById("moonFloat");
+      if (!moon) return;
+
+      const maxScroll = Math.max(document.documentElement.scrollHeight - window.innerHeight, 1);
+      // [EN: Use ~85% of whole scroll for moon movement so it stays visible longer] / [PL: Użyj ~85% całego scrolla, aby księżyc był dłużej widoczny]
+      const t = Math.min(Math.max(y / (maxScroll * 0.85), 0), 1);
+
+      // [EN: Horizontal movement across sky] / [PL: Ruch poziomy po niebie]
+      const xStart = isMobile ? 0.08 : 0.05;
+      const xEnd = isMobile ? 0.86 : 0.74;
+      const moonX = (xStart + (xEnd - xStart) * t) * window.innerWidth;
+
+      // [EN: Clear downward motion with hard sky limit (moon never enters mountains)] / [PL: Wyraźne schodzenie w dół z twardym limitem nieba (księżyc nie wchodzi na góry)]
+      const baseY = isMobile ? 96 : 112; // [EN: Initial vertical position in px] / [PL: Początkowa wysokość w px]
+      const fallDistance = Math.min(window.innerHeight * (isMobile ? 1.6 : 1.4), isMobile ? 1700 : 1440); // [EN: Controlled descent distance] / [PL: Kontrolowany dystans opadania]
+      const skyLimitY = window.innerHeight * (isMobile ? 1.8 : 1.55); // [EN: Max Y to stay in sky zone] / [PL: Maksymalne Y by zostać w strefie nieba]
+      const downT = 1 - Math.pow(1 - t, 1.35); // [EN: Slight ease-out for vertical drift visibility] / [PL: Lekkie ease-out dla lepszej widoczności dryfu pionowego]
+      const moonY = Math.min(baseY + fallDistance * downT, skyLimitY);
+
+      moon.style.transform = `translate3d(${moonX.toFixed(2)}px, ${moonY.toFixed(2)}px, 0)`;
+
+      // [EN: Keep visible from first frame] / [PL: Widoczny od pierwszej klatki]
+      moon.style.opacity = "1";
     }
     updateBackgrounds(); window.addEventListener('scroll', updateBackgrounds);
 

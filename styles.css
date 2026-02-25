@@ -26,12 +26,11 @@ body {
   opacity: 0; /* przezroczystość: 0 = niewidoczny */
   transform: translateY(20px); /* przesunięcie w dół o 20px */
   transition: opacity 1s ease-out, transform 1s ease-out; /* animacja zmiany opacity i transform */
-  /* Tło: księżyc + grafika + gradient */
-  background: url("ksiezyc.png") 12% 10% / 2% auto no-repeat,
-              url("moje-tlo.png") 5% center / 100% auto no-repeat,
+  /* Tło: grafika + gradient (księżyc jest osobnym elementem .moon-float) */
+  background: url("moje-tlo.png") 5% center / 100% auto no-repeat,
               linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-mid) 50%, var(--bg-gradient-end) 100%);
   /* [EN: Using CSS variables for gradient colors to ensure thematic consistency] / [PL: Użyto zmiennych CSS dla kolorów gradientu dla zachowania spójności motywu] */
-  background-attachment: fixed, fixed, fixed; /* tło przyklejone do okna */
+  background-attachment: fixed, fixed; /* tło przyklejone do okna */
 }
 body.loaded { opacity: 1; transform: translateY(0); } /* po załadowaniu: widoczny, bez przesunięcia */
 body.splashing { overflow: hidden !important; height: 100vh !important; } /* blokada scrolla podczas splash */
@@ -39,10 +38,9 @@ body.splashing { overflow: hidden !important; height: 100vh !important; } /* blo
 /* Mobile - tło */
 @media (max-width: 768px) { /* style tylko dla ekranów <= 768px */
   body {
-    background: url("ksiezyc.png") 6% 10% / 5% auto no-repeat,
-                url("moje-tlo.png") center top / auto 150% no-repeat,
+    background: url("moje-tlo.png") center top / auto 150% no-repeat,
                 linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-mid) 50%, var(--bg-gradient-end) 100%);
-    background-attachment: scroll, scroll, fixed; /* scroll dla wydajności na mobile */
+    background-attachment: scroll, fixed; /* scroll dla wydajności na mobile */
     padding-top: 70px;
   }
 }
@@ -84,6 +82,23 @@ body.splashing { overflow: hidden !important; height: 100vh !important; } /* blo
 #star2 { top: 40%; left: 80%; width: 30px; opacity: 0.6; } /* pozycja i wielkość gwiazdy 2 */
 #star3 { top: 75%; left: 15%; width: 50px; opacity: 0.4; } /* pozycja i wielkość gwiazdy 3 */
 #star4 { top: 70%; left: 80%; width: 45px; opacity: 0.7; } /* pozycja i wielkość gwiazdy 4 */
+
+/* Księżyc jako osobny element z własnym pathingiem */
+.moon-float {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: clamp(26px, 2.6vw, 44px);
+  height: auto;
+  pointer-events: none;
+  z-index: -1;
+  opacity: 0;
+  will-change: transform, opacity;
+  transition: opacity 0.35s ease;
+}
+@media (max-width: 768px) {
+  .moon-float { width: clamp(30px, 5.2vw, 56px); }
+}
 
 /* =================== KONTENERY GŁÓWNE =================== */
 .container {
