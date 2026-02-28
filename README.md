@@ -1,7 +1,7 @@
 # 📊 Animated Data Collector & Excel Export
 
 Interaktywna aplikacja webowa do zbierania danych użytkowników i eksportu do plików Excel (`.xlsx`).  
-To jeden z moich pierwszych projektów, w którym rozwijam dobre praktyki, czytelność kodu i UX.
+To jeden z moich pierwszych projektów, w którym rozwijam dobre praktyki, czytelność i optymalizację kodu.
 
 ## 🌍 Live Demo
 🔗 https://strona-6.vercel.app
