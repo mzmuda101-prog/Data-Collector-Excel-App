@@ -1,5 +1,7 @@
 # Animated Data Collector & Excel Export
 
+To jeden z moich pierwszych projektów, w którym rozwijam dobre praktyki i optymalizację kodu.
+
 Live demo: https://strona-6.vercel.app
 
 > Nazwa katalogu lokalnego została zmieniona z `Strona_6` na `Data-Collector-Excel-App`.
