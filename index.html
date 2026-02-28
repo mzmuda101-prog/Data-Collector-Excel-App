@@ -31,7 +31,7 @@
   <img src="ksiezyc.png" id="moonFloat" class="moon-float" alt="księżyc">
 
   <!-- [EN: Main content area - using semantic <main> tag] / [PL: Główna treść strony - użyto semantycznego tagu <main>] -->
-  <main class="container">
+  <main class="container horizontal-flow">
     <h1>Witaj!</h1>
     <p>To jest prosta strona internetowa mająca na celu zbieranie informacji wpisywanych przez użytkownika i możliwość pobrania ich w formacie <strong>.xlsx</strong>.</p>
     <p>Ja, Mateusz, zrobiłem to samemu z lekką pomocą Gemini AI, Cursor AI i GPT AI.</p>
@@ -44,7 +44,7 @@
   </main>
 
   <!-- [EN: Form section - main functionality of the page] / [PL: Sekcja formularza - główna funkcjonalność strony] -->
-  <section class="container2">
+  <section class="container2 horizontal-flow">
     <form id="mainForm">
       <label for="name">Imię:</label>
       <input type="text" id="name" maxlength="35" required placeholder="max. 35 znaków">
@@ -191,13 +191,35 @@
       }
     });
     //    //----------scrollowana animacja ksiezyca / mooon scroll animation----------//
-    // [EN: Parallax effect for content containers on scroll] / [PL: Efekt parallax dla kontenerów treści przy scrollu]
-    const contentEls = document.querySelectorAll(".container, .container2");
-    window.addEventListener("scroll", () => { const y = window.scrollY; contentEls.forEach(el => el.style.transform = `translateY(${-y * 0.02}px)`); }); // [EN: Subtle vertical movement] / [PL: Subtelne pionowe przesunięcie]
+    // [EN: Horizontal scroll-feeling + right-to-left reveal for content cards] / [PL: Efekt "scrollowania w bok" + reveal kart od prawej do lewej]
+    const flowEls = document.querySelectorAll(".horizontal-flow");
+    function updateHorizontalFlow() {
+      const y = window.scrollY;
+      const maxScroll = Math.max(document.documentElement.scrollHeight - window.innerHeight, 1);
+      const progress = Math.min(Math.max(y / maxScroll, 0), 1);
+      flowEls.forEach((el, i) => {
+        const baseShift = isMobile ? -18 : -86;
+        const stagger = i * (isMobile ? 6 : 14);
+        const driftX = baseShift * progress + stagger;
+        el.style.setProperty("--flow-x", `${driftX.toFixed(2)}px`);
+      });
+    }
+    if ("IntersectionObserver" in window) {
+      const flowObserver = new IntersectionObserver((entriesObs) => {
+        entriesObs.forEach(entry => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add("is-visible");
+          flowObserver.unobserve(entry.target);
+        });
+      }, { threshold: 0.18, rootMargin: "0px 0px -8% 0px" });
+      flowEls.forEach(el => flowObserver.observe(el));
+    } else {
+      flowEls.forEach(el => el.classList.add("is-visible"));
+    }
 
     // [EN: Mobile device detection] / [PL: Wykrywanie urządzenia mobilnego]
     let isMobile = window.innerWidth <= 768;
-    window.addEventListener("resize", () => { isMobile = window.innerWidth <= 768; updateBackgrounds(); });
+    window.addEventListener("resize", () => { isMobile = window.innerWidth <= 768; updateBackgrounds(); updateHorizontalFlow(); });
 
     // [EN: Update background position for parallax effect] / [PL: Aktualizacja pozycji tła dla efektu parallax]
     function updateBackgrounds() {
@@ -229,7 +251,9 @@
       // [EN: Keep visible from first frame] / [PL: Widoczny od pierwszej klatki]
       moon.style.opacity = "1";
     }
-    updateBackgrounds(); window.addEventListener('scroll', updateBackgrounds);
+    updateBackgrounds(); updateHorizontalFlow();
+    window.addEventListener('scroll', updateBackgrounds);
+    window.addEventListener('scroll', updateHorizontalFlow, { passive: true });
 
     // [EN: Star animation following cursor] / [PL: Animacja gwiazd podążających za kursorem]
     const stars = document.querySelectorAll(".star-layer");

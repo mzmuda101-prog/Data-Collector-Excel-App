@@ -13,6 +13,9 @@ To jeden z moich pierwszych projektów, w którym rozwijam dobre praktyki, czyte
 - ✅ Dynamiczna edycja opcji w `choice1`, `choice2`, `choice3`.
 - ✅ Eksport danych do Excela przez `SheetJS`.
 - ✅ Intro video i animowane tło (gwiazdy + księżyc).
+- ✅ Efekt `horizontal scroll-feeling` dla głównych sekcji (`.horizontal-flow`).
+- ✅ Płynny reveal sekcji `right-to-left` przy wejściu w viewport.
+- ✅ Fallbacki kompatybilności i dostępności: `prefers-reduced-motion` + tryb bez `IntersectionObserver`.
 - ✅ Przycisk cofania ostatniego wpisu i podgląd listy.
 
 ## 🧰 Stack
@@ -23,8 +26,8 @@ To jeden z moich pierwszych projektów, w którym rozwijam dobre praktyki, czyte
 - SheetJS (`xlsx`)
 
 ## 📁 Struktura projektu
-- `index.html` - struktura strony i logika formularza.
-- `styles.css` - stylizacja, layout i responsywność.
+- `index.html` - struktura strony, logika formularza oraz logika scroll/reveal (`.horizontal-flow`, `updateHorizontalFlow`, `IntersectionObserver`).
+- `styles.css` - stylizacja, layout, responsywność oraz styl efektu `horizontal-flow` i media query dla `prefers-reduced-motion`.
 - `animacje.js` - animacje nagłówka i elementów wizualnych.
 - `mateusz_animacja.js` - starszy/archiwalny skrypt.
 - `MateuszIntro.mp4`, `moje-tlo.png`, `gwiazda.png`, `ksiezyc.png`, `logo Mateusz.png` - assety.
