@@ -1,38 +1,45 @@
-# Animated Data Collector & Excel Export
+# 📊 Animated Data Collector & Excel Export
 
-To jeden z moich pierwszych projektów, w którym rozwijam dobre praktyki i optymalizację kodu.
+Interaktywna aplikacja webowa do zbierania danych użytkowników i eksportu do plików Excel (`.xlsx`).  
+To jeden z moich pierwszych projektów, w którym rozwijam dobre praktyki, czytelność kodu i UX.
 
-Live demo: https://strona-6.vercel.app
+## 🌍 Live Demo
+🔗 https://strona-6.vercel.app
 
-> Nazwa katalogu lokalnego została zmieniona z `Strona_6` na `Data-Collector-Excel-App`.
+> Lokalna nazwa katalogu została zmieniona z `Strona_6` na `Data-Collector-Excel-App`.
 
-Interaktywna strona do zbierania danych użytkownika i eksportu do pliku `.xlsx`.
-Projekt łączy formularz, dynamiczne opcje wyboru oraz animacje UI.
+## ✨ Funkcje
+- ✅ Formularz danych (`imię`, `email`, 3 pola wyboru).
+- ✅ Dynamiczna edycja opcji w `choice1`, `choice2`, `choice3`.
+- ✅ Eksport danych do Excela przez `SheetJS`.
+- ✅ Intro video i animowane tło (gwiazdy + księżyc).
+- ✅ Przycisk cofania ostatniego wpisu i podgląd listy.
 
-## Funkcje
-- Formularz danych (`imię`, `email`, opcje dodatkowe).
-- Dynamiczna edycja i rozbudowa list opcji (`choice1-3`).
-- Eksport danych do Excela przez `SheetJS`.
-- Intro video + animacje tła i elementów dekoracyjnych.
-
-## Stack
+## 🧰 Stack
 - HTML5
 - CSS3
 - JavaScript (ES6)
 - GSAP
 - SheetJS (`xlsx`)
 
-## Struktura projektu
-- `index.html` - struktura strony i logika formularza (inline JS).
-- `styles.css` - stylizacja i responsywność.
-- `animacje.js` - animacja nagłówka oraz SVG "M".
-- `mateusz_animacja.js` - starszy/archiwalny skrypt (obecnie niewykorzystywany).
-- `MateuszIntro.mp4`, `moje-tlo.png`, `gwiazda.png`, `ksiezyc.png`, `logo Mateusz.png` - assety wizualne.
+## 📁 Struktura projektu
+- `index.html` - struktura strony i logika formularza.
+- `styles.css` - stylizacja, layout i responsywność.
+- `animacje.js` - animacje nagłówka i elementów wizualnych.
+- `mateusz_animacja.js` - starszy/archiwalny skrypt.
+- `MateuszIntro.mp4`, `moje-tlo.png`, `gwiazda.png`, `ksiezyc.png`, `logo Mateusz.png` - assety.
 
-## Uruchomienie lokalnie
+## ⚙️ Uruchomienie lokalnie
 1. Otwórz `index.html` w przeglądarce.
-2. (Opcjonalnie) uruchom lokalny serwer statyczny, np. `npx serve`.
+2. Opcjonalnie uruchom serwer statyczny, np. `npx serve`.
 
-## Uwagi
-- Repo zawiera duże pliki multimedialne (wideo i obrazy).
-- Do eksportu wymagane jest poprawne załadowanie CDN `xlsx`.
+## 🗺️ Roadmap
+- [ ] Refactor części JS do osobnych modułów.
+- [ ] Dodanie prostych testów walidacji formularza.
+- [ ] Lepsza obsługa błędów i komunikatów użytkownika.
+
+## 👤 Autor
+Mateusz User
+
+## 📄 Licencja
+MIT
