@@ -39,7 +39,7 @@ To jeden z moich pierwszych projektów, w którym rozwijam dobre praktyki, czyte
 - [ ] Lepsza obsługa błędów i komunikatów użytkownika.
 
 ## 👤 Autor
-Mateusz User
+Mateusz Zmuda
 
 ## 📄 Licencja
 MIT
