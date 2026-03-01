@@ -19,7 +19,7 @@
 
   <!-- [EN: Header with logo - fixed navigation bar at top] / [PL: Header z logo - stały pasek nawigacyjny na górze] -->
   <header class="nav-logo-bar">
-    <a href="./"><img src="logo Mateusz.png" alt="Logo Mateusza" class="logo-mateusz"></a>
+    <a href="./"><img src="logo Mateusz przezroczyste.png" alt="Logo Mateusza" class="logo-mateusz"></a>
     <span class="logo-title">Mateusz App</span>
   </header>
 
@@ -30,21 +30,60 @@
   <img src="gwiazda.png" id="star4" class="star-layer" alt="gwiazda">
   <img src="ksiezyc.png" id="moonFloat" class="moon-float" alt="księżyc">
 
-  <!-- [EN: Main content area - using semantic <main> tag] / [PL: Główna treść strony - użyto semantycznego tagu <main>] -->
-  <main class="container horizontal-flow">
-    <h1>Witaj!</h1>
-    <p>To jest prosta strona internetowa mająca na celu zbieranie informacji wpisywanych przez użytkownika i możliwość pobrania ich w formacie <strong>.xlsx</strong>.</p>
-    <p>Ja, Mateusz, zrobiłem to samemu z lekką pomocą Gemini AI, Cursor AI i GPT AI.</p>
-    <p>Bez zbędnych dodatków — tylko HTML i odrobina CSS. <strong>ALE Z WYCZYSZCZONYM KODEM</strong>.</p>
-    <h2>Trochę więcej treści do scrollowania</h2>
-    <h2>Trochę więcej treści do scrollowania</h2>
-    <h2>Trochę więcej treści do scrollowania</h2>
-    <p>To jest dodatkowa sekcja, która sprawia, że strona ma większą wysokość, więc możesz wygodnie przewijać i obserwować ruch tła po bokach.</p>
-    <p>Możesz tu później wstawić swój tekst, listę projektów, blog, cokolwiek. Na razie jest to tylko "wypełniacz", żeby mieć gdzie testować efekt.</p>
-  </main>
+  <main class="showcase-page">
+    <!-- [EN: Hero project showcase section] / [PL: Sekcja hero projektu showcase] -->
+    <section class="hero-showcase container horizontal-flow" data-flow-factor="1.14">
+      <p class="eyebrow">Project Showcase / Portfolio</p>
+      <h1>Data Collector & Excel Export</h1>
+      <p class="section-lead">
+        Interaktywna strona demonstracyjna, która łączy animowany interfejs z praktycznym workflow zbierania danych
+        i eksportu do <strong>.xlsx</strong>. To projekt portfolio nastawiony na pokaz umiejętności frontend + UX.
+      </p>
+      <div class="showcase-cta" aria-label="Project links">
+        <a class="btn-primary" href="https://github.com/mzmuda101-prog/Data-Collector-Excel-App" target="_blank" rel="noopener noreferrer">Zobacz repo</a>
+        <a class="btn-ghost" href="mailto:m.zmuda101@gmail.com">Kontakt</a>
+      </div>
+    </section>
 
-  <!-- [EN: Form section - main functionality of the page] / [PL: Sekcja formularza - główna funkcjonalność strony] -->
-  <section class="container2 horizontal-flow">
+    <!-- [EN: Key feature highlights] / [PL: Najważniejsze cechy projektu] -->
+    <section class="project-highlights container horizontal-flow" data-flow-factor="0.92">
+      <h2 class="section-title">Najważniejsze elementy projektu</h2>
+      <div class="showcase-grid">
+        <article class="highlight-card">
+          <h3>Animacje & klimat</h3>
+          <p>Intro video, efekt głębi tła, gwiazdy podążające za kursorem i płynne reveal sekcji w scrollu.</p>
+        </article>
+        <article class="highlight-card">
+          <h3>Eksport XLSX</h3>
+          <p>Dynamiczne generowanie arkusza Excel przez SheetJS z automatycznym dopasowaniem kolumn.</p>
+        </article>
+        <article class="highlight-card">
+          <h3>Dynamiczne opcje</h3>
+          <p>Edycja nazw, dodawanie i usuwanie opcji wyboru bez przeładowania strony i bez utraty danych.</p>
+        </article>
+        <article class="highlight-card">
+          <h3>Responsywność</h3>
+          <p>Dopasowany layout mobile/desktop oraz fallbacki dla przeglądarek i preferencji reduced-motion.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- [EN: Stack badges] / [PL: Badge technologiczne] -->
+    <section class="tech-strip container horizontal-flow" data-flow-factor="0.84">
+      <h2 class="section-title">Stack technologiczny</h2>
+      <div class="tech-badges" aria-label="Technologies used in project">
+        <span class="tech-badge">HTML5</span>
+        <span class="tech-badge">CSS3</span>
+        <span class="tech-badge">JavaScript ES6</span>
+        <span class="tech-badge">GSAP</span>
+        <span class="tech-badge">SheetJS (XLSX)</span>
+      </div>
+    </section>
+
+    <!-- [EN: Form section - main functionality of the page] / [PL: Sekcja formularza - główna funkcjonalność strony] -->
+    <section class="demo-section container2 horizontal-flow" data-flow-factor="1.06">
+    <h2 class="section-title">Live demo: formularz + eksport danych</h2>
+    <p class="section-lead">Przetestuj dodawanie wpisów, edycję opcji i eksport do Excela bez opuszczania strony.</p>
     <form id="mainForm">
       <label for="name">Imię:</label>
       <input type="text" id="name" maxlength="35" required placeholder="max. 35 znaków">
@@ -163,7 +202,17 @@
         <p id="morePeopleCount" class="more-people-count"></p> <!-- [EN: Info about additional people beyond 5] / [PL: Informacja o większej liczbie osób] -->
       </section>
     </form>
-  </section>
+    </section>
+
+    <section class="project-notes container horizontal-flow" data-flow-factor="0.78">
+      <h2 class="section-title">Co pokazuje ta strona?</h2>
+      <p class="section-lead">
+        Ten projekt reprezentuje podejście <strong>project-first</strong>: nacisk na użyteczność, wydajność i czytelność kodu.
+        Strona jest jednym z projektów portfolio i stanowi praktyczny przykład pracy z animacją, logiką formularzy i eksportem danych.
+      </p>
+    </section>
+
+  </main>
 
   <script>
     // =================== ANIMACJE, TŁO, GWIAZDY ===================
@@ -193,14 +242,15 @@
     //    //----------scrollowana animacja ksiezyca / mooon scroll animation----------//
     // [EN: Horizontal scroll-feeling + right-to-left reveal for content cards] / [PL: Efekt "scrollowania w bok" + reveal kart od prawej do lewej]
     const flowEls = document.querySelectorAll(".horizontal-flow");
+    const moonEl = document.getElementById("moonFloat");
     function updateHorizontalFlow() {
       const y = window.scrollY;
       const maxScroll = Math.max(document.documentElement.scrollHeight - window.innerHeight, 1);
       const progress = Math.min(Math.max(y / maxScroll, 0), 1);
-      flowEls.forEach((el, i) => {
+      flowEls.forEach(el => {
         const baseShift = isMobile ? -18 : -86;
-        const stagger = i * (isMobile ? 6 : 14);
-        const driftX = baseShift * progress + stagger;
+        const flowFactor = Number(el.dataset.flowFactor || 1);
+        const driftX = baseShift * progress * flowFactor;
         el.style.setProperty("--flow-x", `${driftX.toFixed(2)}px`);
       });
     }
@@ -219,7 +269,6 @@
 
     // [EN: Mobile device detection] / [PL: Wykrywanie urządzenia mobilnego]
     let isMobile = window.innerWidth <= 768;
-    window.addEventListener("resize", () => { isMobile = window.innerWidth <= 768; updateBackgrounds(); updateHorizontalFlow(); });
 
     // [EN: Update background position for parallax effect] / [PL: Aktualizacja pozycji tła dla efektu parallax]
     function updateBackgrounds() {
@@ -227,8 +276,7 @@
       document.body.style.backgroundPosition = `center ${-y * bgStrength}px, center center`;
 
       // [EN: Moon path based on previous behavior (visible from start, moving right/down)] / [PL: Ścieżka księżyca zgodna z poprzednim zachowaniem (widoczny od startu, ruch w prawo/dół)]
-      const moon = document.getElementById("moonFloat");
-      if (!moon) return;
+      if (!moonEl) return;
 
       const maxScroll = Math.max(document.documentElement.scrollHeight - window.innerHeight, 1);
       // [EN: Use ~85% of whole scroll for moon movement so it stays visible longer] / [PL: Użyj ~85% całego scrolla, aby księżyc był dłużej widoczny]
@@ -246,26 +294,49 @@
       const downT = 1 - Math.pow(1 - t, 1.35); // [EN: Slight ease-out for vertical drift visibility] / [PL: Lekkie ease-out dla lepszej widoczności dryfu pionowego]
       const moonY = Math.min(baseY + fallDistance * downT, skyLimitY);
 
-      moon.style.transform = `translate3d(${moonX.toFixed(2)}px, ${moonY.toFixed(2)}px, 0)`;
+      moonEl.style.transform = `translate3d(${moonX.toFixed(2)}px, ${moonY.toFixed(2)}px, 0)`;
 
       // [EN: Keep visible from first frame] / [PL: Widoczny od pierwszej klatki]
-      moon.style.opacity = "1";
+      moonEl.style.opacity = "1";
+    }
+
+    let frameQueued = false;
+    function scheduleSceneUpdate() {
+      if (frameQueued) return;
+      frameQueued = true;
+      requestAnimationFrame(() => {
+        frameQueued = false;
+        updateBackgrounds();
+        updateHorizontalFlow();
+      });
     }
     updateBackgrounds(); updateHorizontalFlow();
-    window.addEventListener('scroll', updateBackgrounds);
-    window.addEventListener('scroll', updateHorizontalFlow, { passive: true });
+    window.addEventListener("scroll", scheduleSceneUpdate, { passive: true });
+    window.addEventListener("resize", () => {
+      isMobile = window.innerWidth <= 768;
+      scheduleSceneUpdate();
+    }, { passive: true });
 
     // [EN: Star animation following cursor] / [PL: Animacja gwiazd podążających za kursorem]
     const stars = document.querySelectorAll(".star-layer");
-    let mouseX = window.innerWidth/2, mouseY = window.innerHeight/2; // [EN: Default to screen center] / [PL: Domyślnie środek ekranu]
+    let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2; // [EN: Default to screen center] / [PL: Domyślnie środek ekranu]
     window.addEventListener("mousemove", e => { mouseX = e.clientX; mouseY = e.clientY; }); // [EN: Track cursor position] / [PL: Śledź pozycję kursora]
+    window.addEventListener("resize", () => {
+      if (mouseX > window.innerWidth || mouseY > window.innerHeight) {
+        mouseX = window.innerWidth / 2;
+        mouseY = window.innerHeight / 2;
+      }
+    }, { passive: true });
     function animateStars() {
-      const moveX = (mouseX - window.innerWidth/2) / 45, moveY = (mouseY - window.innerHeight/2) / 45; // [EN: Calculate offset] / [PL: Oblicz przesunięcie]
+      const moveX = (mouseX - window.innerWidth / 2) / 45, moveY = (mouseY - window.innerHeight / 2) / 45; // [EN: Calculate offset] / [PL: Oblicz przesunięcie]
       // [EN: Each star moves at slightly different speed for depth effect] / [PL: Każda gwiazda porusza się nieco inną prędkością dla efektu głębi]
-      stars.forEach((s, i) => s.style.transform = `translate3d(${moveX * (1 + i * 0.2)}px, ${moveY * (1 + i * 0.2)}px, 0)`);
+      for (let i = 0; i < stars.length; i++) {
+        const speed = 1 + i * 0.2;
+        stars[i].style.transform = `translate3d(${moveX * speed}px, ${moveY * speed}px, 0)`;
+      }
       requestAnimationFrame(animateStars); // [EN: 60fps animation loop] / [PL: Pętla animacji 60fps]
     }
-    animateStars();
+    if (stars.length) animateStars();
   </script>
   
   <script>
@@ -282,7 +353,14 @@
     function renderSelectOptions(n) {
       const sel = document.getElementById(`choice${n}`); if (!sel) return;
       sel.innerHTML = "";
-      optionsLists[n].forEach(o => { const opt = document.createElement("option"); opt.value = opt.textContent = o.name; opt.dataset.optionId = o.id; sel.appendChild(opt); }); // [EN: Create option element for each item] / [PL: Tworzy <option> dla każdej opcji]
+      const fragment = document.createDocumentFragment();
+      optionsLists[n].forEach(o => {
+        const opt = document.createElement("option");
+        opt.value = opt.textContent = o.name;
+        opt.dataset.optionId = o.id;
+        fragment.appendChild(opt);
+      }); // [EN: Create option element for each item] / [PL: Tworzy <option> dla każdej opcji]
+      sel.appendChild(fragment);
     }
 
     // [EN: Render edit fields panel for customizing option names] / [PL: Renderuje pola edycji nazw opcji w panelu]
@@ -294,22 +372,34 @@
         label.innerHTML = `<span>Opcja ${i + 1}:</span><input type="text" value="${o.name}" maxlength="40" autocomplete="off" data-option-id="${o.id}" data-choice="${n}" class="option-edit-input"><button type="button" class="remove-option-btn" data-option-id="${o.id}" data-choice="${n}" title="Usuń">✕</button>`;
         container.appendChild(label);
       });
-      // [EN: Handle option name changes] / [PL: Obsługa zmiany nazwy opcji]
-      container.querySelectorAll(".option-edit-input").forEach(inp => {
-        inp.addEventListener("input", function() {
-          const obj = optionsLists[+this.dataset.choice].find(o => o.id === +this.dataset.optionId); // [EN: Find option by ID] / [PL: Znajdź opcję po ID]
-          if (obj) obj.name = this.value.trim() || "Opcja"; renderSelectOptions(+this.dataset.choice); // [EN: Update name and refresh select] / [PL: Zaktualizuj nazwę i przerysuj select]
-        });
+    }
+
+    // [EN: Bind delegated listeners once per edit container] / [PL: Podpinanie delegowanych listenerów raz na kontener]
+    function bindEditContainerEvents(n) {
+      const container = document.getElementById(`editFields${n}`);
+      if (!container || container.dataset.bound === "1") return;
+
+      container.addEventListener("input", event => {
+        const input = event.target.closest(".option-edit-input");
+        if (!input) return;
+        const choice = +input.dataset.choice;
+        const optionId = +input.dataset.optionId;
+        const obj = optionsLists[choice].find(o => o.id === optionId); // [EN: Find option by ID] / [PL: Znajdź opcję po ID]
+        if (obj) obj.name = input.value.trim() || "Opcja";
+        renderSelectOptions(choice); // [EN: Refresh select to reflect renames] / [PL: Odśwież select po zmianie nazw]
       });
-      // [EN: Handle option removal] / [PL: Obsługa usuwania opcji]
-      container.querySelectorAll(".remove-option-btn").forEach(btn => {
-        btn.addEventListener("click", function() {
-          const n = +this.dataset.choice;
-          if (optionsLists[n].length <= 1) { alert("Musisz mieć przynajmniej jedną opcję!"); return; } // [EN: Minimum 1 option required] / [PL: Minimum 1 opcja wymagana]
-          optionsLists[n] = optionsLists[n].filter(o => o.id !== +this.dataset.optionId); // [EN: Remove from list] / [PL: Usuń z listy]
-          renderSelectOptions(n); renderEditFields(n); // [EN: Re-render] / [PL: Przerysuj]
-        });
+
+      container.addEventListener("click", event => {
+        const removeBtn = event.target.closest(".remove-option-btn");
+        if (!removeBtn) return;
+        const choice = +removeBtn.dataset.choice;
+        if (optionsLists[choice].length <= 1) { alert("Musisz mieć przynajmniej jedną opcję!"); return; } // [EN: Minimum 1 option required] / [PL: Minimum 1 opcja wymagana]
+        optionsLists[choice] = optionsLists[choice].filter(o => o.id !== +removeBtn.dataset.optionId); // [EN: Remove from list] / [PL: Usuń z listy]
+        renderSelectOptions(choice);
+        renderEditFields(choice); // [EN: Re-render after deletion] / [PL: Przerysuj po usunięciu]
       });
+
+      container.dataset.bound = "1";
     }
 
     // [EN: Add new option to list] / [PL: Dodaje nową opcję do listy]
@@ -328,7 +418,7 @@
 
     // [EN: Initialize after DOM loads] / [PL: Inicjalizacja po załadowaniu DOM]
     document.addEventListener("DOMContentLoaded", () => {
-      for (let i = 1; i <= 3; i++) { renderSelectOptions(i); renderEditFields(i); } // [EN: Render all 3 choice fields] / [PL: Renderuj wszystkie 3 pola]
+      for (let i = 1; i <= 3; i++) { renderSelectOptions(i); renderEditFields(i); bindEditContainerEvents(i); } // [EN: Render all 3 choice fields] / [PL: Renderuj wszystkie 3 pola]
       // [EN: Add button listeners] / [PL: Dodaj listenery przycisków]
       document.querySelectorAll(".add-option-btn-inline").forEach(b => b.addEventListener("click", e => { e.stopPropagation(); addNewOption(+b.dataset.choice); })); // [EN: stopPropagation prevents panel collapse] / [PL: stopPropagation zapobiega zwijaniu]
       document.querySelectorAll(".edit-options-title.clickable").forEach(t => t.addEventListener("click", () => toggleEditPanel(+t.dataset.panel))); // [EN: Click title to expand/collapse] / [PL: Kliknięcie w tytuł rozwija/zwija]
@@ -398,18 +488,28 @@
     // [EN: Form state constants] / [PL: Stałe stanu formularza]
     const form = document.querySelector("form"), downloadBtn = document.getElementById("downloadBtn"), undoBtn = document.getElementById("undoBtn");
     const LIMIT = 2; let entries = [], counter = 1; // [EN: Minimum entries for download, entries array, ID counter] / [PL: Minimalna liczba wpisów do pobrania, lista wpisów, licznik ID]
+    const nameInput = document.getElementById("name"), emailInput = document.getElementById("email");
+    const choice1Select = document.getElementById("choice1"), choice2Select = document.getElementById("choice2"), choice3Select = document.getElementById("choice3");
+    const includeChoice1 = document.getElementById("includeChoice1"), includeChoice2 = document.getElementById("includeChoice2"), includeChoice3 = document.getElementById("includeChoice3");
+    const peopleListEl = document.getElementById("peopleList"), listTitleEl = document.getElementById("listTitle"), morePeopleCountEl = document.getElementById("morePeopleCount");
 
     // [EN: Update visual list of people] / [PL: Aktualizuje wizualną listę osób]
     function updateList() {
-      const list = document.getElementById("peopleList"), title = document.getElementById("listTitle"), more = document.getElementById("morePeopleCount");
-      list.innerHTML = ""; title.style.display = entries.length ? "block" : "none"; // [EN: Show/hide title] / [PL: Pokaż/ukryj tytuł
-      entries.slice(0, 5).forEach(p => { const li = document.createElement("li"); li.innerHTML = `<span>👤</span> ${p.name}`; list.appendChild(li); }); // [EN: Show max 5 people] / [PL: Pokaż max 5 osób]
-      more.innerText = entries.length > 5 ? `...i ${entries.length - 5} osób więcej.` : ""; // [EN: Info about more people] / [PL: Informacja o większej liczbie
+      peopleListEl.innerHTML = "";
+      listTitleEl.style.display = entries.length ? "block" : "none"; // [EN: Show/hide title] / [PL: Pokaż/ukryj tytuł
+      const fragment = document.createDocumentFragment();
+      entries.slice(0, 5).forEach(p => {
+        const li = document.createElement("li");
+        li.innerHTML = `<span>👤</span> ${p.name}`;
+        fragment.appendChild(li);
+      }); // [EN: Show max 5 people] / [PL: Pokaż max 5 osób]
+      peopleListEl.appendChild(fragment);
+      morePeopleCountEl.innerText = entries.length > 5 ? `...i ${entries.length - 5} osób więcej.` : ""; // [EN: Info about more people] / [PL: Informacja o większej liczbie
       if (entries.length < LIMIT) downloadBtn.style.display = "none"; // [EN: Hide download button until limit reached] / [PL: Ukryj przycisk pobierania aż do osiągnięcia limitu
     }
 
     // [EN: Undo last entry] / [PL: Cofnij ostatni wpis]
-    undoBtn.onclick = () => { if (entries.length) { entries.pop(); counter--; updateList(); } else alert("Lista jest pusta!"); };
+    undoBtn.addEventListener("click", () => { if (entries.length) { entries.pop(); counter--; updateList(); } else alert("Lista jest pusta!"); });
 
     // [EN: Handle form submission] / [PL: Obsługa wysłania formularza]
     form.addEventListener("submit", e => {
@@ -417,21 +517,21 @@
       if (entries.length >= 100) return alert("Limit 100 osób!"); // [EN: Maximum limit] / [PL: Maksymalny limit
       entries.push({ 
         id: counter++, 
-        name: document.getElementById("name").value.trim(), 
-        email: document.getElementById("email").value.trim(),
-        choice1: document.getElementById("choice1").value, 
-        choice2: document.getElementById("choice2").value, 
-        choice3: document.getElementById("choice3").value,
-        include1: document.getElementById("includeChoice1").checked, 
-        include2: document.getElementById("includeChoice2").checked, 
-        include3: document.getElementById("includeChoice3").checked 
+        name: nameInput.value.trim(), 
+        email: emailInput.value.trim(),
+        choice1: choice1Select.value, 
+        choice2: choice2Select.value, 
+        choice3: choice3Select.value,
+        include1: includeChoice1.checked, 
+        include2: includeChoice2.checked, 
+        include3: includeChoice3.checked 
       }); // [EN: Add entry with all data] / [PL: Dodaj wpis z danymi
       updateList(); form.reset(); // [EN: Update list and clear form] / [PL: Zaktualizuj listę i wyczyść formularz
       if (entries.length >= LIMIT) downloadBtn.style.display = "inline-block"; // [EN: Unlock download when limit reached] / [PL: Odblokuj pobieranie gdy osiągnięto limit
     });
 
     // [EN: Download Excel file] / [PL: Pobieranie pliku Excel]
-    downloadBtn.onclick = () => {
+    downloadBtn.addEventListener("click", () => {
       if (typeof XLSX === 'undefined') return alert("Błąd: Brak biblioteki Excel!");
       const t = new Date(), ts = `${String(t.getDate()).padStart(2,'0')}-${String(t.getMonth()+1).padStart(2,'0')}_${t.getHours()}-${t.getMinutes()}`; // [EN: Timestamp in filename] / [PL: Timestamp w nazwie pliku
       const headers = ["ID", "Imię", "Email"], 
@@ -453,7 +553,7 @@
       XLSX.utils.book_append_sheet(wb, ws, "Lista"); 
       XLSX.writeFile(wb, `lista_${entries.length}_osob_${ts}.xlsx`); // [EN: Create and download file] / [PL: Utwórz i pobierz plik
       entries = []; counter = 1; downloadBtn.style.display = "none"; updateList(); // [EN: Reset after download] / [PL: Reset po pobraniu
-    };
+    });
   </script>
 </body>
 </html>
