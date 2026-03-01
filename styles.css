@@ -22,7 +22,11 @@
 }
 
 /* =================== RESET I BAZA =================== */
-* { margin: 0; padding: 0; box-sizing: border-box; } /* [EN: Reset default margins, paddings, and set box-sizing] / [PL: Reset domyślnych marginesów, paddingów i ustawienie box-sizing] */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+} /* [EN: Reset default margins, paddings, and set box-sizing] / [PL: Reset domyślnych marginesów, paddingów i ustawienie box-sizing] */
 
 body {
   font-family: "Georgia", "Times New Roman", serif; /* czcionka szeryfowa */
@@ -33,21 +37,42 @@ body {
   padding-top: 90px; /* odstęp dla logo bara */
   opacity: 0; /* przezroczystość: 0 = niewidoczny */
   transform: translateY(20px); /* przesunięcie w dół o 20px */
-  transition: opacity 1s ease-out, transform 1s ease-out; /* animacja zmiany opacity i transform */
+  transition:
+    opacity 1s ease-out,
+    transform 1s ease-out; /* animacja zmiany opacity i transform */
   /* Tło: grafika + gradient (księżyc jest osobnym elementem .moon-float) */
-  background: url("moje-tlo.png") 5% center / 100% auto no-repeat,
-              linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-mid) 50%, var(--bg-gradient-end) 100%);
+  background:
+    url("moje-tlo.png") 5% center / 100% auto no-repeat,
+    linear-gradient(
+      135deg,
+      var(--bg-gradient-start) 0%,
+      var(--bg-gradient-mid) 50%,
+      var(--bg-gradient-end) 100%
+    );
   /* [EN: Using CSS variables for gradient colors to ensure thematic consistency] / [PL: Użyto zmiennych CSS dla kolorów gradientu dla zachowania spójności motywu] */
   background-attachment: fixed, fixed; /* tło przyklejone do okna */
 }
-body.loaded { opacity: 1; transform: translateY(0); } /* po załadowaniu: widoczny, bez przesunięcia */
-body.splashing { overflow: hidden !important; height: 100vh !important; } /* blokada scrolla podczas splash */
+body.loaded {
+  opacity: 1;
+  transform: translateY(0);
+} /* po załadowaniu: widoczny, bez przesunięcia */
+body.splashing {
+  overflow: hidden !important;
+  height: 100vh !important;
+} /* blokada scrolla podczas splash */
 
 /* Mobile - tło */
-@media (max-width: 768px) { /* style tylko dla ekranów <= 768px */
+@media (max-width: 768px) {
+  /* style tylko dla ekranów <= 768px */
   body {
-    background: url("moje-tlo.png") center top / auto 150% no-repeat,
-                linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-mid) 50%, var(--bg-gradient-end) 100%);
+    background:
+      url("moje-tlo.png") center top / auto 150% no-repeat,
+      linear-gradient(
+        135deg,
+        var(--bg-gradient-start) 0%,
+        var(--bg-gradient-mid) 50%,
+        var(--bg-gradient-end) 100%
+      );
     background-attachment: scroll, fixed; /* scroll dla wydajności na mobile */
     padding-top: 70px;
   }
@@ -65,18 +90,24 @@ body.splashing { overflow: hidden !important; height: 100vh !important; } /* blo
   justify-content: center; /* centrowanie w poziomie */
   align-items: center; /* centrowanie w pionie */
   opacity: 1;
-  transition: opacity 0.6s cubic-bezier(0.77,0,0.175,1); /* płynne zanikanie */
+  transition: opacity 0.6s cubic-bezier(0.77, 0, 0.175, 1); /* płynne zanikanie */
 }
-.hero-overlay.hide { opacity: 0; pointer-events: none; } /* ukryty: przezroczysty + brak interakcji */
+.hero-overlay.hide {
+  opacity: 0;
+  pointer-events: none;
+} /* ukryty: przezroczysty + brak interakcji */
 .hero-overlay video {
   width: calc(100vw - 32px); /* szerokość = okno - 32px marginesu */
   max-width: 900px; /* maksymalna szerokość */
   max-height: 96vh; /* maksymalna wysokość */
   border-radius: 20px; /* zaokrąglone rogi */
-  box-shadow: 0 8px 32px rgba(0,0,0,0.32); /* cień pod wideo */
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.32); /* cień pod wideo */
 }
 @media (max-width: 700px) {
-  .hero-overlay video { border-radius: 12px; width: calc(100vw - 10px); }
+  .hero-overlay video {
+    border-radius: 12px;
+    width: calc(100vw - 10px);
+  }
 }
 
 /* =================== GWIAZDY (animowane w JS) =================== */
@@ -86,10 +117,30 @@ body.splashing { overflow: hidden !important; height: 100vh !important; } /* blo
   z-index: -1; /* warstwa pod wszystkim */
   will-change: transform; /* optymalizacja GPU - przygotuj na zmiany transform */
 }
-#star1 { top: 15%; left: 10%; width: 40px; opacity: 0.8; } /* pozycja i wielkość gwiazdy 1 */
-#star2 { top: 40%; left: 80%; width: 30px; opacity: 0.6; } /* pozycja i wielkość gwiazdy 2 */
-#star3 { top: 75%; left: 15%; width: 50px; opacity: 0.4; } /* pozycja i wielkość gwiazdy 3 */
-#star4 { top: 70%; left: 80%; width: 45px; opacity: 0.7; } /* pozycja i wielkość gwiazdy 4 */
+#star1 {
+  top: 15%;
+  left: 10%;
+  width: 40px;
+  opacity: 0.8;
+} /* pozycja i wielkość gwiazdy 1 */
+#star2 {
+  top: 40%;
+  left: 80%;
+  width: 30px;
+  opacity: 0.6;
+} /* pozycja i wielkość gwiazdy 2 */
+#star3 {
+  top: 75%;
+  left: 15%;
+  width: 50px;
+  opacity: 0.4;
+} /* pozycja i wielkość gwiazdy 3 */
+#star4 {
+  top: 70%;
+  left: 80%;
+  width: 45px;
+  opacity: 0.7;
+} /* pozycja i wielkość gwiazdy 4 */
 
 /* Księżyc jako osobny element z własnym pathingiem */
 .moon-float {
@@ -105,7 +156,9 @@ body.splashing { overflow: hidden !important; height: 100vh !important; } /* blo
   transition: opacity 0.35s ease;
 }
 @media (max-width: 768px) {
-  .moon-float { width: clamp(30px, 5.2vw, 56px); }
+  .moon-float {
+    width: clamp(30px, 5.2vw, 56px);
+  }
 }
 
 /* =================== KONTENERY GŁÓWNE =================== */
@@ -185,7 +238,10 @@ body.splashing { overflow: hidden !important; height: 100vh !important; } /* blo
   padding: 1rem 1rem 0.9rem;
   background: rgba(15, 25, 50, 0.58);
   border: 1px solid rgba(255, 255, 255, 0.09);
-  transition: transform 0.24s ease, box-shadow 0.24s ease, border-color 0.24s ease;
+  transition:
+    transform 0.24s ease,
+    box-shadow 0.24s ease,
+    border-color 0.24s ease;
 }
 .highlight-card:hover {
   transform: translateY(-2px);
@@ -238,7 +294,11 @@ body.splashing { overflow: hidden !important; height: 100vh !important; } /* blo
   font-weight: 600;
   font-size: 0.94rem;
   letter-spacing: 0.01em;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease, background-color 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    filter 0.2s ease,
+    background-color 0.2s ease;
 }
 .btn-primary {
   color: #fff7f9;
@@ -255,15 +315,14 @@ body.splashing { overflow: hidden !important; height: 100vh !important; } /* blo
   background: var(--cta-ghost-bg);
   border: 1px solid rgba(255, 255, 255, 0.16);
 }
-.btn-primary:hover,
-.btn-secondary:hover,
-.btn-ghost:hover {
+.btn-primary:hover {
+  color: #000000;
+}
+:is(.btn-primary, .btn-secondary, .btn-ghost):hover {
   transform: translateY(-1px);
   filter: brightness(1.08);
 }
-.btn-primary:focus-visible,
-.btn-secondary:focus-visible,
-.btn-ghost:focus-visible {
+:is(.btn-primary, .btn-secondary, .btn-ghost):focus-visible {
   outline: 2px solid #ffe3ea;
   outline-offset: 2px;
 }
@@ -282,7 +341,9 @@ body.splashing { overflow: hidden !important; height: 100vh !important; } /* blo
   opacity: 1;
 }
 @media (max-width: 768px) {
-  .horizontal-flow { --flow-x: 26px; }
+  .horizontal-flow {
+    --flow-x: 26px;
+  }
 }
 @media (prefers-reduced-motion: reduce) {
   .horizontal-flow {
@@ -297,18 +358,30 @@ h1 {
   font-size: 1.9rem; /* wielkość czcionki */
   font-weight: 400; /* grubość czcionki (normalna) */
   margin-bottom: 1.25rem;
-  color: var(--main-color); /* czerwony akcent [EN: using CSS variable] / [PL: użyto zmiennej CSS] */
+  color: var(
+    --main-color
+  ); /* czerwony akcent [EN: using CSS variable] / [PL: użyto zmiennej CSS] */
   letter-spacing: 0.02em; /* odstęp między literami */
   text-align: center; /* centrowanie tekstu */
 }
-p { margin-bottom: 0.75rem; color: rgba(232, 232, 232, 0.9); font-size: 1.05rem; text-align: center; }
+p {
+  margin-bottom: 0.75rem;
+  color: rgba(232, 232, 232, 0.9);
+  font-size: 1.05rem;
+  text-align: center;
+}
 a {
   color: var(--main-color); /* główny kolor akcentu */
   text-decoration: none; /* bez podkreślenia */
   border-bottom: 1px solid rgba(233, 69, 96, 0.4); /* dolna ramka jako podkreślenie [EN: accent color with opacity] / [PL: kolor akcentu z przezroczystością] */
-  transition: border-color 0.2s, color 0.2s; /* animacja zmiany koloru i ramki */
+  transition:
+    border-color 0.2s,
+    color 0.2s; /* animacja zmiany koloru i ramki */
 }
-a:hover { color: var(--accent-color); border-bottom-color: var(--accent-color); } /* hover: jaśniejszy czerwony [EN: using accent variable] / [PL: użyto zmiennej accent] */
+a:hover {
+  color: var(--accent-color);
+  border-bottom-color: var(--accent-color);
+} /* hover: jaśniejszy czerwony [EN: using accent variable] / [PL: użyto zmiennej accent] */
 
 /* =================== NAV LOGO BAR - HOVER ANIMATIONS =================== */
 /* [EN: Fixed navigation bar with logo and title] / [PL: Stały pasek nawigacyjny z logo i tytułem] */
@@ -328,10 +401,16 @@ a:hover { color: var(--accent-color); border-bottom-color: var(--accent-color); 
   min-width: 220px;
   max-width: 95vw;
   backdrop-filter: blur(8px) saturate(143%); /* rozmycie + nasycenie tła */
-  border: 1.5px solid rgba(140,140,227,.09);
-  box-shadow: 0 6px 18px rgba(0,0,0,0.06), 0 1.5px 7px -1.5px rgba(0,0,0,0.13);
-  animation: dropbarIn 850ms cubic-bezier(0.31, 1.19, 0.68, 1) 0.1s 1 normal both; /* animacja wejścia */
-  transition: transform 0.28s cubic-bezier(.31,1.19,.68,1), box-shadow 0.18s, gap 0.34s; /* płynne przejścia */
+  border: 1.5px solid rgba(140, 140, 227, 0.09);
+  box-shadow:
+    0 6px 18px rgba(0, 0, 0, 0.06),
+    0 1.5px 7px -1.5px rgba(0, 0, 0, 0.13);
+  animation: dropbarIn 850ms cubic-bezier(0.31, 1.19, 0.68, 1) 0.1s 1 normal
+    both; /* animacja wejścia */
+  transition:
+    transform 0.28s cubic-bezier(0.31, 1.19, 0.68, 1),
+    box-shadow 0.18s,
+    gap 0.34s; /* płynne przejścia */
 }
 .nav-logo-bar a {
   display: flex;
@@ -340,9 +419,16 @@ a:hover { color: var(--accent-color); border-bottom-color: var(--accent-color); 
   border-bottom: none; /* usuń podkreślenie linku */
 }
 
-@keyframes dropbarIn { /* definicja animacji wejścia */
-  0% { transform: translateX(-50%) translateY(-50px) scale(0.97); opacity: 0; } /* start: wyżej, mniejszy, niewidoczny */
-  100% { transform: translateX(-50%) translateY(0) scale(1); opacity: 1; } /* koniec: na miejscu, pełny rozmiar, widoczny */
+@keyframes dropbarIn {
+  /* definicja animacji wejścia */
+  0% {
+    transform: translateX(-50%) translateY(-50px) scale(0.97);
+    opacity: 0;
+  } /* start: wyżej, mniejszy, niewidoczny */
+  100% {
+    transform: translateX(-50%) translateY(0) scale(1);
+    opacity: 1;
+  } /* koniec: na miejscu, pełny rozmiar, widoczny */
 }
 
 /* Hover/focus na cały bar - powiększenie i efekt poświaty */
@@ -350,11 +436,11 @@ a:hover { color: var(--accent-color); border-bottom-color: var(--accent-color); 
 .nav-logo-bar:focus-within {
   transform: translateX(-50%) scale(1.18); /* [EN: Scale up by 18%] / [PL: Powiększenie o 18%] */
   /* Efekt poświaty z kolorami main i accent z przezroczystością (hex notation) */
-  box-shadow: 
-    0 10px 44px 0px var(--main-color)66,             /* mocna czerwona poświata */
-    0 4px 22px -2px var(--accent-color)bb,           /* dodatkowy rozbłysk różowy */
-    0 0.5px 2px 0px #ea5a6c22;                       /* delikatny różowy rant */
-  gap: 35px;  /* [EN: Larger gap between logo and title on hover] / [PL: Większy odstęp między logo a tytułem przy hover] */
+  box-shadow:
+    0 10px 44px 0px var(--main-color)66,
+    /* mocna czerwona poświata */ 0 4px 22px -2px var(--accent-color)bb,
+    /* dodatkowy rozbłysk różowy */ 0 0.5px 2px 0px #ea5a6c22; /* delikatny różowy rant */
+  gap: 35px; /* [EN: Larger gap between logo and title on hover] / [PL: Większy odstęp między logo a tytułem przy hover] */
 }
 
 /* Logo obrazek */
@@ -366,12 +452,14 @@ a:hover { color: var(--accent-color); border-bottom-color: var(--accent-color); 
   object-fit: contain; /* [EN: Preserve image proportions] / [PL: Zachowaj proporcje obrazka] */
   border-radius: 0;
   background: transparent;
-  filter: drop-shadow(0 2px 8px rgba(86,162,255,.12)); /* [EN: Subtle blue glow initially] / [PL: Subtelna niebieska poświata na starcie] */
+  filter: drop-shadow(
+    0 2px 8px rgba(86, 162, 255, 0.12)
+  ); /* [EN: Subtle blue glow initially] / [PL: Subtelna niebieska poświata na starcie] */
   transform: translate3d(var(--mag-x), var(--mag-y), 0);
-  transition: 
-    box-shadow 0.18s cubic-bezier(.11,.67,.7,1.54),
-    transform 0.32s cubic-bezier(.31,1.19,.68,1),
-    scale 0.32s cubic-bezier(.31,1.19,.68,1);
+  transition:
+    box-shadow 0.18s cubic-bezier(0.11, 0.67, 0.7, 1.54),
+    transform 0.32s cubic-bezier(0.31, 1.19, 0.68, 1),
+    scale 0.32s cubic-bezier(0.31, 1.19, 0.68, 1);
   z-index: 2;
   cursor: pointer; /* kursor rączki */
 }
@@ -380,50 +468,55 @@ a:hover { color: var(--accent-color); border-bottom-color: var(--accent-color); 
 .nav-logo-bar:hover .logo-mateusz,
 .nav-logo-bar:focus-within .logo-mateusz {
   scale: 2.4; /* powiększenie logo względem kontenera */
-  box-shadow: 
-    0 8px 32px 0px var(--main-color)77,    /* dominujący czerwony cień */
-    0 2px 8px -1px var(--accent-color)cc,  /* cieplejsza łuna */
-    0 0.5px 1.5px 0px var(--main-color)35; /* lekki róż */
+  box-shadow:
+    0 8px 32px 0px var(--main-color)77,
+    /* dominujący czerwony cień */ 0 2px 8px -1px var(--accent-color)cc,
+    /* cieplejsza łuna */ 0 0.5px 1.5px 0px var(--main-color)35; /* lekki róż */
 }
 
 /* Hover tylko na logo - obrót + dodatkowe podświetlenie */
 .logo-mateusz:hover {
   filter: drop-shadow(0 0 8px var(--main-color)4d); /* czerwona poświata */
-  transform: translate3d(var(--mag-x), var(--mag-y), 0) rotate(-6deg) scale(1.15); /* lekkie obrocenie i skalowanie + offset magnetyczny */
-  transition: 
-    filter 0.25s cubic-bezier(.13,1.07,.45,1.12),
-    transform 0.23s cubic-bezier(.13,1.07,.45,1.12);
+  transform: translate3d(var(--mag-x), var(--mag-y), 0) rotate(-6deg)
+    scale(1.15); /* lekkie obrocenie i skalowanie + offset magnetyczny */
+  transition:
+    filter 0.25s cubic-bezier(0.13, 1.07, 0.45, 1.12),
+    transform 0.23s cubic-bezier(0.13, 1.07, 0.45, 1.12);
 }
 
 /* [EN: When logo is hovered, title changes color to main accent] / [PL: Przy hoverze na logo, tytuł zmienia kolor na główny akcent] */
 .logo-mateusz:hover + .logo-title,
 .nav-logo-bar:hover .logo-title {
   color: var(--main-color);
-  transition: color 0.22s cubic-bezier(.13,1.07,.45,1.12);
+  transition: color 0.22s cubic-bezier(0.13, 1.07, 0.45, 1.12);
 }
 
 /* Tytuł "Mateusz App" */
 .logo-title {
-  font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+  font-family: "Montserrat", "Segoe UI", Arial, sans-serif;
   font-weight: 700;
   font-size: 1.36rem;
   letter-spacing: 1.2px;
-  background: linear-gradient(100deg, var(--main-color) 0%, var(--accent-color) 90%);
+  background: linear-gradient(
+    100deg,
+    var(--main-color) 0%,
+    var(--accent-color) 90%
+  );
   /* [EN: Gradient text effect] / [PL: Efekt gradientu na tekście] */
   -webkit-background-clip: text; /* [EN: gradient on text (webkit)] / [PL: gradient na tekście (webkit)] */
   -webkit-text-fill-color: transparent; /* [EN: Transparent text (webkit)] / [PL: Przezroczysty tekst (webkit)] */
   background-clip: text; /* [EN: gradient on text (standard)] / [PL: gradient na tekście (standard)] */
   text-shadow: 0 1px 4px var(--main-color)bb; /* [EN: Text shadow] / [PL: Cień tekstu] */
   filter: brightness(1.19) blur(0.01px);
-  line-height: 1.0;
+  line-height: 1;
   margin-left: 5px; /* [EN: Slight left margin from logo] / [PL: Mały margines lewy od logo] */
   padding: 4px 0; /* [EN: Added vertical padding to match logo height] / [PL: Dodano pionowy padding, aby wyrównać wysokość do logo] */
   margin-top: 0;
   align-self: center; /* [EN: Center vertically in flex container] / [PL: Wyśrodkowanie w pionie w kontenerze flex] */
-  transition: 
-    font-size 0.18s cubic-bezier(.31,1.15,.69,1.09),
+  transition:
+    font-size 0.18s cubic-bezier(0.31, 1.15, 0.69, 1.09),
     letter-spacing 0.18s,
-    color 0.18s;;
+    color 0.18s;
 }
 
 /* Mobile - Responsywność paska nawigacyjnego */
@@ -439,13 +532,13 @@ a:hover { color: var(--accent-color); border-bottom-color: var(--accent-color); 
   .nav-logo-bar:hover,
   .nav-logo-bar:focus-within {
     transform: translateX(-50%) scale(1.1) !important; /* mniejsze powiększenie na mobile */
-    box-shadow: 
-      0 6px 28px 0px var(--main-color)aa,    /* czerwona poświata */
-      0 2px 11px -2px var(--accent-color)a8, /* różowy rozbłysk */
-      0 0.5px 1px 0px var(--main-color)25;   /* delikatny rant */
+    box-shadow:
+      0 6px 28px 0px var(--main-color)aa,
+      /* czerwona poświata */ 0 2px 11px -2px var(--accent-color)a8,
+      /* różowy rozbłysk */ 0 0.5px 1px 0px var(--main-color)25; /* delikatny rant */
     gap: 15px;
   }
-  .logo-mateusz { 
+  .logo-mateusz {
     height: 37px;
     width: 37px;
   }
@@ -453,11 +546,15 @@ a:hover { color: var(--accent-color); border-bottom-color: var(--accent-color); 
   .nav-logo-bar:focus-within .logo-mateusz {
     scale: 1.45; /* mniejsze powiększenie logo na mobile */
   }
-  .logo-title { font-size: 1.02rem; } /* mniejszy tekst na mobile */
+  .logo-title {
+    font-size: 1.02rem;
+  } /* mniejszy tekst na mobile */
 }
 
 @media (max-width: 768px) {
-  .showcase-page { max-width: 100%; }
+  .showcase-page {
+    max-width: 100%;
+  }
   .hero-showcase,
   .project-highlights,
   .tech-strip,
@@ -478,8 +575,13 @@ a:hover { color: var(--accent-color); border-bottom-color: var(--accent-color); 
 }
 
 /* =================== FORMULARZ =================== */
-form label { display: block; margin-bottom: 0.3rem; font-weight: 600; } /* block = każdy w nowej linii */
-form input, form select {
+form label {
+  display: block;
+  margin-bottom: 0.3rem;
+  font-weight: 600;
+} /* block = każdy w nowej linii */
+form input,
+form select {
   width: 100%; /* pełna szerokość */
   padding: 0.5rem;
   margin-bottom: 1rem;
@@ -493,30 +595,54 @@ form button {
   border: none;
   border-radius: 6px;
   margin-right: 0.6rem;
-  background: var(--main-color); /* [EN: Primary button color] / [PL: Główny kolor przycisku] */
+  background: var(
+    --main-color
+  ); /* [EN: Primary button color] / [PL: Główny kolor przycisku] */
   color: #fff;
   cursor: pointer; /* kursor rączki */
-  transition: background 0.2s, color 0.2s, border-color 0.2s, transform 0.2s; /* animacja reakcji hover */
+  transition:
+    background 0.2s,
+    color 0.2s,
+    border-color 0.2s,
+    transform 0.2s; /* animacja reakcji hover */
 }
-.logo-mateusz.is-magnetic-active { will-change: transform; }
+.logo-mateusz.is-magnetic-active {
+  will-change: transform;
+}
 form button:hover {
-  background: var(--accent-color); /* [EN: Hover uses accent color] / [PL: Hover używa koloru accent] */
+  background: var(
+    --accent-color
+  ); /* [EN: Hover uses accent color] / [PL: Hover używa koloru accent] */
   transform: translateY(-1px);
 }
-form button[type="reset"], #undoBtn {
-  background: var(--secondary-color); /* [EN: Secondary button background] / [PL: Tło drugorzędnych przycisków] */
+form button[type="reset"],
+#undoBtn {
+  background: var(
+    --secondary-color
+  ); /* [EN: Secondary button background] / [PL: Tło drugorzędnych przycisków] */
   color: var(--main-color);
   border: 1px solid var(--main-color);
 }
-form button[type="reset"]:hover, #undoBtn:hover {
+form button[type="reset"]:hover,
+#undoBtn:hover {
   color: #fff;
   border-color: var(--accent-color);
 }
 
 /* =================== GRUPA WYBORU (checkbox + select) =================== */
-.choice-group { margin-bottom: 1rem; }
-.choice-header { display: flex; align-items: center; gap: 8px; margin-bottom: 0.3rem; }
-.choice-label-text { font-weight: 600; cursor: pointer; }
+.choice-group {
+  margin-bottom: 1rem;
+}
+.choice-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 0.3rem;
+}
+.choice-label-text {
+  font-weight: 600;
+  cursor: pointer;
+}
 
 /* Custom checkbox */
 .checkbox-label {
@@ -525,17 +651,27 @@ form button[type="reset"]:hover, #undoBtn:hover {
   align-items: center;
   cursor: pointer;
 }
-.choice-checkbox { position: absolute; opacity: 0; width: 0; height: 0; } /* ukryty natywny checkbox */
+.choice-checkbox {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+} /* ukryty natywny checkbox */
 .checkbox-custom {
   width: 20px;
   height: 20px;
   border: 2px solid var(--main-color); /* [EN: Using main color for border] / [PL: Użyto koloru main dla obramowania] */
   border-radius: 4px;
-  background: var(--secondary-color); /* [EN: Using secondary color for background] / [PL: Użyto koloru secondary dla tła] */
+  background: var(
+    --secondary-color
+  ); /* [EN: Using secondary color for background] / [PL: Użyto koloru secondary dla tła] */
   transition: all 0.2s ease; /* animacja wszystkich zmian */
 }
-.choice-checkbox:checked + .checkbox-custom { background: var(--main-color); } /* zaznaczony: czerwone tło */
-.choice-checkbox:checked + .checkbox-custom::after { /* fajka po zaznaczeniu */
+.choice-checkbox:checked + .checkbox-custom {
+  background: var(--main-color);
+} /* zaznaczony: czerwone tło */
+.choice-checkbox:checked + .checkbox-custom::after {
+  /* fajka po zaznaczeniu */
   content: "✓";
   position: absolute;
   top: 50%;
@@ -550,7 +686,8 @@ form button[type="reset"]:hover, #undoBtn:hover {
   box-shadow: 0 0 8px rgba(233, 69, 96, 0.4); /* poświata przy hover */
 }
 /* Tooltip checkbox */
-.checkbox-label::after { /* dymek z podpowiedzią */
+.checkbox-label::after {
+  /* dymek z podpowiedzią */
   content: "Zaznacz, aby uwzględnić w pliku .xlsx";
   position: absolute;
   left: 28px;
@@ -564,33 +701,50 @@ form button[type="reset"]:hover, #undoBtn:hover {
   white-space: nowrap; /* tekst w jednej linii */
   opacity: 0;
   visibility: hidden; /* ukryty (niewidoczny + nieklikalny) */
-  transition: opacity 0.2s, visibility 0.2s;
+  transition:
+    opacity 0.2s,
+    visibility 0.2s;
   border: 1px solid var(--main-color);
   z-index: 100;
   pointer-events: none; /* nie blokuje kliknięć */
 }
-.checkbox-label:hover::after { opacity: 1; visibility: visible; } /* pokaż tooltip przy hover */
+.checkbox-label:hover::after {
+  opacity: 1;
+  visibility: visible;
+} /* pokaż tooltip przy hover */
 
 /* Select wrapper */
-.choice-row { display: flex; align-items: flex-end; gap: 4px; } /* [EN: Row with small gap] / [PL: Wiersz z małym odstępem] */
-.choice-select-wrapper { flex: 1; } /* flex: 1 = zajmuje całą dostępną przestrzeń */
-.choice-select-wrapper label { margin-bottom: 0.3rem; }
-.choice-select-wrapper select { margin-bottom: 0; }
+.choice-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+} /* [EN: Row with small gap] / [PL: Wiersz z małym odstępem] */
+.choice-select-wrapper {
+  flex: 1;
+} /* flex: 1 = zajmuje całą dostępną przestrzeń */
+.choice-select-wrapper label {
+  margin-bottom: 0.3rem;
+}
+.choice-select-wrapper select {
+  margin-bottom: 0;
+}
 
 /* =================== PANEL EDYCJI OPCJI =================== */
 .edit-options-panel {
   margin-top: 8px; /* [EN: Margin top] / [PL: Margines górny] */
-  background: rgba(42,52,75,0.10);
+  background: rgba(42, 52, 75, 0.1);
   border: 1.5px solid #223043;
   border-radius: 10px;
-  box-shadow: 0 2px 10px rgba(20,30,40,0.07);
+  box-shadow: 0 2px 10px rgba(20, 30, 40, 0.07);
   padding: 6px 10px 5px 10px; /* [EN: Padding: top right bottom left (reduced)] / [PL: Padding: góra prawo dół lewo (zmniejszone)] */
   max-width: 440px;
   margin-bottom: 10px; /* [EN: Margin bottom] / [PL: Margines dolny] */
   backdrop-filter: blur(5.5px);
 }
 .edit-options-title {
-  color: var(--main-color); /* [EN: Title uses main color] / [PL: Tytuł używa koloru main] */
+  color: var(
+    --main-color
+  ); /* [EN: Title uses main color] / [PL: Tytuł używa koloru main] */
   font-size: 0.95em; /* em = względem do rodzica */
   letter-spacing: 0.2px;
   margin-bottom: 6px;
@@ -604,29 +758,59 @@ form button[type="reset"]:hover, #undoBtn:hover {
   user-select: none; /* zablokuj zaznaczanie tekstu */
   transition: color 0.2s;
 }
-.edit-options-title.clickable:hover { color: var(--accent-color); } /* [EN: Hover uses accent color] / [PL: Hover używa koloru accent] */
-.toggle-icon { font-size: 0.8em; transition: transform 0.3s ease; }
-.edit-options-panel.collapsed .edit-options-fields { display: none; } /* zwinięty: ukryj pola */
-.edit-options-panel.collapsed .toggle-icon { transform: rotate(0deg); }
-.edit-options-panel:not(.collapsed) .toggle-icon { transform: rotate(180deg); } /* rozwinięty: strzałka w górę */
+.edit-options-title.clickable:hover {
+  color: var(--accent-color);
+} /* [EN: Hover uses accent color] / [PL: Hover używa koloru accent] */
+.toggle-icon {
+  font-size: 0.8em;
+  transition: transform 0.3s ease;
+}
+.edit-options-panel.collapsed .edit-options-fields {
+  display: none;
+} /* zwinięty: ukryj pola */
+.edit-options-panel.collapsed .toggle-icon {
+  transform: rotate(0deg);
+}
+.edit-options-panel:not(.collapsed) .toggle-icon {
+  transform: rotate(180deg);
+} /* rozwinięty: strzałka w górę */
 
 /* Pola edycji */
-.edit-options-fields { display: flex; flex-direction: column; gap: 4px; } /* [EN: Column with gaps between fields] / [PL: Kolumna z odstępami między polami] */
-.edit-options-fields label { display: flex; align-items: center; font-size: 1em; color: #fff; font-weight: 400; }
-.edit-options-fields span { min-width: 60px; margin-right: 7px; color: #fff; font-size: 1em; font-weight: 500; } /* [EN: Min width and margin for label] / [PL: Min. szerokość i margines dla etykiety] */
+.edit-options-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+} /* [EN: Column with gaps between fields] / [PL: Kolumna z odstępami między polami] */
+.edit-options-fields label {
+  display: flex;
+  align-items: center;
+  font-size: 1em;
+  color: #fff;
+  font-weight: 400;
+}
+.edit-options-fields span {
+  min-width: 60px;
+  margin-right: 7px;
+  color: #fff;
+  font-size: 1em;
+  font-weight: 500;
+} /* [EN: Min width and margin for label] / [PL: Min. szerokość i margines dla etykiety] */
 .edit-options-fields input[type="text"] {
   flex: 1; /* [EN: Takes remaining space] / [PL: Zajmuje resztę miejsca] */
   font-size: 1em;
   border: 1.5px solid #234;
   border-radius: 8px;
   padding: 4px 9px; /* [EN: Reduced padding] / [PL: Zmniejszone padding] */
-  background: rgba(225,244,255, 0.09);
+  background: rgba(225, 244, 255, 0.09);
   color: #fff;
-  transition: border 0.18s, background 0.14s;
+  transition:
+    border 0.18s,
+    background 0.14s;
 }
-.edit-options-fields input[type="text"]:focus { /* styl przy fokusie (kliknięciu) */
+.edit-options-fields input[type="text"]:focus {
+  /* styl przy fokusie (kliknięciu) */
   border: 1.5px solid var(--main-color);
-  background: rgba(49,120,189,0.09);
+  background: rgba(49, 120, 189, 0.09);
   outline: none; /* usuń domyślną ramkę przeglądarki */
 }
 
@@ -644,7 +828,9 @@ form button[type="reset"]:hover, #undoBtn:hover {
   transition: background 0.2s;
   margin-bottom: 0;
 }
-.add-option-btn-inline:hover { background: var(--accent-color); }
+.add-option-btn-inline:hover {
+  background: var(--accent-color);
+}
 
 /* Przycisk usuwania opcji */
 .remove-option-btn {
@@ -659,26 +845,66 @@ form button[type="reset"]:hover, #undoBtn:hover {
   min-width: 24px;
   transition: all 0.2s ease;
 }
-.remove-option-btn:hover { background: var(--main-color); color: #fff; }
+.remove-option-btn:hover {
+  background: var(--main-color);
+  color: #fff;
+}
 
 /* Wiersz edycji opcji */
-.option-edit-row { display: flex; align-items: center; gap: 4px; flex-wrap: nowrap; } /* [EN: Row without wrapping, small gap] / [PL: Wiersz bez zawijania, mały odstęp] */
+.option-edit-row {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-wrap: nowrap;
+} /* [EN: Row without wrapping, small gap] / [PL: Wiersz bez zawijania, mały odstęp] */
 
 /* Mobile - panel edycji */
 @media (max-width: 700px) {
-  .edit-options-panel { padding: 8.5px 6.5px 10px 6.5px; max-width: 98vw; }
-  .edit-options-fields span { min-width: 60px; font-size: 0.97em; }
-  .option-edit-row { flex-wrap: wrap; } /* zezwól na zawijanie */
-  .remove-option-btn { margin-left: auto; }
-  .choice-row { flex-wrap: wrap; }
-  .add-option-btn-inline { width: 100%; margin-top: 0.5rem; }
+  .edit-options-panel {
+    padding: 8.5px 6.5px 10px 6.5px;
+    max-width: 98vw;
+  }
+  .edit-options-fields span {
+    min-width: 60px;
+    font-size: 0.97em;
+  }
+  .option-edit-row {
+    flex-wrap: wrap;
+  } /* zezwól na zawijanie */
+  .remove-option-btn {
+    margin-left: auto;
+  }
+  .choice-row {
+    flex-wrap: wrap;
+  }
+  .add-option-btn-inline {
+    width: 100%;
+    margin-top: 0.5rem;
+  }
 }
 
 /* =================== LISTA OSÓB =================== */
-.download-btn { display: none; margin-top: 10px; } /* ukryty domyślnie */
-.list-title { display: none; }
-#listTitle { display: block; margin-top: 15px; margin-bottom: 10px; color: var(--main-color); font-weight: bold; } /* [EN: Using main color] / [PL: Użyto koloru main] */
-.people-list { display: flex; flex-wrap: wrap; gap: 10px; list-style: none; padding: 0; } /* lista bez kropek */
+.download-btn {
+  display: none;
+  margin-top: 10px;
+} /* ukryty domyślnie */
+.list-title {
+  display: none;
+}
+#listTitle {
+  display: block;
+  margin-top: 15px;
+  margin-bottom: 10px;
+  color: var(--main-color);
+  font-weight: bold;
+} /* [EN: Using main color] / [PL: Użyto koloru main] */
+.people-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  list-style: none;
+  padding: 0;
+} /* lista bez kropek */
 #peopleList li {
   background: rgba(228, 228, 228, 0.15);
   backdrop-filter: blur(15px);
@@ -692,5 +918,13 @@ form button[type="reset"]:hover, #undoBtn:hover {
   align-items: center;
   gap: 5px;
 }
-#peopleList li:hover { transform: scale(1.10); background: rgba(27, 43, 85, 0.447); } /* powiększenie + zmiana tła */
-.more-people-count { font-style: italic; color: #888; font-size: 0.8rem; margin-top: 5px; }
+#peopleList li:hover {
+  transform: scale(1.1);
+  background: rgba(27, 43, 85, 0.447);
+} /* powiększenie + zmiana tła */
+.more-people-count {
+  font-style: italic;
+  color: #888;
+  font-size: 0.8rem;
+  margin-top: 5px;
+}
