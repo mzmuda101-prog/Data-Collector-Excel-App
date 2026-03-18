@@ -44,6 +44,10 @@
         <a class="btn-ghost" href="mailto:m.zmuda101@gmail.com">Kontakt</a>
         <a class="btn-secondary" href="https://portal-ogloszeniowy.vercel.app/" target="_blank" rel="noopener noreferrer">Przejdz do Portalu Ogloszeniowego</a>
       </div>
+      <button type="button" class="scroll-cue" id="scrollCue" aria-label="Przewiń do dalszej części strony">
+        <span class="scroll-cue-text">Przewiń niżej</span>
+        <span class="scroll-cue-arrow" aria-hidden="true"></span>
+      </button>
     </section>
 
     <!-- [EN: Key feature highlights] / [PL: Najważniejsze cechy projektu] -->
@@ -338,6 +342,22 @@
       requestAnimationFrame(animateStars); // [EN: 60fps animation loop] / [PL: Pętla animacji 60fps]
     }
     if (stars.length) animateStars();
+
+    const scrollCue = document.getElementById("scrollCue");
+    const nextSection = document.querySelector(".project-highlights");
+    function updateScrollCueVisibility() {
+      if (!scrollCue) return;
+      const shouldHide = window.scrollY > 56 || window.innerHeight >= document.documentElement.scrollHeight - 24;
+      scrollCue.classList.toggle("is-hidden", shouldHide);
+    }
+    if (scrollCue && nextSection) {
+      scrollCue.addEventListener("click", () => {
+        nextSection.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+      updateScrollCueVisibility();
+      window.addEventListener("scroll", updateScrollCueVisibility, { passive: true });
+      window.addEventListener("resize", updateScrollCueVisibility, { passive: true });
+    }
   </script>
   
   <script>
