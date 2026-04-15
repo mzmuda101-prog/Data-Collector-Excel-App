@@ -346,6 +346,7 @@ body.splashing {
 }
 .btn-primary,
 .btn-secondary,
+.btn-third,
 .btn-ghost {
   display: inline-flex;
   align-items: center;
@@ -385,6 +386,25 @@ body.splashing {
   border-bottom-width: 0;
   box-shadow: none;
 }
+.btn-third {
+  color: #ffffff;
+  background: linear-gradient(135deg, #2f6f5c, #245849);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  border: none;
+  border-bottom: 4px solid #8e2700;
+  box-shadow: 0 8px 20px rgba(24, 161, 53, 0.35);
+}
+.btn-third:hover {
+  color: #ffffff;
+  border-bottom-width: 5px;
+}
+.btn-third:active {
+  transform: translateY(4px);
+  border-bottom-width: 0;
+  box-shadow: none;
+}
 .btn-ghost {
   color: #ffdde3;
   background: var(--cta-ghost-bg);
@@ -393,11 +413,11 @@ body.splashing {
 .btn-primary:hover {
   color: #000000;
 }
-:is(.btn-primary, .btn-secondary, .btn-ghost):hover {
+:is(.btn-primary, .btn-secondary, .btn-third, .btn-ghost):hover {
   transform: translateY(-1px);
   filter: brightness(1.08);
 }
-:is(.btn-primary, .btn-secondary, .btn-ghost):focus-visible {
+:is(.btn-primary, .btn-secondary, .btn-third, .btn-ghost):focus-visible {
   outline: 2px solid #ffe3ea;
   outline-offset: 2px;
 }
