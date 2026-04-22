@@ -68,4 +68,6 @@ W `index.html` podmień: / In `index.html`, replace:
 Mateusz Zmuda / Author
 
 ## 📄 Licencja
-MIT / License
+Kod źródłowy projektu jest udostępniony na licencji `MIT`. / The source code is available under the `MIT` license.
+
+Wyjątek: logo, intro video, grafiki, branding, identyfikacja wizualna i materiały showcase pozostają własnością Mateusza Zmudy i nie są przeznaczone do ponownego użycia jako gotowy branding lub portfolio 1:1 bez wyraźnej zgody autora. / Exception: the logo, intro video, graphics, branding, visual identity, and showcase materials remain the property of Mateusz Zmuda and are not intended for reuse as ready-made branding or a 1:1 portfolio without explicit permission.
