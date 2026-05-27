@@ -21,7 +21,7 @@
 
   <!-- [EN: Header with logo - fixed navigation bar at top] / [PL: Header z logo - stały pasek nawigacyjny na górze] -->
   <header class="nav-logo-bar">
-    <a href="./"><img src="logo Mateusz przezroczyste.png" alt="Logo Mateusza" class="logo-mateusz"></a>
+    <a href="./" data-hint-pl="Wróć na początek" data-hint-en="Back to the top"><img src="logo Mateusz przezroczyste.png" alt="Logo Mateusza" class="logo-mateusz"></a>
     <span class="logo-title">Mateusz App</span>
   </header>
 
@@ -42,14 +42,14 @@
         i eksportu do <strong>.xlsx</strong>. To projekt portfolio nastawiony na pokaz umiejętności frontend + UX.
       </p>
       <div class="showcase-cta" aria-label="Project links">
-        <a class="btn-primary" href="https://github.com/mzmuda101-prog/Data-Collector-Excel-App" target="_blank" rel="noopener noreferrer">Zobacz repo</a>
-        <a class="btn-ghost" href="mailto:m.zmuda101@gmail.com">Kontakt</a>
+        <a class="btn-primary" href="https://github.com/mzmuda101-prog/Data-Collector-Excel-App" target="_blank" rel="noopener noreferrer" data-hint-pl="Otwórz kod projektu" data-hint-en="Open the project code">Zobacz repo</a>
+        <a class="btn-ghost" href="mailto:m.zmuda101@gmail.com" data-hint-pl="Napisz maila" data-hint-en="Send an email">Kontakt</a>
       </div>
       <div class="showcase-cta">
-        <a class="btn-secondary" href="https://portal-ogloszeniowy.vercel.app/" target="_blank" rel="noopener noreferrer">Przejdz do Portalu Ogloszeniowego</a>
-        <a class="btn-third" href="https://excel-workbench-pwa.vercel.app/" target="_blank" rel="noopener noreferrer">Przejdz do Excel Workbench</a>
+        <a class="btn-secondary" href="https://portal-ogloszeniowy.vercel.app/" target="_blank" rel="noopener noreferrer" data-hint-pl="Otwórz Portal Ogłoszeniowy" data-hint-en="Open the Listings Portal">Przejdz do Portalu Ogloszeniowego</a>
+        <a class="btn-third" href="https://excel-workbench-pwa.vercel.app/" target="_blank" rel="noopener noreferrer" data-hint-pl="Otwórz Excel Workbench" data-hint-en="Open Excel Workbench">Przejdz do Excel Workbench</a>
       </div>
-      <button type="button" class="scroll-cue" id="scrollCue" aria-label="Przewiń do dalszej części strony">
+      <button type="button" class="scroll-cue" id="scrollCue" aria-label="Przewiń do dalszej części strony" data-hint-pl="Przewiń do kolejnej sekcji" data-hint-en="Scroll to the next section">
         <span class="scroll-cue-text">Przewiń niżej</span>
         <span class="scroll-cue-arrow" aria-hidden="true"></span>
       </button>
@@ -125,7 +125,7 @@
             <!-- [EN: Edit option names] / [PL: Edytuj nazwy opcji] -->
             <span class="toggle-icon">▼</span>
             <!-- [EN: Expand/collapse indicator] / [PL: Wskaźnik rozwijania/zwijania] -->
-            <button type="button" class="add-option-btn-inline" data-choice="1" title="Dodaj nową opcję">+</button>
+            <button type="button" class="add-option-btn-inline" data-choice="1" title="Dodaj nową opcję" data-hint-pl="Dodaj opcję" data-hint-en="Add an option">+</button>
             <!-- [EN: Button to add new option] / [PL: Przycisk dodawania nowej opcji] -->
           </div>
           <div class="edit-options-fields" id="editFields1"></div>
@@ -158,7 +158,7 @@
             <!-- [EN: Edit option names] / [PL: Edytuj nazwy opcji] -->
             <span class="toggle-icon">▼</span>
             <!-- [EN: Expand/collapse indicator] / [PL: Wskaźnik rozwijania/zwijania] -->
-            <button type="button" class="add-option-btn-inline" data-choice="2" title="Dodaj nową opcję">+</button>
+            <button type="button" class="add-option-btn-inline" data-choice="2" title="Dodaj nową opcję" data-hint-pl="Dodaj opcję" data-hint-en="Add an option">+</button>
             <!-- [EN: Button to add new option] / [PL: Przycisk dodawania nowej opcji] -->
           </div>
           <div class="edit-options-fields" id="editFields2"></div>
@@ -191,7 +191,7 @@
             <!-- [EN: Edit option names] / [PL: Edytuj nazwy opcji] -->
             <span class="toggle-icon">▼</span>
             <!-- [EN: Expand/collapse indicator] / [PL: Wskaźnik rozwijania/zwijania] -->
-            <button type="button" class="add-option-btn-inline" data-choice="3" title="Dodaj nową opcję">+</button>
+            <button type="button" class="add-option-btn-inline" data-choice="3" title="Dodaj nową opcję" data-hint-pl="Dodaj opcję" data-hint-en="Add an option">+</button>
             <!-- [EN: Button to add new option] / [PL: Przycisk dodawania nowej opcji] -->
           </div>
           <div class="edit-options-fields" id="editFields3"></div>
@@ -200,10 +200,10 @@
       </div>
 
       <!-- [EN: Form buttons] / [PL: Przyciski formularza] -->
-      <button type="submit">Dodaj</button> <!-- [EN: Add person to list] / [PL: Dodaje osobę do listy] -->
-      <button type="reset">Wyczyść</button> <!-- [EN: Clear form] / [PL: Czyści formularz] -->
-      <button id="undoBtn" type="button" class="btn-undo">Cofnij ostatni</button> <!-- [EN: Remove last entry] / [PL: Usuwa ostatni wpis] -->
-      <button id="downloadBtn" type="button" class="download-btn">Pobierz plik</button> <!-- [EN: Download Excel file (hidden until ready)] / [PL: Pobiera plik Excel (ukryty do czasu)] -->
+      <button type="submit" data-hint-pl="Dodaj wpis do listy" data-hint-en="Add an entry to the list">Dodaj</button> <!-- [EN: Add person to list] / [PL: Dodaje osobę do listy] -->
+      <button type="reset" data-hint-pl="Wyczyść formularz" data-hint-en="Clear the form">Wyczyść</button> <!-- [EN: Clear form] / [PL: Czyści formularz] -->
+      <button id="undoBtn" type="button" class="btn-undo" data-hint-pl="Usuń ostatni wpis" data-hint-en="Remove the last entry">Cofnij ostatni</button> <!-- [EN: Remove last entry] / [PL: Usuwa ostatni wpis] -->
+      <button id="downloadBtn" type="button" class="download-btn" data-hint-pl="Pobierz plik XLSX" data-hint-en="Download the XLSX file">Pobierz plik</button> <!-- [EN: Download Excel file (hidden until ready)] / [PL: Pobiera plik Excel (ukryty do czasu)] -->
       
       <!-- [EN: List of added people - using semantic <section> tag] / [PL: Lista dodanych osób - użyto semantycznego tagu <section>] -->
       <section id="peopleListContainer">
@@ -223,6 +223,14 @@
     </section>
 
   </main>
+
+  <div class="cursor-hint" id="cursorHint" aria-hidden="true">
+    <div class="cursor-hint-scaler">
+      <span>Kliknij</span>
+    </div>
+  </div>
+
+  <script src="cursor-hint.js"></script>
 
   <script>
     // =================== ANIMACJE, TŁO, GWIAZDY ===================
@@ -348,6 +356,12 @@
     }
     if (stars.length) animateStars();
 
+    if (window.MateuszCursorHint) {
+      window.MateuszCursorHint.initCursorHints({
+        fallbackHint: document.documentElement.lang === "en" ? "Click" : "Kliknij",
+      });
+    }
+
     const scrollCue = document.getElementById("scrollCue");
     const nextSection = document.querySelector(".project-highlights");
     function updateScrollCueVisibility() {
@@ -395,7 +409,7 @@
       container.innerHTML = "";
       optionsLists[n].forEach((o, i) => {
         const label = document.createElement("label"); label.className = "option-edit-row";
-        label.innerHTML = `<span>Opcja ${i + 1}:</span><input type="text" value="${o.name}" maxlength="40" autocomplete="off" data-option-id="${o.id}" data-choice="${n}" class="option-edit-input"><button type="button" class="remove-option-btn" data-option-id="${o.id}" data-choice="${n}" title="Usuń">✕</button>`;
+        label.innerHTML = `<span>Opcja ${i + 1}:</span><input type="text" value="${o.name}" maxlength="40" autocomplete="off" data-option-id="${o.id}" data-choice="${n}" class="option-edit-input"><button type="button" class="remove-option-btn" data-option-id="${o.id}" data-choice="${n}" title="Usuń" data-hint-pl="Usuń opcję" data-hint-en="Remove option">✕</button>`;
         container.appendChild(label);
       });
     }
